@@ -1,15 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xRtdSaJpcTYla/TZcGIbJNnl/iduy44gAwCz/tECjMLUqPoW1DZVdzkvqwCU8Smff3bXR3QcggF5Y1TnwbluYg==",
+  "dgSpecHash": "EQjQJAmFM9BePqwDKCGvSABQWNmDAgKn6XcvOAE3i68MvybUsQKUkl4pY2TGPdGTknZyCNmniGiPybXjvAl95w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Seminarski_Rad.API\\Seminarski_Rad.API.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\hebib\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
-    "C:\\Users\\hebib\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
-    "C:\\Users\\hebib\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
-    "C:\\Users\\hebib\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
-    "C:\\Users\\hebib\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
-    "C:\\Users\\hebib\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\ilvana\\Desktop\\Webapp\\webapp\\Seminarski_Rad.API\\Seminarski_Rad.API.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
