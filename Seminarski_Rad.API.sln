@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32929.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seminarski_Rad.API", "Seminarski_Rad.API\Seminarski_Rad.API.csproj", "{402EE2D3-46B6-4075-9A0C-D8FEBFFED397}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trackster.API", "Trackster.API\Trackster.API.csproj", "{402EE2D3-46B6-4075-9A0C-D8FEBFFED397}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trackster.Repository", "Trackster.Repository\Trackster.Repository.csproj", "{503FD36C-403C-42BA-A609-9E7E11116C6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trackster.Core", "Trackster.Core\Trackster.Core.csproj", "{20BF2826-D51F-4729-A3F7-7772AE5B4597}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{503FD36C-403C-42BA-A609-9E7E11116C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{503FD36C-403C-42BA-A609-9E7E11116C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{503FD36C-403C-42BA-A609-9E7E11116C6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20BF2826-D51F-4729-A3F7-7772AE5B4597}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20BF2826-D51F-4729-A3F7-7772AE5B4597}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20BF2826-D51F-4729-A3F7-7772AE5B4597}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20BF2826-D51F-4729-A3F7-7772AE5B4597}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
