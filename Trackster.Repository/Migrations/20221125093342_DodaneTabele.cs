@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trackster.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class DodavanjeTabela : Migration
+    public partial class DodaneTabele : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,6 +38,20 @@ namespace Trackster.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pictures",
+                columns: table => new
+                {
+                    PictureId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    File = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pictures", x => x.PictureId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ratings",
                 columns: table => new
                 {
@@ -48,23 +62,6 @@ namespace Trackster.Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ratings", x => x.RatingID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RegisteredUsers",
-                columns: table => new
-                {
-                    RegisteredUserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RegisteredUsers", x => x.RegisteredUserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -110,24 +107,53 @@ namespace Trackster.Repository.Migrations
                 name: "People",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    PersonId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Bio = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PictureId = table.Column<int>(type: "int", nullable: false),
                     GenderID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_People", x => x.Id);
+                    table.PrimaryKey("PK_People", x => x.PersonId);
                     table.ForeignKey(
                         name: "FK_People_Genders_GenderID",
                         column: x => x.GenderID,
                         principalTable: "Genders",
                         principalColumn: "GenderID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_People_Pictures_PictureId",
+                        column: x => x.PictureId,
+                        principalTable: "Pictures",
+                        principalColumn: "PictureId",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RegisteredUsers",
+                columns: table => new
+                {
+                    RegisteredUserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfilePicturePictureId = table.Column<int>(type: "int", nullable: false),
+                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegisteredUsers", x => x.RegisteredUserId);
+                    table.ForeignKey(
+                        name: "FK_RegisteredUsers_Pictures_ProfilePicturePictureId",
+                        column: x => x.ProfilePicturePictureId,
+                        principalTable: "Pictures",
+                        principalColumn: "PictureId",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,27 +163,27 @@ namespace Trackster.Repository.Migrations
                     MediaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     AirDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Synopsis = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StatusID = table.Column<int>(type: "int", nullable: false),
-                    RatingID = table.Column<int>(type: "int", nullable: false)
+                    Rating = table.Column<float>(type: "real", nullable: false),
+                    PosterPictureId = table.Column<int>(type: "int", nullable: false),
+                    StatusID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Medias", x => x.MediaId);
                     table.ForeignKey(
-                        name: "FK_Medias_Ratings_RatingID",
-                        column: x => x.RatingID,
-                        principalTable: "Ratings",
-                        principalColumn: "RatingID",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Medias_Pictures_PosterPictureId",
+                        column: x => x.PosterPictureId,
+                        principalTable: "Pictures",
+                        principalColumn: "PictureId",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Medias_Status_StatusID",
                         column: x => x.StatusID,
                         principalTable: "Status",
                         principalColumn: "StatusID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -177,13 +203,13 @@ namespace Trackster.Repository.Migrations
                         column: x => x.GenreID,
                         principalTable: "Genres",
                         principalColumn: "GenreID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_GenreMedia_Medias_MediaId",
                         column: x => x.MediaId,
                         principalTable: "Medias",
                         principalColumn: "MediaId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -204,19 +230,19 @@ namespace Trackster.Repository.Migrations
                         column: x => x.MediaId,
                         principalTable: "Medias",
                         principalColumn: "MediaId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_MediaPersonRoles_People_PersonId",
                         column: x => x.PersonId,
                         principalTable: "People",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "PersonId",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_MediaPersonRoles_Roles_RoleID",
                         column: x => x.RoleID,
                         principalTable: "Roles",
                         principalColumn: "RoleID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,7 +262,7 @@ namespace Trackster.Repository.Migrations
                         column: x => x.MediaId,
                         principalTable: "Medias",
                         principalColumn: "MediaId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,7 +284,7 @@ namespace Trackster.Repository.Migrations
                         column: x => x.MediaId,
                         principalTable: "Medias",
                         principalColumn: "MediaId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -278,13 +304,13 @@ namespace Trackster.Repository.Migrations
                         column: x => x.MediaId,
                         principalTable: "Medias",
                         principalColumn: "MediaId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UserFavourites_RegisteredUsers_UserRegisteredUserId",
                         column: x => x.UserRegisteredUserId,
                         principalTable: "RegisteredUsers",
                         principalColumn: "RegisteredUserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -295,7 +321,8 @@ namespace Trackster.Repository.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserRegisteredUserId = table.Column<int>(type: "int", nullable: false),
                     MovieID = table.Column<int>(type: "int", nullable: false),
-                    StateID = table.Column<int>(type: "int", nullable: false)
+                    StateID = table.Column<int>(type: "int", nullable: false),
+                    RatingID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -305,19 +332,25 @@ namespace Trackster.Repository.Migrations
                         column: x => x.MovieID,
                         principalTable: "Movies",
                         principalColumn: "MovieID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_WatchlistMovies_Ratings_RatingID",
+                        column: x => x.RatingID,
+                        principalTable: "Ratings",
+                        principalColumn: "RatingID",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_WatchlistMovies_RegisteredUsers_UserRegisteredUserId",
                         column: x => x.UserRegisteredUserId,
                         principalTable: "RegisteredUsers",
                         principalColumn: "RegisteredUserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_WatchlistMovies_States_StateID",
                         column: x => x.StateID,
                         principalTable: "States",
                         principalColumn: "StateID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -328,29 +361,36 @@ namespace Trackster.Repository.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserRegisteredUserId = table.Column<int>(type: "int", nullable: false),
                     TVShowID = table.Column<int>(type: "int", nullable: false),
-                    StateID = table.Column<int>(type: "int", nullable: false)
+                    StateID = table.Column<int>(type: "int", nullable: false),
+                    RatingID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WatchlistTVShows", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_WatchlistTVShows_Ratings_RatingID",
+                        column: x => x.RatingID,
+                        principalTable: "Ratings",
+                        principalColumn: "RatingID",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
                         name: "FK_WatchlistTVShows_RegisteredUsers_UserRegisteredUserId",
                         column: x => x.UserRegisteredUserId,
                         principalTable: "RegisteredUsers",
                         principalColumn: "RegisteredUserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_WatchlistTVShows_States_StateID",
                         column: x => x.StateID,
                         principalTable: "States",
                         principalColumn: "StateID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_WatchlistTVShows_TVShows_TVShowID",
                         column: x => x.TVShowID,
                         principalTable: "TVShows",
                         principalColumn: "TVShowID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -379,9 +419,9 @@ namespace Trackster.Repository.Migrations
                 column: "RoleID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Medias_RatingID",
+                name: "IX_Medias_PosterPictureId",
                 table: "Medias",
-                column: "RatingID");
+                column: "PosterPictureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Medias_StatusID",
@@ -397,6 +437,16 @@ namespace Trackster.Repository.Migrations
                 name: "IX_People_GenderID",
                 table: "People",
                 column: "GenderID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_People_PictureId",
+                table: "People",
+                column: "PictureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegisteredUsers_ProfilePicturePictureId",
+                table: "RegisteredUsers",
+                column: "ProfilePicturePictureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TVShows_MediaId",
@@ -419,6 +469,11 @@ namespace Trackster.Repository.Migrations
                 column: "MovieID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_WatchlistMovies_RatingID",
+                table: "WatchlistMovies",
+                column: "RatingID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WatchlistMovies_StateID",
                 table: "WatchlistMovies",
                 column: "StateID");
@@ -427,6 +482,11 @@ namespace Trackster.Repository.Migrations
                 name: "IX_WatchlistMovies_UserRegisteredUserId",
                 table: "WatchlistMovies",
                 column: "UserRegisteredUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WatchlistTVShows_RatingID",
+                table: "WatchlistTVShows",
+                column: "RatingID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WatchlistTVShows_StateID",
@@ -475,6 +535,9 @@ namespace Trackster.Repository.Migrations
                 name: "Movies");
 
             migrationBuilder.DropTable(
+                name: "Ratings");
+
+            migrationBuilder.DropTable(
                 name: "RegisteredUsers");
 
             migrationBuilder.DropTable(
@@ -490,7 +553,7 @@ namespace Trackster.Repository.Migrations
                 name: "Medias");
 
             migrationBuilder.DropTable(
-                name: "Ratings");
+                name: "Pictures");
 
             migrationBuilder.DropTable(
                 name: "Status");

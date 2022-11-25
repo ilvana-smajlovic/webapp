@@ -16,5 +16,6 @@ namespace Trackster.Core
         public virtual RegisteredUser User { get; set; }
         public virtual Movie Movie { get; set; }
         public virtual State State { get; set; }
+        public virtual Rating Rating { get; set; }
     }
 }

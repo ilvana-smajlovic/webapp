@@ -13,11 +13,11 @@ namespace Trackster.Core
         [Key]
         public int MediaId { get; set; }
         public string Name { get; set; }
-        public byte[] Picture { get; set; }
         public DateTime AirDate { get; set; }
         public string Synopsis { get; set; }
+        public float Rating { get; set; }
 
+        public virtual Picture Poster { get; set; }
         public virtual Status Status { get; set; }
-        public virtual Rating Rating { get; set; }
     }
 }

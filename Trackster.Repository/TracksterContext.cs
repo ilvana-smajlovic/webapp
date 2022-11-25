@@ -24,6 +24,7 @@ namespace Trackster.Repository
         public DbSet<State> States { get; set; }
         public DbSet<WatchlistMovie> WatchlistMovies { get; set; }
         public DbSet<WatchlistTVShow> WatchlistTVShows { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
