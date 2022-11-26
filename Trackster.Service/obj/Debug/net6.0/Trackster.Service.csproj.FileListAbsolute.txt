@@ -1,0 +1,12 @@
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\bin\Debug\net6.0\Trackster.Service.deps.json
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\bin\Debug\net6.0\Trackster.Service.dll
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\bin\Debug\net6.0\Trackster.Service.pdb
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\obj\Debug\net6.0\Trackster.Service.csproj.AssemblyReference.cache
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\obj\Debug\net6.0\Trackster.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\obj\Debug\net6.0\Trackster.Service.AssemblyInfoInputs.cache
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\obj\Debug\net6.0\Trackster.Service.AssemblyInfo.cs
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\obj\Debug\net6.0\Trackster.Service.csproj.CoreCompileInputs.cache
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\obj\Debug\net6.0\Trackster.Service.dll
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\obj\Debug\net6.0\refint\Trackster.Service.dll
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\obj\Debug\net6.0\Trackster.Service.pdb
+C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Service\obj\Debug\net6.0\ref\Trackster.Service.dll
