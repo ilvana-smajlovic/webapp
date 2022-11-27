@@ -4,3 +4,8 @@ Trackster.API/bin/
 Trackster.Core/bin/
 Trackster.Repository/bin/
 Trackster.Service/bin/
+obj/
+Trackster.API/obj/
+Trackster.Core/obj/
+Trackster.Repository/obj/
+Trackster.Service/obj/
