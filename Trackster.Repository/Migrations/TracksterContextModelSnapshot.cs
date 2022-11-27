@@ -127,11 +127,7 @@ namespace Trackster.Repository.Migrations
                     b.Property<string>("Character")
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
                     b.Property<int>("MediaId")
-=======
-                    b.Property<int>("MediaID")
->>>>>>> 5d3aa145429b9379d15e83842dc5860ed01b9b0b
                         .HasColumnType("int");
 
                     b.Property<int>("PersonID")
