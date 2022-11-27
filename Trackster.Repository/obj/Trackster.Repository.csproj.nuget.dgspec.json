@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Repository\\Trackster.Repository.csproj": {}
+    "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Repository\\Trackster.Repository.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Core\\Trackster.Core.csproj": {
+    "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Core\\Trackster.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Core\\Trackster.Core.csproj",
+        "projectUniqueName": "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Core\\Trackster.Core.csproj",
         "projectName": "Trackster.Core",
-        "projectPath": "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Core\\Trackster.Core.csproj",
-        "packagesPath": "C:\\Users\\hebib\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Core\\obj\\",
+        "projectPath": "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Core\\Trackster.Core.csproj",
+        "packagesPath": "C:\\Users\\ilvana\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hebib\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilvana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -55,21 +59,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Repository\\Trackster.Repository.csproj": {
+    "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Repository\\Trackster.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Repository\\Trackster.Repository.csproj",
+        "projectUniqueName": "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Repository\\Trackster.Repository.csproj",
         "projectName": "Trackster.Repository",
-        "projectPath": "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Repository\\Trackster.Repository.csproj",
-        "packagesPath": "C:\\Users\\hebib\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Repository\\obj\\",
+        "projectPath": "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Repository\\Trackster.Repository.csproj",
+        "packagesPath": "C:\\Users\\ilvana\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Repository\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hebib\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilvana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -83,8 +91,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Core\\Trackster.Core.csproj": {
-                "projectPath": "C:\\Users\\hebib\\source\\repos\\Seminarski_Rad.API\\Trackster.Core\\Trackster.Core.csproj"
+              "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Core\\Trackster.Core.csproj": {
+                "projectPath": "C:\\Users\\ilvana\\Desktop\\Webapp\\Trackster.Core\\Trackster.Core.csproj"
               }
             }
           }
@@ -136,7 +144,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

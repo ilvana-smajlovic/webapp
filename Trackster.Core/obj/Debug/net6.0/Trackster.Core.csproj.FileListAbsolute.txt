@@ -10,3 +10,15 @@ C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Core\obj\Debug\net6.0\T
 C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Core\obj\Debug\net6.0\refint\Trackster.Core.dll
 C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Core\obj\Debug\net6.0\Trackster.Core.pdb
 C:\Users\hebib\source\repos\Seminarski_Rad.API\Trackster.Core\obj\Debug\net6.0\ref\Trackster.Core.dll
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\bin\Debug\net6.0\Trackster.Core.deps.json
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\bin\Debug\net6.0\Trackster.Core.dll
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\bin\Debug\net6.0\Trackster.Core.pdb
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\obj\Debug\net6.0\Trackster.Core.csproj.AssemblyReference.cache
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\obj\Debug\net6.0\Trackster.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\obj\Debug\net6.0\Trackster.Core.AssemblyInfoInputs.cache
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\obj\Debug\net6.0\Trackster.Core.AssemblyInfo.cs
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\obj\Debug\net6.0\Trackster.Core.csproj.CoreCompileInputs.cache
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\obj\Debug\net6.0\Trackster.Core.dll
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\obj\Debug\net6.0\refint\Trackster.Core.dll
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\obj\Debug\net6.0\Trackster.Core.pdb
+C:\Users\ilvana\Desktop\Webapp\Trackster.Core\obj\Debug\net6.0\ref\Trackster.Core.dll

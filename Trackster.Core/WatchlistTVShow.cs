@@ -13,10 +13,20 @@ namespace Trackster.Core
         [Key]
         public int Id { get; set; }
 
-        public virtual RegisteredUser User { get; set; }
-        public virtual TVShow TVShow { get; set; }
-        public virtual State State { get; set; }
-        public virtual Rating Rating { get; set; }
+        [ForeignKey("UserID")]
+        public RegisteredUser User { get; set; }
+        public int UserID { get; set; }
 
+        [ForeignKey("TVShowID")]
+        public TVShow TVShow { get; set; }
+        public int TVShowID { get; set; }
+
+        [ForeignKey("StateID")]
+        public State State { get; set; }
+        public int StateID { get; set; }
+
+        [ForeignKey("RatingID")]
+        public Rating Rating { get; set; }
+        public int RatingID { get; set; }
     }
 }

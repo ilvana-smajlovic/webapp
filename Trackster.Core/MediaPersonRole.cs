@@ -13,8 +13,18 @@ namespace Trackster.Core
         [Key]
         public int Id { get; set; }
 
-        public virtual Media Media { get; set; }
-        public virtual Person Person { get; set; }
-        public virtual Role Role { get; set; }
+        [ForeignKey("MediaID")]
+        public Media Media { get; set; }
+        public int MediaID { get; set; }
+
+        [ForeignKey("PersonID")]
+        public Person Person { get; set; }
+        public int PersonID { get; set; }
+
+        [ForeignKey("RoleID")]
+        public Role Role { get; set; }
+        public int RoleID { get; set; }
+
+        public string? Character { get; set; }
     }
 }
