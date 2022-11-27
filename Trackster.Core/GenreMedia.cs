@@ -13,7 +13,12 @@ namespace Trackster.Core
         [Key]
         public int Id { get; set; }
 
-        public virtual Genre Genre { get; set; }
-        public virtual Media Media { get; set; }
+        [ForeignKey("GenreID")]
+        public Genre Genre { get; set; }
+        public int GenreID { get; set; }
+
+        [ForeignKey("MediaID")]
+        public Media Media { get; set; }
+        public int MediaID { get; set; }
     }
 }
