@@ -1,1 +1,6 @@
 .vs/
+bin/
+Trackster.API/bin/
+Trackster.Core/bin/
+Trackster.Repository/bin/
+Trackster.Service/bin/
