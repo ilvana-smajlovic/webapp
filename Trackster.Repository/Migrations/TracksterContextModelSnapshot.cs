@@ -124,6 +124,9 @@ namespace Trackster.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Character")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("MediaId")
                         .HasColumnType("int");
 

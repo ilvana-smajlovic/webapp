@@ -16,5 +16,6 @@ namespace Trackster.Core
         public virtual Media Media { get; set; }
         public virtual Person Person { get; set; }
         public virtual Role Role { get; set; }
+        public string? Character { get; set; }
     }
 }
