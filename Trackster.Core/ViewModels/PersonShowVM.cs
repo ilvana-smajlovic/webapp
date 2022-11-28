@@ -1,11 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Trackster.Core
+namespace Trackster.Core.ViewModels
 {
-    public class Person
+    public class PersonShowVM
     {
-        [Key]
         public int PersonId { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -13,9 +16,6 @@ namespace Trackster.Core
         public string Bio { get; set; }
         [ForeignKey("PictureId")]
         public Picture Picture { get; set; }
-        public int PictureId { get; set;}
-        [ForeignKey("GenderID")]
-        public Gender Gender { get; set; }
-        public int GenderID { get; set; }
+        public virtual Gender Gender { get; set; }
     }
 }

@@ -13,5 +13,13 @@ namespace Trackster.Core
         public int PictureId { get; set; }
         public string Name { get; set; }
         public byte[]? File { get; set; }
+
+        public Picture()
+        {}
+        public Picture(string name, byte[]? file)
+        {
+            Name = name;
+            File = file;
+        }
     }
 }

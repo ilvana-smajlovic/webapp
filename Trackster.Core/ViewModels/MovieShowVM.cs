@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Trackster.Core
+namespace Trackster.Core.ViewModels
 {
-    public class Movie
+    public class MovieShowVM
     {
-        [Key]
         public int MovieID { get; set; }
-        [ForeignKey("MediaId")]
-        public Media Media { get; set; }
         public int MediaId { get; set; }
-
         public int? Runtime { get; set; }
     }
 }

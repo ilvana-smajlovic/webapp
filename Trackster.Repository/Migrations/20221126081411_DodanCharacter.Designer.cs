@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trackster.Repository;
 
@@ -11,9 +12,11 @@ using Trackster.Repository;
 namespace Trackster.Repository.Migrations
 {
     [DbContext(typeof(TracksterContext))]
-    partial class TracksterContextModelSnapshot : ModelSnapshot
+    [Migration("20221126081411_DodanCharacter")]
+    partial class DodanCharacter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,14 +70,14 @@ namespace Trackster.Repository.Migrations
                     b.Property<int>("GenreID")
                         .HasColumnType("int");
 
-                    b.Property<int>("MediaID")
+                    b.Property<int>("MediaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GenreID");
 
-                    b.HasIndex("MediaID");
+                    b.HasIndex("MediaId");
 
                     b.ToTable("GenreMedia");
                 });
@@ -130,7 +133,7 @@ namespace Trackster.Repository.Migrations
                     b.Property<int>("MediaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonID")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<int>("RoleID")
@@ -138,9 +141,9 @@ namespace Trackster.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MediaID");
+                    b.HasIndex("MediaId");
 
-                    b.HasIndex("PersonID");
+                    b.HasIndex("PersonId");
 
                     b.HasIndex("RoleID");
 
@@ -362,17 +365,17 @@ namespace Trackster.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("MediaID")
+                    b.Property<int>("MediaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("UserRegisteredUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MediaID");
+                    b.HasIndex("MediaId");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserRegisteredUserId");
 
                     b.ToTable("UserFavourites");
                 });
@@ -394,7 +397,7 @@ namespace Trackster.Repository.Migrations
                     b.Property<int>("StateID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("UserRegisteredUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -405,7 +408,7 @@ namespace Trackster.Repository.Migrations
 
                     b.HasIndex("StateID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserRegisteredUserId");
 
                     b.ToTable("WatchlistMovies");
                 });
@@ -427,7 +430,7 @@ namespace Trackster.Repository.Migrations
                     b.Property<int>("TVShowID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("UserRegisteredUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -438,7 +441,7 @@ namespace Trackster.Repository.Migrations
 
                     b.HasIndex("TVShowID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserRegisteredUserId");
 
                     b.ToTable("WatchlistTVShows");
                 });
@@ -453,7 +456,7 @@ namespace Trackster.Repository.Migrations
 
                     b.HasOne("Trackster.Core.Media", "Media")
                         .WithMany()
-                        .HasForeignKey("MediaID")
+                        .HasForeignKey("MediaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -485,13 +488,13 @@ namespace Trackster.Repository.Migrations
                 {
                     b.HasOne("Trackster.Core.Media", "Media")
                         .WithMany()
-                        .HasForeignKey("MediaID")
+                        .HasForeignKey("MediaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Trackster.Core.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonID")
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -564,13 +567,13 @@ namespace Trackster.Repository.Migrations
                 {
                     b.HasOne("Trackster.Core.Media", "Media")
                         .WithMany()
-                        .HasForeignKey("MediaID")
+                        .HasForeignKey("MediaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Trackster.Core.RegisteredUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserRegisteredUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -601,7 +604,7 @@ namespace Trackster.Repository.Migrations
 
                     b.HasOne("Trackster.Core.RegisteredUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserRegisteredUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -636,7 +639,7 @@ namespace Trackster.Repository.Migrations
 
                     b.HasOne("Trackster.Core.RegisteredUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserRegisteredUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
