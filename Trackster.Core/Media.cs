@@ -17,7 +17,11 @@ namespace Trackster.Core
         public string Synopsis { get; set; }
         public float Rating { get; set; }
 
+        [ForeignKey("PosterPictureId")]
         public virtual Picture Poster { get; set; }
+        public int PosterPictureId { get; set; }
+        [ForeignKey("StatusID")]
         public virtual Status Status { get; set; }
+        public int StatusID { get; set; }
     }
 }

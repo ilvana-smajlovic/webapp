@@ -1,23 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Trackster.Core
+namespace Trackster.Core.ViewModels
 {
-    public class TVShow
+    public class TVShowShowVM
     {
-        [Key]
         public int TVShowID { get; set; }
-        [ForeignKey("MediaId")]
-        public Media Media { get; set; }
-        public int MediaId { get; set; }
+        public int MediaID { get; set; }
         public int? SeasonCount { get; set; }
         public int? EpisodeCount { get; set; }
         public int? EpisodeRuntime { get; set; }
-        //public int TotalRuntime { get; set; } -> Mozemo ovo kasnije
     }
 }
