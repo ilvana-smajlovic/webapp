@@ -1,0 +1,13 @@
+.nav-link {
+  color: white;
+}
+.navbar-brand{
+  color: white;
+  font-size: x-large;
+}
+.navbar-collapse{
+  text-align: center;
+}
+.navbar-nav{
+  padding: 0.7% 40% 0.7% 30%;
+}
