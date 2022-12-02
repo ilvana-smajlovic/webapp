@@ -97,10 +97,10 @@ namespace Trackster.API.Controllers
         }
 
         [HttpGet]
-        public List<UserFavouritesShowVM> GetAll(int? GenreID, int? MediaID)
+        public List<UserFavouritesShowVM> GetAll(int? UserID, int? MediaID)
         {
             var gm = dbContext.UserFavourites
-                .Where(gm => (GenreID == null || gm.UserID == GenreID)
+                .Where(gm => (UserID == null || gm.UserID == UserID)
                 && (MediaID == null || gm.MediaID == MediaID))
                 .OrderBy(gm => gm.Id)
                 .Select(s => new UserFavouritesShowVM()
