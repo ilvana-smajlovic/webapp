@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,26 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Trackster';
+
+  constructor() { }
+
+  logged_in=0;
+
+  ngOnInit(): void {
+  }
+
+  loggedin(){
+    if(this.logged_in==0)
+    {
+      this.logged_in=1;
+    }
+    else {
+      this.logged_in=0;
+    }
+  }
+
+  BackToTop() {
+    document.documentElement.scrollTop=0;
+  }
+
 }
