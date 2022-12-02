@@ -1,0 +1,55 @@
+<div class="empty"></div>
+
+<div class="search-div">
+  <input class="search-bar" placeholder="Search media:">
+  <img class="img_search" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Google_Magnifying_Glass.svg/1024px-Google_Magnifying_Glass.svg.png" alt="">
+</div>
+
+<div class="div-main-home">
+
+  <div class="imgdiv">
+    <img src="https://filmschoolrejects.com/wp-content/uploads/2019/05/john-wick-3.jpg" alt="Interstellar">
+    <div class="centered">Movies</div>
+  </div>
+  <div class="imgdiv">
+    <img src="https://filmdaze.net/wp-content/uploads/2022/09/1HOTDstill.jpg" alt="HOTD">
+    <div class="centered">TV-Shows</div>
+  </div>
+  <div class="imgdiv">
+    <img src="https://www.asisedice.tv/oa8z6yajc/2020/08/Jason-Momoa-es-Kraven-el-cazador-en-Fan-Art-de-Spider-Man-de-BossLogic.jpg" alt="The Flash">
+    <div class="centered">Upcoming<br>Movies</div>
+  </div>
+  <div class="imgdiv">
+    <img src="https://www.geeky-gadgets.com/wp-content/uploads/2019/07/Witcher-series.jpg" alt="The Boys">
+    <div class="centered">Upcoming<br>TV-Shows</div>
+  </div>
+  <div class="imgdiv">
+    <img src="https://filmschoolrejects.com/wp-content/uploads/2019/11/29-wolf-of-wall-street.jpg" alt="Interstellar">
+    <div class="centered">Top rated<br>movies</div>
+  </div>
+  <div class="imgdiv">
+    <img src="https://www.geeky-gadgets.com/wp-content/uploads/2020/08/Peaky-Blinders-game.jpg" alt="Friends">
+    <div class="centered">Top rated<br>TV-Shows</div>
+  </div>
+
+</div>
+
+<div class="empty"></div>
+
+<button (click)="BackToTop()" class="BtnToTop">^</button>
+
+<div>
+  <button (click)="loggedin()" class="LogBtn">Logged</button>
+</div>
+
+<footer>
+  <label class="footer-logo-name">🎞Trackster™🎬</label>
+  <div *ngIf="logged_in==0" class="footer-buttons1">
+    <button class="footer-button1">Log-in</button>
+    <button class="footer-button1">Sign-up</button>
+  </div>
+  <div class="footer-buttons2">
+    <label class="about-us">Want to learn more about Trackster? <br> Or about the people who coded it?</label>
+    <button class="footer-button2">About us</button>
+  </div>
+</footer>
