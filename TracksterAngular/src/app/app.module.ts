@@ -21,8 +21,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path: 'putanja-home', component: HomeComponent},
-      {path: 'putanja-profile', component: ProfileComponent},
+      {path: 'home', component: HomeComponent},
+      {path: 'profile', component: ProfileComponent},
       {path: 'putanja-movie-watchlist', component: MovieWatchlistComponent},
       {path: 'putanja-tvseries-watchlist', component: TvseriesWatchlistComponent},
       {path: 'putanja-about-us', component: AboutUsComponent},
