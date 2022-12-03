@@ -8,6 +8,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { MovieWatchlistComponent } from './movie-watchlist/movie-watchlist.component';
 import { TvseriesWatchlistComponent } from './tvseries-watchlist/tvseries-watchlist.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MediaComponent } from './media/media.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -16,17 +19,21 @@ import { AboutUsComponent } from './about-us/about-us.component';
     ProfileComponent,
     MovieWatchlistComponent,
     TvseriesWatchlistComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    NavbarComponent,
+    MediaComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path: 'putanja-home', component: HomeComponent},
-      {path: 'putanja-profile', component: ProfileComponent},
-      {path: 'putanja-movie-watchlist', component: MovieWatchlistComponent},
-      {path: 'putanja-tvseries-watchlist', component: TvseriesWatchlistComponent},
-      {path: 'putanja-about-us', component: AboutUsComponent},
-    ])
+      //{path: '', pathMatch: 'full', redirectTo: 'home'},
+      {path: 'home', component: HomeComponent},
+      {path: 'profile', component: ProfileComponent},
+      {path: 'movie-watchlist', component: MovieWatchlistComponent},
+      {path: 'tvseries-watchlist', component: TvseriesWatchlistComponent},
+      {path: 'about-us', component: AboutUsComponent},
+    ]),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

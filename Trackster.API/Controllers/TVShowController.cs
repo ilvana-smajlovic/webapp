@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Trackster.Core;
 using Trackster.Core.ViewModels;
 using Trackster.Repository;
@@ -80,12 +81,12 @@ namespace Trackster.API.Controllers
         [HttpGet("{Id}")]
         public ActionResult GetById(int Id)
         {
-            return Ok(dbContext.TVShows.Where(r => (r.TVShowID == Id)));
+            return Ok(dbContext.TVShows.Include(t=>t.Media.Poster).Include(t=>t.Media.Status).Where(r => (r.TVShowID == Id)).FirstOrDefault());
         }
         [HttpGet]
         public List<TVShow> GetAll(int? Id)
         {
-            var show = dbContext.TVShows
+            var show = dbContext.TVShows.Include(t=>t.Media.Status).Include(t=>t.Media.Poster)
                 .Where(r => (Id == null || r.TVShowID == Id))
                 .OrderBy(r => r.TVShowID);
             return show.Take(20).ToList();

@@ -1,0 +1,57 @@
+<div class="div-main-media" *ngIf="isDataLoaded">
+  <div class="banner" style="background-image: url(https://www.themoviedb.org/t/p/original/7ABsaBkO1jA2psC8Hy4IDhkID4h.jpg)">
+  </div>
+  <div class="info" >
+    <div class="cover-overlap-banner">
+      <div class="poster-wrap">
+        <img class ="poster" src="https://www.themoviedb.org/t/p/original/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
+          <button class="add-button" type="button">Add to Watchlist</button>
+          <button class="favorite-button" type="button">♡</button>
+      </div>
+    </div>
+    <div class="description-container">
+      <div clas="tags-container">
+        <p class="tag">Action</p>w
+        <p class="tag">Adventure</p>
+        <p class="tag">Sci-Fi</p>
+        <p class="rating">Rating: {{selectedMedia.rating}}</p>
+      </div>
+      <div class="description">
+        <h2>{{selectedMedia.name}}</h2>
+        <h5>Description</h5>
+        <p>{{selectedMedia.synopsis}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="content-container">
+    <div class="sidebar">
+      <div class="name">Release Date:</div>
+      <p>10. 12. 2009</p>
+      <div class="name">Duration:</div>
+      <p>2h 42min</p>
+      <div class="name">Status:</div>
+      <p>Completed</p>
+    </div>
+    <div class="staff-container">
+      <div class="staff-info">
+        <h5>Staff and Characters</h5>
+        <div class="staff">
+          <div class="person-container">
+            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/blKKsHlJIL9PmUQZB8f3YmMBW5Y.jpg">
+            <div class="person-desc">
+              <p>Sam Worthington</p>
+              <p class="character">Jake Sully</p>
+            </div>
+          </div>
+          <div class="person-container">
+            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/vQBwmsSOAd0JDaEcZ5p43J9xzsY.jpg">
+            <div class="person-desc">
+              <p>Zoe Saldaña</p>
+              <p class="character">Neytiri</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
