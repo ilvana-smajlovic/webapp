@@ -26,14 +26,12 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      //{path: '', pathMatch: 'full', redirectTo: 'home'},
       {path: 'home', component: HomeComponent},
       {path: 'profile', component: ProfileComponent},
-      {path: 'movie-watchlist', component: MovieWatchlistComponent},
-      {path: 'tvseries-watchlist', component: TvseriesWatchlistComponent},
-      {path: 'about-us', component: AboutUsComponent},
-    ]),
-    HttpClientModule
+      {path: 'putanja-movie-watchlist', component: MovieWatchlistComponent},
+      {path: 'putanja-tvseries-watchlist', component: TvseriesWatchlistComponent},
+      {path: 'putanja-about-us', component: AboutUsComponent},
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

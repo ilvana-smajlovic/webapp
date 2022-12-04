@@ -1,4 +1,9 @@
-<div class="empty"></div>
+<div class="empty">
+  <!--<label class="switch">
+    <input type="checkbox">
+    <span class="slider round"></span>
+  </label>-->
+</div>
 
 <div class="search-div">
   <input class="search-bar" placeholder="Search media:">
@@ -16,7 +21,7 @@
     <div class="centered">TV-Shows</div>
   </div>
   <div class="imgdiv">
-    <img src="https://www.asisedice.tv/oa8z6yajc/2020/08/Jason-Momoa-es-Kraven-el-cazador-en-Fan-Art-de-Spider-Man-de-BossLogic.jpg" alt="The Flash">
+    <img src="https://pbs.twimg.com/media/FjAJiZZXECEBS9x?format=jpg&name=900x900" alt="The Flash">
     <div class="centered">Upcoming<br>Movies</div>
   </div>
   <div class="imgdiv">
@@ -37,19 +42,3 @@
 <div class="empty"></div>
 
 <button (click)="BackToTop()" class="BtnToTop">^</button>
-
-<div>
-  <button (click)="loggedin()" class="LogBtn">Logged</button>
-</div>
-
-<footer>
-  <label class="footer-logo-name">🎞Trackster™🎬</label>
-  <div *ngIf="logged_in==0" class="footer-buttons1">
-    <button class="footer-button1">Log-in</button>
-    <button class="footer-button1">Sign-up</button>
-  </div>
-  <div class="footer-buttons2">
-    <label class="about-us">Want to learn more about Trackster? <br> Or about the people who coded it?</label>
-    <button class="footer-button2">About us</button>
-  </div>
-</footer>

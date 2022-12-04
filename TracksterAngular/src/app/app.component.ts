@@ -7,7 +7,26 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'Trackster';
-  ngOnInit() : void{
 
+  constructor() { }
+
+  logged_in=0;
+
+  ngOnInit(): void {
   }
+
+  loggedin(){
+    if(this.logged_in==0)
+    {
+      this.logged_in=1;
+    }
+    else {
+      this.logged_in=0;
+    }
+  }
+
+  BackToTop() {
+    document.documentElement.scrollTop=0;
+  }
+
 }
