@@ -13,20 +13,24 @@ export class MediaComponent implements OnInit {
   selectedMedia: Media;
   isDataLoaded: boolean = false;
 
-  constructor(private tracksterService: TracksterService) {
+  constructor(/*private tracksterService: TracksterService*/) {
   }
 
   ngOnInit(): void {
-    this.id=1;
-    console.log('testiram log');
-    this.getMediaById(this.id);
-  }
 
-  getMediaById(id: number) {
+  }
+}
+//ovaj dio ide unutar ngOnInit()
+    /*this.id=1;
+    console.log('testiram log');
+    this.getMediaById(this.id);*/
+
+//ovo je funkcija ispod ngOnInit()
+  /*getMediaById(id: number) {
     this.tracksterService.getMediaById(id)
       .subscribe(response => {
         this.selectedMedia = response;
         this.isDataLoaded = true;
       });
   }
-}
+*/

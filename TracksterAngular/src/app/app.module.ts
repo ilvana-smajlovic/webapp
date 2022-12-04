@@ -28,9 +28,9 @@ import {HttpClientModule} from "@angular/common/http";
     RouterModule.forRoot([
       {path: 'home', component: HomeComponent},
       {path: 'profile', component: ProfileComponent},
-      {path: 'putanja-movie-watchlist', component: MovieWatchlistComponent},
-      {path: 'putanja-tvseries-watchlist', component: TvseriesWatchlistComponent},
-      {path: 'putanja-about-us', component: AboutUsComponent},
+      {path: 'movie-watchlist', component: MovieWatchlistComponent},
+      {path: 'tvseries-watchlist', component: TvseriesWatchlistComponent},
+      {path: 'about-us', component: AboutUsComponent},
     ])
   ],
   providers: [],

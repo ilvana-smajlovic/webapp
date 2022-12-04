@@ -1,4 +1,5 @@
-<div class="div-main-media" *ngIf="isDataLoaded">
+<div class="div-main-media">
+  <!--*ngIf="isDataLoaded"-->
   <div class="banner" style="background-image: url(https://www.themoviedb.org/t/p/original/7ABsaBkO1jA2psC8Hy4IDhkID4h.jpg)">
   </div>
   <div class="info" >
@@ -11,15 +12,15 @@
     </div>
     <div class="description-container">
       <div clas="tags-container">
-        <p class="tag">Action</p>w
+        <p class="tag">Action</p>
         <p class="tag">Adventure</p>
         <p class="tag">Sci-Fi</p>
-        <p class="rating">Rating: {{selectedMedia.rating}}</p>
+        <p class="rating">Rating: 7.8</p>
       </div>
       <div class="description">
-        <h2>{{selectedMedia.name}}</h2>
+        <h2>Avatar</h2>
         <h5>Description</h5>
-        <p>{{selectedMedia.synopsis}}</p>
+        <p>A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.</p>
       </div>
     </div>
   </div>

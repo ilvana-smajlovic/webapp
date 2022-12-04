@@ -15,6 +15,9 @@
   border-color: transparent;
   padding: 8px 15px 9px 15px;
 }
+.nav-link:hover{
+  transform: scale(1.10);
+}
 .navbar-brand{
   color: white;
   font-size: x-large;
