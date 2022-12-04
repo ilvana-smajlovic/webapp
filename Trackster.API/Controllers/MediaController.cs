@@ -4,6 +4,7 @@ using Trackster.Core.ViewModels;
 using Trackster.Core;
 using Trackster.Repository;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace Trackster.API.Controllers
 {
@@ -115,13 +116,13 @@ namespace Trackster.API.Controllers
         [HttpGet("{Id}")]
         public ActionResult GetById(int Id)
         {
-            return Ok(dbContext.Medias.Where(r => (r.MediaId == Id)));
+            return Ok(dbContext.Medias.Include(t=>t.Poster).Include(t=>t.Status).Where(r => (r.MediaId == Id)).FirstOrDefault());
         }
 
         [HttpGet]
         public List<Media> GetAll(int? id, string? name)
         {
-            var media = dbContext.Medias
+            var media = dbContext.Medias.Include(t => t.Poster).Include(t => t.Status)
                 .Where(r => (id == null || id == r.MediaId) && (name == null || r.Name.ToLower() == name.ToLower()))
                 .OrderBy(r => r.MediaId);
             return media.ToList();
