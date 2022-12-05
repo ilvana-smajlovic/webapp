@@ -2,6 +2,36 @@
   background-color: rgba(94, 101, 128, 1);
 }
 
+#BtnToTop{
+  font-size: larger;
+
+  background-color: black;
+  color: white;
+  border: 3px white solid;
+  border-radius: 10px;
+
+  height: 35px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  display: block; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+
+  transition: background-color 0.2s ease-in-out;
+}
+#BtnToTop:hover{
+  /*background-color: white;
+  color: black;
+  border: 3px white solid;
+  border-radius: 10px;*/
+
+  background-color: #1c1b1b;
+  transition: transform 0.2s ease-in-out;
+  transform: scale(1.1);
+}
+
 .LogBtn{
   display: block;
   float: bottom;

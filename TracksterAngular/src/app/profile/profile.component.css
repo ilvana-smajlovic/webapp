@@ -1,0 +1,438 @@
+.main_div{
+  background-color: #5E6580;
+}
+
+.profile-div{
+  width: 60%;
+  min-width: 280px;
+  max-width: 1200px;
+  background-color: #33353D;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-bottom: 30px;
+}
+.settings-div{
+  display: block;
+  width: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.settings{
+  font-size: xx-large;
+  background-color: transparent;
+  border: transparent;
+  padding: 0;
+  border-radius: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  transition: transform 0.2s ease-in-out;
+}
+.settings:hover{
+  transform: rotate(-30deg) scale(1.05);
+  transition: all 0.1s ease-in-out 0s;
+}
+.pfp{
+  position: relative;
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pfp:after{
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.profile_user_data{
+  padding-bottom: 5px;
+}
+.username{
+  display: block;
+  color: white;
+  text-align: center;
+  font-size: x-large;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.bio{
+  display: block;
+  width: 70%;
+  min-width: 200px;
+  color: white;
+  text-align: center;
+  background-color: rgba(86, 84, 84, 0.53);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  font-size: larger;
+  padding: 5px;
+  border: 1px white solid;
+}
+
+.faves-div{
+  display: flex;
+  /*height: 800px;*/
+  flex-wrap: wrap;
+  width: 70%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(51, 53, 61, 0.6);
+  border-radius: 15px;
+  margin-bottom: 25px;
+}
+.faveslabel{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: x-large;
+}
+.faves{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 25px;
+}
+.favesimg {
+  position: relative;
+  display: flex;
+  width: 100px;
+  height: 150px;
+  min-width: 50px;
+  min-height: 70px;
+  border-radius: 15px;
+  margin: 15px;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+  filter: brightness(80%);
+}
+.favesimg:hover {
+  transform: scale(1.05);
+  filter: brightness(100%);
+}
+
+.stats-div{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+}
+.stats-container{
+  border-radius: 10px;
+  background-color: rgba(51, 53, 61, 0.6);
+  width: 350px;/*OVO*/
+  margin-bottom: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.stats{
+  width: 90%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+.stats-name{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: white;
+  font-size: x-large;
+}
+.pie-chart1 {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  background: conic-gradient(rgba(124, 0, 128, 0.63) 0% 30%, rgba(255, 126, 20, 0.79) 30% 70%);
+  border: 2px black solid;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.pie-chart2 {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  background: conic-gradient(purple 0% 40%, rgba(255, 126, 20, 0.79) 40% 70%, #136cc0 70% 100%);
+  border: 2px black solid;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.pie-chart3 {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  background: conic-gradient(purple 0% 15%, rgba(255, 126, 20, 0.79) 15% 60%, #136cc0 60% 100%);
+  border: 2px black solid;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.legenda1{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 10px;
+  height: 100px;
+  align-items: center;
+}
+.item1{
+  padding: 5px;
+  height: 35px;
+  background-color: purple;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.item2{
+  padding: 5px;
+  height: 35px;
+  background-color: rgba(255, 126, 20, 0.79);
+  color: white;
+  border-radius: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 0px;
+}
+.item3{
+  padding: 5px;
+  height: 35px;
+  background-color: #136cc0;
+  color: white;
+  border-radius: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 0px;
+}
+
+
+/*
+.statistics{
+  display: flex;
+  flex-wrap: wrap;
+  width: 350px;
+  min-width: 270px;
+  height: 300px;
+  background-color: #a9a3a3;
+  border-radius: 15px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.titles{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: white;
+  font-size: x-large;
+}
+.chart-div{
+  height: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+#my-pie-chart {
+  height: 60%;
+  width: 60%;
+  min-width: 250px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  background: conic-gradient(rgba(255, 20, 216, 0.79) 70%, rgba(0, 0, 0, 0.66) 30%);
+  border: 2px black solid;
+}
+*/
+
+@media only screen and (max-width: 1440px){
+  .profile-div{
+    width: 80%;
+  }
+  .username{
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: large;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .bio{
+    display: block;
+    width: 90%;
+    min-width: 200px;
+    color: white;
+    text-align: center;
+    background-color: rgba(86, 84, 84, 0.53);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    font-size: large;
+    padding: 5px;
+  }
+  .faves-div{
+    width: 80%;
+  }
+  .faveslabel{
+    font-size: large;
+  }
+  .stats-div{
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 1024px){
+  .profile-div{
+    width: 80%;
+  }
+  .username{
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: large;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .bio{
+    display: block;
+    width: 90%;
+    min-width: 200px;
+    color: white;
+    text-align: center;
+    background-color: rgba(86, 84, 84, 0.53);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    font-size: small;
+    padding: 5px;
+  }
+  .faveslabel{
+    font-size: large;
+  }
+}
+@media only screen and (max-width: 769px){
+  .profile-div{
+    width: 80%;
+  }
+  .username{
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: large;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .bio{
+    display: block;
+    width: 90%;
+    min-width: 200px;
+    color: white;
+    text-align: center;
+    background-color: rgba(86, 84, 84, 0.53);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    font-size: small;
+    padding: 5px;
+  }
+  .favesimg {
+    width: 100px;
+    height: 140px;
+  }
+  .faveslabel{
+    font-size: large;
+  }
+}
+@media only screen and (max-width: 520px){
+  .profile-div{
+    width: 100%;
+  }
+  .settings{
+    font-size: x-large;
+    background-color: transparent;
+    border: transparent;
+    padding: 0;
+    border-radius: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .pfp{
+    width: 120px;
+    min-width: 130px;
+  }
+  .username{
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: large;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .bio{
+    display: block;
+    width: 90%;
+    min-width: 200px;
+    color: white;
+    text-align: center;
+    background-color: rgba(86, 84, 84, 0.53);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    font-size: small;
+    padding: 5px;
+  }
+  .faves-div{
+    width: 100%;
+  }
+  .favesimg {
+    width: 90px;
+    height: 120px;
+    min-width: 50px;
+    min-height: 70px;
+    margin: 10px;
+  }
+  .stats-div{
+    width: 100%;
+  }
+}
