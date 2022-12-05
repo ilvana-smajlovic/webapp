@@ -31,7 +31,7 @@ import {HttpClientModule} from "@angular/common/http";
       {path: 'movie-watchlist', component: MovieWatchlistComponent},
       {path: 'tvseries-watchlist', component: TvseriesWatchlistComponent},
       {path: 'about-us', component: AboutUsComponent},
-    ])
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]
