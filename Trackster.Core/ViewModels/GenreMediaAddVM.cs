@@ -8,7 +8,6 @@ namespace Trackster.Core.ViewModels
 {
     public class GenreMediaAddVM
     {
-        public int GenreID { get; set; }
-        public int MediaID { get; set; }
+        public string GenreName { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Trackster.Core.ViewModels;
 using Trackster.Core;
 using Trackster.Repository;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace Trackster.API.Controllers
 {
@@ -19,27 +20,32 @@ namespace Trackster.API.Controllers
         }
 
         [HttpPost]
-        public UserFavourites Add([FromBody] UserFavouritesAddVM x)
+        public ActionResult Add([FromBody] UserFavouritesAddVM x)
         {
-            if (Provjera(x))
+            //Trazi da li postoji ta media
+            RegisteredUser? RegisteredUser = dbContext.RegisteredUsers.FirstOrDefault(m => m.RegisteredUserId == x.UserID);
+            if (RegisteredUser == null)
+                return BadRequest("User doesn't exist");
+
+            //Trazi da li postoji ta media
+            Media? Media = dbContext.Medias.FirstOrDefault(m => m.MediaId == x.MediaID);
+            if (Media == null)
+                return BadRequest("Media doesn't exist");
+
+            if (!Provjera(x))
+                return BadRequest("Media already in favourites");
+
+            var newGM = new UserFavourites
             {
-                var newGM = new UserFavourites
-                {
-                    UserID = x.UserID,
-                    MediaID = x.MediaID,
-                };
-                dbContext.UserFavourites.Add(newGM);
-                dbContext.SaveChanges();
-                return newGM;
-            }
-            return null;
+                UserID = x.UserID,
+                MediaID = x.MediaID,
+            };
+            dbContext.UserFavourites.Add(newGM);
+            dbContext.SaveChanges();
+            return Ok("Succesfully added");
         }
         private bool Provjera(UserFavouritesAddVM x)
         {
-            //Onemoguci da se dodaju keys koji nisu u tabeli
-            if (dbContext.Genres.Find(x.UserID) == null ||
-                dbContext.Medias.Find(x.MediaID) == null)
-                return false;
             foreach (var gm in dbContext.UserFavourites)
             {
                 //Onemoguci da vec postojeci se dodaju
@@ -49,65 +55,33 @@ namespace Trackster.API.Controllers
             return true;
         }
 
-        [HttpPost("{Id}")]
-        public ActionResult Update(int Id, [FromBody] UserFavouritesAddVM x)
+        [HttpPost("{UserId}/{MediaId}")]
+        public ActionResult Delete(int UserId, int MediaId)
         {
-            UserFavourites? UserFavourites = dbContext.UserFavourites.FirstOrDefault(r => r.Id == Id);
+            var UserMedia = dbContext.UserFavourites
+                .Where(gm => gm.UserID == UserId && gm.MediaID == MediaId).Single();
 
-            if (UserFavourites == null)
-                return BadRequest("Pogresan ID");
-            if (!Provjera(x))
-                return BadRequest("Loš unos");
-
-            UserFavourites.UserID = x.UserID;
-            UserFavourites.MediaID = x.MediaID;
-
+            dbContext.UserFavourites.Remove(UserMedia);
             dbContext.SaveChanges();
-            return GetById(Id);
-        }
-        [HttpPost("{Id}")]
-        public ActionResult Delete(int Id)
-        {
-            UserFavourites? UserFavourites = dbContext.UserFavourites.Find(Id);
-
-            if (UserFavourites == null)
-                return BadRequest("Pogresan ID");
-
-            dbContext.UserFavourites.Remove(UserFavourites);
-            dbContext.SaveChanges();
-            return GetById(Id);
-        }
-
-        [HttpGet("{Id}")]
-        public ActionResult GetById(int Id)
-        {
-            UserFavourites? UserFavourites = dbContext.UserFavourites.Find(Id);
-
-            if (UserFavourites == null)
-                return BadRequest("Nepostojeci ID");
-
-            return Ok(
-                dbContext.UserFavourites.Where(r => (r.Id == Id))
-                .Select(gm => new UserFavouritesShowVM()
-                {
-                    Id = gm.Id,
-                    UserID = gm.UserID,
-                    MediaID = gm.MediaID,
-                }).AsQueryable());
+            return Ok("Media removed from favourites");
         }
 
         [HttpGet]
-        public List<UserFavouritesShowVM> GetAll(int? UserID, int? MediaID)
+        public List<UserFavourites> GetAll(int? UserID, int? MediaID)
         {
             var gm = dbContext.UserFavourites
+                .Include(uf=> uf.User.ProfilePicture)
+                .Include(gm => gm.Media)
+                .Include(gm => gm.Media.Poster)
+                .Include(gm => gm.Media.Status)
                 .Where(gm => (UserID == null || gm.UserID == UserID)
                 && (MediaID == null || gm.MediaID == MediaID))
                 .OrderBy(gm => gm.Id)
-                .Select(s => new UserFavouritesShowVM()
+                .Select(s => new UserFavourites()
                 {
                     Id = s.Id,
-                    UserID = s.UserID,
-                    MediaID = s.MediaID
+                    UserID=s.UserID,
+                    MediaID = s.MediaID,
                 }).AsQueryable();
             return gm.Take(20).ToList();
         }
