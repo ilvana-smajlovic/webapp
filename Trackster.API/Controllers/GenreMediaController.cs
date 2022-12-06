@@ -4,6 +4,7 @@ using Trackster.Core.ViewModels;
 using Trackster.Core;
 using Trackster.Repository;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace Trackster.API.Controllers
 {
@@ -18,97 +19,79 @@ namespace Trackster.API.Controllers
             this.dbContext = dbContext;
         }
 
-        [HttpPost]
-        public GenreMedia Add([FromBody] GenreMediaAddVM x)
+
+        [HttpPost("{MediaName}")]
+        public ActionResult Add(string MediaName, [FromBody] GenreMediaAddVM x)
         {
-            if (Provjera(x))
+            //Trazi da li postoji ta media uopste
+            Media? Media = dbContext.Medias.FirstOrDefault(m => m.Name == MediaName);
+            if (Media == null)
+                return BadRequest("Media doesn't exist");//Ako ne postoji, vraca ovaj string
+
+            //Trazi da li postoji taj genre uopste
+            Genre? Genre = dbContext.Genres.FirstOrDefault(g => g.GenreName == x.GenreName);
+            if (Genre==null)
+                return BadRequest("Genre doesn't exist");//Ako ne postoji, vraca ovaj string
+
+            //Trazi da li postoji ta media u GenreMedia table
+            GenreMedia? GenreMedia = dbContext.GenreMedia.FirstOrDefault(r => r.Media.Name == MediaName);
+            //Ako ne postoji moramo je dodati zajedno sa zanrom
+            if (GenreMedia==null)
             {
-                var newGM = new GenreMedia
+                var GM1 = new GenreMedia
                 {
-                    GenreID = x.GenreID,
-                    MediaID = x.MediaID,
+                    MediaID = Media.MediaId,
+                    GenreID = Genre.GenreID
                 };
-                dbContext.GenreMedia.Add(newGM);
+                dbContext.Add(GM1);
                 dbContext.SaveChanges();
-                return newGM;
+                return Ok(dbContext.GenreMedia.FirstOrDefault(r => r.Media.Name == MediaName));
             }
-            return null;
+
+            //Ako media postoji u GenreMedia table, provjeravamo da li ima vec taj Genre
+            if (!Provjera(GenreMedia.MediaID, Genre.GenreID))
+                return BadRequest("Genre is already in media");//Ako ima vraca ovaj string
+
+            //Ako nema dodajemo novi Genre u mediju
+            var GM2 = new GenreMedia
+            {
+                MediaID = GenreMedia.MediaID,
+                GenreID = Genre.GenreID
+            };
+            dbContext.Add(GM2);
+            dbContext.SaveChanges();
+            return Ok(
+                dbContext.GenreMedia
+                .Include(gm=>gm.Media.Poster)
+                .Include(gm=>gm.Media.Status)
+                .Include(gm=>gm.Genre)
+                .FirstOrDefault(r => r.Media.Name == MediaName)
+                );
         }
-        private bool Provjera(GenreMediaAddVM x)
+        private bool Provjera(int MediaId, int GenreId)
         {
-            //Onemoguci da se dodaju keys koji nisu u tabeli
-            if (dbContext.Genres.Find(x.GenreID) == null || dbContext.Medias.Find(x.MediaID) == null)
-                return false;
             foreach (var gm in dbContext.GenreMedia)
             {
-                //Onemoguci da vec postojeci se dodaju
-                if (x.GenreID == gm.GenreID && x.MediaID == gm.MediaID)
+                //Ako ima, vraca false
+                if (gm.MediaID == MediaId && gm.GenreID == GenreId)
                     return false;
             }
+            //Ako nema, vraca true
             return true;
         }
 
-        [HttpPost("{Id}")]
-        public ActionResult Update(int Id, [FromBody] GenreMediaAddVM x)
-        {
-            GenreMedia? GenreMedia = dbContext.GenreMedia.FirstOrDefault(r => r.Id == Id);
-
-            if (GenreMedia == null)
-                return BadRequest("Pogresan ID");
-            if (!Provjera(x))
-                return BadRequest("Loš unos");
-
-            GenreMedia.GenreID = x.GenreID;
-            GenreMedia.MediaID = x.MediaID;
-
-            dbContext.SaveChanges();
-            return GetById(Id);
-        }
-        [HttpPost("{Id}")]
-        public ActionResult Delete(int Id)
-        {
-            GenreMedia? GenreMedia = dbContext.GenreMedia.Find(Id);
-
-            if (GenreMedia == null)
-                return BadRequest("Pogresan ID");
-
-            dbContext.GenreMedia.Remove(GenreMedia);
-            dbContext.SaveChanges();
-            return Ok(GenreMedia);
-        }
-
-        [HttpGet("{Id}")]
-        public ActionResult GetById(int Id)
-        {
-            GenreMedia? GenreMedia = dbContext.GenreMedia.Find(Id);
-
-            if (GenreMedia == null)
-                return BadRequest("Nepostojeci ID");
-
-            return Ok(
-                dbContext.GenreMedia.Where(r => (r.Id == Id))
-                .Select(gm => new GenreMediaShowVM()
-                {
-                    Id = gm.Id,
-                    GenreID = gm.GenreID,
-                    MediaID = gm.MediaID,
-                }).AsQueryable());
-        }
-
         [HttpGet]
-        public List<GenreMediaShowVM> GetAll(int? GenreID, int? MediaID)
+        public List<GenreMedia> GetAll(string? MediaName, string? GenreName)
         {
             var gm = dbContext.GenreMedia
-                .Where(gm => (GenreID == null || gm.GenreID == GenreID)
-                && (MediaID == null || gm.MediaID == MediaID))
-                .OrderBy(gm => gm.Id)
-                .Select(s => new GenreMediaShowVM()
-                {
-                    Id = s.Id,
-                    GenreID = s.GenreID,
-                    MediaID = s.MediaID
-                }).AsQueryable();
-            return gm.Take(20).ToList();
+                .Include(gm => gm.Media)
+                .Include(gm => gm.Media.Poster)
+                .Include(gm => gm.Media.Status)
+                .Include(gm => gm.Genre)
+                .Where(gm => (GenreName == null || gm.Genre.GenreName.ToLower().StartsWith(GenreName))
+                && (MediaName == null || gm.Media.Name.ToLower().StartsWith(MediaName)))
+                .OrderBy(gm => gm.Id);
+            return gm.Take(200).ToList();
         }
     }
 }
