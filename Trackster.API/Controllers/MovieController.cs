@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Trackster.Core.ViewModels;
 using Trackster.Core;
 using Trackster.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Trackster.API.Controllers
 {
@@ -76,12 +77,13 @@ namespace Trackster.API.Controllers
         [HttpGet("{Id}")]
         public ActionResult GetById(int Id)
         {
-            return Ok(dbContext.Movies.Where(r => (r.MovieID == Id)));
+            return Ok(dbContext.Movies.Include(t=>t.Media.Poster).Include(t=>t.Media.Status)
+                .Where(r => (r.MovieID == Id)).FirstOrDefault());
         }
         [HttpGet]
         public List<Movie> GetAll(int? Id)
         {
-            var movie = dbContext.Movies
+            var movie = dbContext.Movies.Include(t=>t.Media.Status).Include(t=>t.Media.Poster)
                 .Where(r => (Id == null || r.MovieID == Id))
                 .OrderBy(r => r.MovieID);
             return movie.Take(20).ToList();
