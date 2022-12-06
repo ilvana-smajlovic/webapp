@@ -98,7 +98,7 @@ namespace Trackster.API.Controllers
         [HttpGet("{Id}")]
         public ActionResult GetById(int Id)
         {
-            return Ok(dbContext.Pictures.Where(r => (r.PictureId == Id)));
+            return Ok(dbContext.Pictures.Where(r => (r.PictureId == Id)).FirstOrDefault());
         }
 
         [HttpGet]
@@ -109,72 +109,6 @@ namespace Trackster.API.Controllers
                 .OrderBy(r => r.PictureId);
             return picture.Take(20).ToList();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public ActionResult UploadImage([FromForm] PictureAddVM picture)
-        //{
-        //    return Ok();
-        //}
-        //public Picture Add([FromBody] PictureAddVM x)
-        //{
-        //    bool pictureClear = Provjera(x);
-        //    if (pictureClear)
-        //    {
-        //        Picture newPicture = new Picture()
-        //        {
-        //            Name = x.Name,
-        //            File = x.File,
-        //        };
-        //        dbContext.Pictures.Add(newPicture);
-        //        dbContext.SaveChanges();
-        //        //var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), httpPostedFile.FileName);
-        //        //// Save the uploaded file to "UploadedFiles" folder  
-        //        //httpPostedFile.SaveAs(fileSavePath);
-        //        return Ok("Picture Uploaded");
-        //    }
-        //    return Ok("Image is not Uploaded");
-        //}
-
-        //public bool Provjera(PictureAddVM x, IFormFile file)
-        //{
-        //    file = HttpContext.Request.Form.Files[0];
-        //    var length = file.Length;
-        //    pictureUpload.File = new byte[length]; //get imagedata  
-        //    httpPostedFile.InputStream.Read(pictureUpload.File, 0, length);
-        //    pictureUpload.Name = Path.GetFileName(httpPostedFile.FileName);
-        //    var pictureUpload = Request.Form.Files;
-        //    foreach (IFormFile source in pictureUpload)
-        //    {
-        //        string FileName = source.Name;
-        //    }
-        //    if (x.Name.IsNullOrEmpty() || x.Name == "string" || x.File.IsNullOrEmpty())
-        //        return false;
-        //    foreach (Picture picture in dbContext.Pictures)
-        //    {
-        //        if (x.Name.ToLower() == picture.Name.ToLower() || x.File == picture.File)
-        //            return false;
-        //    }
-        //    return true;
-        //}
-
-        //private string GetFilePath()
-        //{
-        //    return this._environment.WebRootPath + ""
-        //}
 
     }
 }

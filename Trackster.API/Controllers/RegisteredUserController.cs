@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Trackster.Core;
 using Trackster.Core.ViewModels;
@@ -113,13 +114,14 @@ namespace Trackster.API.Controllers
         [HttpGet("{Id}")]
         public ActionResult GetById(int Id)
         {
-            return Ok(dbContext.RegisteredUsers.Where(r => (r.RegisteredUserId == Id)));
+            return Ok(dbContext.RegisteredUsers.Include(t => t.ProfilePicture).
+                Where(r => (r.RegisteredUserId == Id)).FirstOrDefault());
         }
 
         [HttpGet]
         public List<RegisteredUser> GetAll(int? id, string? username)
         {
-            var user = dbContext.RegisteredUsers
+            var user = dbContext.RegisteredUsers.Include(t=>t.ProfilePicture)
                 .Where(r => (id == null || id == r.RegisteredUserId) && (username == null || r.Username.ToLower() == username.ToLower()))
                 .OrderBy(r => r.RegisteredUserId);
             return user.ToList();
