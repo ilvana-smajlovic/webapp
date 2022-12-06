@@ -4,9 +4,13 @@
 .navbar-toggler-icon{
   color: black;
 }
+.container-fluid{
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
 .nav-link {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+  color: black;
+  background-color: rgb(184, 84, 50);
   border-radius: 15px;
   border-color: transparent;
   padding: 8px 15px 9px 15px;
@@ -15,6 +19,7 @@
 }
 .nav-link:hover{
   transform: scale(1.10);
+  background-color: rgb(208, 88, 48);
 }
 .navbar-brand{
   color: white;
@@ -22,23 +27,35 @@
   display: block;
   margin-right: 0px;
   text-align: center;
-
 }
 .navbar-collapse{
   text-align: center;
 }
 .navbar-nav{
-  display: flex;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 24%;
+  margin-right: 25%;
   width: 50%;
+}
+.language-container{
+  position: fixed;
+  margin-left: 97%;
+}
+.language{
+  background-color: black;
+  color: rgb(184, 84, 50);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 991px){
   .container-fluid{
     display: flex;
     flex-wrap: wrap;
+    margin-top: 0;
+    margin-bottom: 0;
   }
   .navbar-brand{
     color: white;
@@ -50,11 +67,34 @@
     margin-bottom: 20px;
   }
   .navbar-toggler{
-    background-color: white;
+    background-color: rgb(184, 84, 50);
     display: block;
     width: 56px;
-    margin-left: auto;
-    margin-right: auto;
     margin-bottom: 20px;
   }
+  .nav-link {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .language-container{
+    margin-top: -10px;
+    float: left;
+    margin-left: 0;
+    position: relative;
+  }
+  .container-fluid{
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
 }
+@media only screen and (max-width: 2330px) and (min-width: 1334px) {
+  .language-container{
+    margin-left: 95%;
+  }
+}
+@media only screen and (max-width: 1334px) and (min-width: 991px) {
+  .language-container{
+    margin-left: 93%;
+  }
+}
+

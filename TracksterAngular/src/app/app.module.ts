@@ -26,6 +26,7 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [
     BrowserModule,
     RouterModule.forRoot([
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
       {path: 'profile', component: ProfileComponent},
       {path: 'movie-watchlist', component: MovieWatchlistComponent},
