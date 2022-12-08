@@ -9,8 +9,9 @@
   color: white;
   border: 3px white solid;
   border-radius: 10px;
+  align-items: center;
 
-  height: 35px;
+  height: 30px;
   padding-left: 5px;
   padding-right: 5px;
 

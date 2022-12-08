@@ -11,6 +11,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MediaComponent } from './media/media.component';
 import {HttpClientModule} from "@angular/common/http";
+import { MedialistComponent } from './medialist/medialist.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +22,13 @@ import {HttpClientModule} from "@angular/common/http";
     TvseriesWatchlistComponent,
     AboutUsComponent,
     NavbarComponent,
-    MediaComponent
+    MediaComponent,
+    MedialistComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      //{path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
       {path: 'profile', component: ProfileComponent},
       {path: 'movie-watchlist', component: MovieWatchlistComponent},
