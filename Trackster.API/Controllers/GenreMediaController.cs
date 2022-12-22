@@ -62,7 +62,6 @@ namespace Trackster.API.Controllers
             dbContext.SaveChanges();
             return Ok(
                 dbContext.GenreMedia
-                .Include(gm=>gm.Media.Poster)
                 .Include(gm=>gm.Media.Status)
                 .Include(gm=>gm.Genre)
                 .FirstOrDefault(r => r.Media.Name == MediaName)
@@ -85,7 +84,6 @@ namespace Trackster.API.Controllers
         {
             var gm = dbContext.GenreMedia
                 .Include(gm => gm.Media)
-                .Include(gm => gm.Media.Poster)
                 .Include(gm => gm.Media.Status)
                 .Include(gm => gm.Genre)
                 .Where(gm => (GenreName == null || gm.Genre.GenreName.ToLower().StartsWith(GenreName))

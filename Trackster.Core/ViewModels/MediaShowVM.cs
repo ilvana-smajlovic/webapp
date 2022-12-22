@@ -13,7 +13,7 @@ namespace Trackster.Core.ViewModels
         public DateTime AirDate { get; set; }
         public string Synopsis { get; set; }
         public float Rating { get; set; }
-        public int Poster { get; set; }
+        public string Picture { get; set; }
         public int Status { get; set; }
     }
 }

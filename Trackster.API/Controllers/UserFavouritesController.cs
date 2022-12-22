@@ -70,9 +70,7 @@ namespace Trackster.API.Controllers
         public List<UserFavourites> GetAll(int? UserID, int? MediaID)
         {
             var gm = dbContext.UserFavourites
-                .Include(uf=> uf.User.ProfilePicture)
                 .Include(gm => gm.Media)
-                .Include(gm => gm.Media.Poster)
                 .Include(gm => gm.Media.Status)
                 .Where(gm => (UserID == null || gm.UserID == UserID)
                 && (MediaID == null || gm.MediaID == MediaID))

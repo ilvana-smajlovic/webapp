@@ -3,6 +3,16 @@
     <input type="checkbox">
     <span class="slider round"></span>
   </label>-->
+
+  <div>
+    <button (click)="loggedin()" class="LogBtn">Logged</button>
+  </div>
+
+</div>
+
+<div *ngIf="logged_in==0" class="footer-buttons1">
+  <button class="footer-button1">Log-in</button>
+  <button class="footer-button1">Sign-up</button>
 </div>
 
 <div class="search-div">

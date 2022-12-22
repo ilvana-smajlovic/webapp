@@ -16,10 +16,8 @@ namespace Trackster.Core
         public DateTime AirDate { get; set; }
         public string Synopsis { get; set; }
         public float Rating { get; set; }
+        public string? Picture { get; set; }
 
-        [ForeignKey("PosterPictureId")]
-        public virtual Picture Poster { get; set; }
-        public int PosterPictureId { get; set; }
         [ForeignKey("StatusID")]
         public virtual Status Status { get; set; }
         public int StatusID { get; set; }

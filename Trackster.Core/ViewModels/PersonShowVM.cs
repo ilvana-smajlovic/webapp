@@ -14,8 +14,7 @@ namespace Trackster.Core.ViewModels
         public string LastName { get; set; }
         public DateTime Birthday { get; set; }
         public string Bio { get; set; }
-        [ForeignKey("PictureId")]
-        public Picture Picture { get; set; }
+        public string Picture { get; set; }
         public virtual Gender Gender { get; set; }
     }
 }
