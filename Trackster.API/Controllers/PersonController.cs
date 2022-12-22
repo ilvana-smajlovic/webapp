@@ -19,20 +19,11 @@ namespace Trackster.API.Controllers
             this.dbContext = dbContext;
         }
         [HttpPost]
-        public ActionResult Add([FromForm] PersonAddVM x, IFormFile picture)
+        public ActionResult Add([FromForm] PersonAddVM x, string Picture)
         {
-            bool userClear = Provjera(x, picture);
+            bool userClear = Provjera(x, Picture);
             if (userClear)
             {
-                byte[] fileBytes = null;
-                if (picture.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        picture.CopyTo(ms);
-                        fileBytes = ms.ToArray();
-                    }
-                }
                 var newPerson = new Person
                 {
                     Name = x.Name,
@@ -40,7 +31,7 @@ namespace Trackster.API.Controllers
                     Birthday = x.Birthday,
                     Bio = x.Bio,
                     GenderID = x.Gender,
-                    Picture = new Picture(x.Name + x.LastName, fileBytes)
+                    Picture = Picture
                 };
                 dbContext.People.Add(newPerson);
                 dbContext.SaveChanges();
@@ -49,7 +40,7 @@ namespace Trackster.API.Controllers
             return null;
         }
 
-        private bool Provjera(PersonAddVM x, IFormFile picture)
+        private bool Provjera(PersonAddVM x, string picture)
         {
             if (x.Name.IsNullOrEmpty() || x.Name == "string" || x.LastName.IsNullOrEmpty() || x.LastName == "string"
                 || x.Birthday == null || x.Bio.IsNullOrEmpty() || x.Bio == "string" || picture == null || x.Gender == null)
@@ -63,7 +54,7 @@ namespace Trackster.API.Controllers
         }
 
         [HttpPost("{id}")]
-        public ActionResult Update(int id, [FromForm] PersonAddVM x, IFormFile? picture)
+        public ActionResult Update(int id, [FromForm] PersonAddVM x, string? Picture)
         {
             Person person = dbContext.People.FirstOrDefault(r => r.PersonId == id);
             if (person == null)
@@ -73,20 +64,12 @@ namespace Trackster.API.Controllers
                 return BadRequest("Loš unos");
            
             byte[] fileBytes = null;
-            if (picture != null)
+            if (Picture != null)
             {
-                if (picture.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        picture.CopyTo(ms);
-                        fileBytes = ms.ToArray();
-                    }
-                }
-                person.Picture = new Picture(x.Name + x.LastName, fileBytes);
+                person.Picture = Picture;
             }
             else
-                person.PictureId = person.PictureId;
+                person.Picture = person.Picture;
 
             person.Name = x.Name;
             person.LastName = x.LastName;
@@ -113,13 +96,13 @@ namespace Trackster.API.Controllers
         [HttpGet("{Id}")]
         public ActionResult GetById(int Id)
         {
-            return Ok(dbContext.People.Include(t=>t.Gender).Include(t=>t.Picture).Where(r => (r.PersonId == Id)).FirstOrDefault());
+            return Ok(dbContext.People.Include(t=>t.Gender).Where(r => (r.PersonId == Id)).FirstOrDefault());
         }
 
         [HttpGet]
         public List<Person> GetAll(int? id, string? name, string? lastName)
         {
-            var person = dbContext.People.Include(t => t.Gender).Include(t => t.Picture)
+            var person = dbContext.People.Include(t => t.Gender)
                 .Where(r => (id == null || id == r.PersonId) && (name == null || r.Name.ToLower() == name.ToLower()) && (lastName == null || r.LastName.ToLower() == lastName.ToLower()))
                 .OrderBy(r => r.PersonId);
             return person.ToList();

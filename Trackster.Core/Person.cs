@@ -11,9 +11,8 @@ namespace Trackster.Core
         public string LastName { get; set; }
         public DateTime Birthday { get; set; }
         public string Bio { get; set; }
-        [ForeignKey("PictureId")]
-        public Picture Picture { get; set; }
-        public int PictureId { get; set;}
+        public string? Picture { get; set;}
+
         [ForeignKey("GenderID")]
         public Gender Gender { get; set; }
         public int GenderID { get; set; }

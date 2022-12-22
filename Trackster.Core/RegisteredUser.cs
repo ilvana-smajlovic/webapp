@@ -15,10 +15,7 @@ namespace Trackster.Core
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-
-        [ForeignKey("ProfilePicturePictureId")]
-        public Picture ProfilePicture { get; set; }
-        public int ProfilePicturePictureId { get; set; }
+        public string Picture { get; set; }
         public string Bio { get; set; }
     }
 }

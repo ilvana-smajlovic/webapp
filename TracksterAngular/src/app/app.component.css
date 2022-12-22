@@ -33,18 +33,6 @@
   transform: scale(1.1);
 }
 
-.LogBtn{
-  display: block;
-  float: bottom;
-
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #04b604;
-  color: black;
-  border: black 1px solid;
-  border-radius: 10px;
-}
-
 footer{
   /*border: 1px red solid;*/
   background-color: black;
@@ -58,45 +46,6 @@ footer{
   margin-right: auto;
   padding: 20px;
   /*border: 2px white solid;*/
-}
-.footer-buttons1{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0px;
-
-  /*border: 1px red solid;*/
-}
-.footer-button1{
-
-  font-size: larger;
-
-  background-color: rgb(6, 60, 128);
-  border: black;
-  color: white;
-  border-radius: 10px;
-
-  margin-top: 15px;
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-bottom: 15px;
-  padding-top: 2px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-
-  transition: background-color 0.2s ease-in-out;
-}
-.footer-button1:hover{
-  background-color: rgb(7, 95, 194);
-  color: white;
-  border-radius: 10px;
-
-  transition: transform 0.2s ease-in-out;
-  transform: scale(1.1);
 }
 
 .footer-buttons2{
@@ -123,8 +72,8 @@ footer{
   font-size: larger;
 
   background-color: black;
-  border: 1px rgb(255,68,70) solid;
-  color: rgb(255,68,70);
+  border: 1px rgb(184, 84, 50) solid;
+  color: rgb(184, 84, 50);
   border-radius: 10px;
 
   margin-top: 15px;
@@ -139,7 +88,7 @@ footer{
   transition: background-color 0.2s ease-in-out;
 }
 .footer-button2:hover{
-  background-color: rgb(255,68,70);
+  background-color: rgb(184, 84, 50);
   color: black;
   border: 1px black solid;
   border-radius: 10px;

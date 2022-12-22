@@ -15,7 +15,6 @@ namespace Trackster.Repository
         public DbSet<MediaPersonRole> MediaPersonRoles { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Person> People { get; set; }
-        public DbSet<Picture> Pictures { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<RegisteredUser> RegisteredUsers { get; set; }
         public DbSet<Role> Roles { get; set; }

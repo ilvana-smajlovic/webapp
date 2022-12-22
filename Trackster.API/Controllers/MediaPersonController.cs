@@ -77,7 +77,6 @@ namespace Trackster.API.Controllers
             dbContext.SaveChanges();
             return Ok(
                 dbContext.MediaPersonRoles
-                .Include(gm => gm.Media.Poster)
                 .Include(gm => gm.Person.Picture)
                 .Include(gm => gm.Media.Status)
                 .Include(gm => gm.Person.Gender)
@@ -103,7 +102,6 @@ namespace Trackster.API.Controllers
         {
             var gm = dbContext.MediaPersonRoles
                 .Include(gm => gm.Media)
-                .Include(gm => gm.Media.Poster)
                 .Include(gm => gm.Person.Picture)
                 .Include(gm => gm.Media.Status)
                 .Include(gm => gm.Person.Gender)

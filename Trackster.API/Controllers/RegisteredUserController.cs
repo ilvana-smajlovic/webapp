@@ -20,26 +20,17 @@ namespace Trackster.API.Controllers
         }
 
         [HttpPost]
-        public RegisteredUser Add([FromForm] RegisteredUserAddVM x, IFormFile picture)
+        public RegisteredUser Add([FromForm] RegisteredUserAddVM x, string Picture)
         {
-            bool userClear = Provjera(x, picture);
+            bool userClear = Provjera(x, Picture);
             if (userClear)
             {
-                byte[] fileBytes = null;
-                if (picture.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        picture.CopyTo(ms);
-                        fileBytes = ms.ToArray();
-                    }
-                }
                 var newUser = new RegisteredUser
                 {
                     Username = x.Username,
                     Email = x.Email,
                     Password = x.Password,
-                    ProfilePicture = new Picture(x.Username, fileBytes),
+                    Picture = Picture,
                     Bio = x.Bio,
                 };
                 dbContext.RegisteredUsers.Add(newUser);
@@ -49,7 +40,7 @@ namespace Trackster.API.Controllers
             return null;
         }
 
-        private bool Provjera(RegisteredUserAddVM x, IFormFile picture)
+        private bool Provjera(RegisteredUserAddVM x, string picture)
         {
             if (x.Username.IsNullOrEmpty() || x.Username == "string" || x.Email.IsNullOrEmpty() || x.Email == "string" ||
                 x.Password.IsNullOrEmpty() || x.Password == "string" || picture == null || x.Bio.IsNullOrEmpty() || x.Bio == "string")
@@ -63,7 +54,7 @@ namespace Trackster.API.Controllers
         }
 
         [HttpPost("{id}")]
-        public ActionResult Update(int id, [FromForm] RegisteredUserAddVM x, IFormFile? picture)
+        public ActionResult Update(int id, [FromForm] RegisteredUserAddVM x, string? Picture)
         {
             RegisteredUser user = dbContext.RegisteredUsers.FirstOrDefault(r => r.RegisteredUserId == id);
             if (user == null)
@@ -73,20 +64,12 @@ namespace Trackster.API.Controllers
                 return BadRequest("Loš unos");
 
             byte[] fileBytes = null;
-            if (picture != null)
+            if (Picture != null)
             {
-                if (picture.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        picture.CopyTo(ms);
-                        fileBytes = ms.ToArray();
-                    }
-                }
-                user.ProfilePicture = new Picture(x.Username, fileBytes);
+               user.Picture = Picture;
             }
             else
-                user.ProfilePicturePictureId = user.ProfilePicturePictureId;
+                user.Picture = user.Picture;
 
             user.Username = x.Username;
             user.Email = x.Email;
@@ -114,14 +97,14 @@ namespace Trackster.API.Controllers
         [HttpGet("{Id}")]
         public ActionResult GetById(int Id)
         {
-            return Ok(dbContext.RegisteredUsers.Include(t => t.ProfilePicture).
+            return Ok(dbContext.RegisteredUsers.
                 Where(r => (r.RegisteredUserId == Id)).FirstOrDefault());
         }
 
         [HttpGet]
         public List<RegisteredUser> GetAll(int? id, string? username)
         {
-            var user = dbContext.RegisteredUsers.Include(t=>t.ProfilePicture)
+            var user = dbContext.RegisteredUsers
                 .Where(r => (id == null || id == r.RegisteredUserId) && (username == null || r.Username.ToLower() == username.ToLower()))
                 .OrderBy(r => r.RegisteredUserId);
             return user.ToList();

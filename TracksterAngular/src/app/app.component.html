@@ -1,21 +1,13 @@
 <app-navbar></app-navbar>
-<app-medialist></app-medialist>
 <button (click)="BackToTop()" id="BtnToTop">^</button><!--#BtnToTop-->
 
 <div class="outlet">
  <router-outlet></router-outlet>
-  <div>
-    <button (click)="loggedin()" class="LogBtn">Logged</button>
-  </div>
 </div>
 
 
 <footer>
   <label class="footer-logo-name">🎞Trackster™🎬</label>
-  <div *ngIf="logged_in==0" class="footer-buttons1">
-    <button class="footer-button1">Log-in</button>
-    <button class="footer-button1">Sign-up</button>
-  </div>
   <div class="footer-buttons2">
     <label class="about-us">Want to learn more about Trackster? <br> Or about the people who coded it?</label>
     <button class="footer-button2">About us</button>

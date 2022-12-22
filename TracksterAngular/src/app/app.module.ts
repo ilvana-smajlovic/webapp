@@ -28,7 +28,7 @@ import { MedialistComponent } from './medialist/medialist.component';
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      //{path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
       {path: 'profile', component: ProfileComponent},
       {path: 'movie-watchlist', component: MovieWatchlistComponent},

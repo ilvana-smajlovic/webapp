@@ -94,8 +94,8 @@ namespace Trackster.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PosterPictureId")
-                        .HasColumnType("int");
+                    b.Property<string>("Picture")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Rating")
                         .HasColumnType("real");
@@ -108,8 +108,6 @@ namespace Trackster.Repository.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MediaId");
-
-                    b.HasIndex("PosterPictureId");
 
                     b.HasIndex("StatusID");
 
@@ -127,7 +125,7 @@ namespace Trackster.Repository.Migrations
                     b.Property<string>("Character")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MediaId")
+                    b.Property<int>("MediaID")
                         .HasColumnType("int");
 
                     b.Property<int>("PersonID")
@@ -194,36 +192,14 @@ namespace Trackster.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PictureId")
-                        .HasColumnType("int");
+                    b.Property<string>("Picture")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PersonId");
 
                     b.HasIndex("GenderID");
 
-                    b.HasIndex("PictureId");
-
                     b.ToTable("People");
-                });
-
-            modelBuilder.Entity("Trackster.Core.Picture", b =>
-                {
-                    b.Property<int>("PictureId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PictureId"));
-
-                    b.Property<byte[]>("File")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PictureId");
-
-                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("Trackster.Core.Rating", b =>
@@ -262,16 +238,15 @@ namespace Trackster.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProfilePicturePictureId")
-                        .HasColumnType("int");
+                    b.Property<string>("Picture")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RegisteredUserId");
-
-                    b.HasIndex("ProfilePicturePictureId");
 
                     b.ToTable("RegisteredUsers");
                 });
@@ -464,19 +439,11 @@ namespace Trackster.Repository.Migrations
 
             modelBuilder.Entity("Trackster.Core.Media", b =>
                 {
-                    b.HasOne("Trackster.Core.Picture", "Poster")
-                        .WithMany()
-                        .HasForeignKey("PosterPictureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Trackster.Core.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Poster");
 
                     b.Navigation("Status");
                 });
@@ -527,26 +494,7 @@ namespace Trackster.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Trackster.Core.Picture", "Picture")
-                        .WithMany()
-                        .HasForeignKey("PictureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Gender");
-
-                    b.Navigation("Picture");
-                });
-
-            modelBuilder.Entity("Trackster.Core.RegisteredUser", b =>
-                {
-                    b.HasOne("Trackster.Core.Picture", "ProfilePicture")
-                        .WithMany()
-                        .HasForeignKey("ProfilePicturePictureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProfilePicture");
                 });
 
             modelBuilder.Entity("Trackster.Core.TVShow", b =>

@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Trackster.Core\Trackster.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

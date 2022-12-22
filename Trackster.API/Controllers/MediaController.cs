@@ -20,27 +20,18 @@ namespace Trackster.API.Controllers
         }
 
         [HttpPost]
-        public Media Add([FromForm] MediaAddVM x, IFormFile picture)
+        public Media Add([FromForm] MediaAddVM x, string Picture)
         {
-            bool mediaClear = Provjera(x, picture);
+            bool mediaClear = Provjera(x, Picture);
             if (mediaClear)
             {
-                byte[] fileBytes = null;
-                if (picture.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        picture.CopyTo(ms);
-                        fileBytes = ms.ToArray();
-                    }
-                }
                 var newMedia = new Media
                 {
                     Name = x.Name,
                     AirDate = x.AirDate,
                     Synopsis = x.Synopsis,
                     Rating = x.Rating,
-                    Poster = new Picture(x.Name, fileBytes),
+                    Picture = Picture,
                     StatusID = x.Status
                 };
                 dbContext.Medias.Add(newMedia);
@@ -50,7 +41,7 @@ namespace Trackster.API.Controllers
             return null;
         }
 
-        private bool Provjera(MediaAddVM x, IFormFile picture)
+        private bool Provjera(MediaAddVM x, string picture)
         {
             if (x.Name.IsNullOrEmpty() || x.Name == "string" || x.AirDate == null || x.Synopsis.IsNullOrEmpty() || x.Synopsis == "string"
                 || x.Rating == null || picture == null || x.Status == null)
@@ -64,7 +55,7 @@ namespace Trackster.API.Controllers
         }
 
         [HttpPost("{id}")]
-        public ActionResult Update(int id, [FromForm] MediaAddVM x, IFormFile? picture)
+        public ActionResult Update(int id, [FromForm] MediaAddVM x, string? Picture)
         {
             Media media = dbContext.Medias.FirstOrDefault(r => r.MediaId == id);
             if (media == null)
@@ -74,20 +65,12 @@ namespace Trackster.API.Controllers
                 return BadRequest("Loš unos");
 
             byte[] fileBytes = null;
-            if (picture != null)
+            if (Picture != null)
             {
-                if (picture.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        picture.CopyTo(ms);
-                        fileBytes = ms.ToArray();
-                    }
-                }
-                media.Poster = new Picture(x.Name, fileBytes);
+                media.Picture = Picture;
             }
             else
-                media.PosterPictureId = media.PosterPictureId;
+                media.Picture = media.Picture;
 
             media.Name = x.Name;
             media.AirDate = x.AirDate;
@@ -116,13 +99,13 @@ namespace Trackster.API.Controllers
         [HttpGet("{Id}")]
         public ActionResult GetById(int Id)
         {
-            return Ok(dbContext.Medias.Include(t=>t.Poster).Include(t=>t.Status).Where(r => (r.MediaId == Id)).FirstOrDefault());
+            return Ok(dbContext.Medias.Include(t=>t.Status).Where(r => (r.MediaId == Id)).FirstOrDefault());
         }
 
         [HttpGet]
         public List<Media> GetAll(int? id, string? name)
         {
-            var media = dbContext.Medias.Include(t => t.Poster).Include(t => t.Status)
+            var media = dbContext.Medias.Include(t => t.Status)
                 .Where(r => (id == null || id == r.MediaId) && (name == null || r.Name.ToLower() == name.ToLower()))
                 .OrderBy(r => r.MediaId);
             return media.ToList();
