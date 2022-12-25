@@ -12,6 +12,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MediaComponent } from './media/media.component';
 import {HttpClientModule} from "@angular/common/http";
 import { MedialistComponent } from './medialist/medialist.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LogInComponent } from './log-in/log-in.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { MedialistComponent } from './medialist/medialist.component';
     AboutUsComponent,
     NavbarComponent,
     MediaComponent,
-    MedialistComponent
+    MedialistComponent,
+    SignUpComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,9 @@ import { MedialistComponent } from './medialist/medialist.component';
       {path: 'movie-watchlist', component: MovieWatchlistComponent},
       {path: 'tvseries-watchlist', component: TvseriesWatchlistComponent},
       {path: 'about-us', component: AboutUsComponent},
+      {path: 'medialist', component: MedialistComponent},
+      {path: 'sign-up', component: SignUpComponent},
+      {path: 'log-in', component: LogInComponent}
     ]),
   ],
   providers: [],

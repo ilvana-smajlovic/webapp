@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
   }
   */
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   logged_in=0;
 
@@ -46,5 +47,15 @@ export class HomeComponent implements OnInit {
 
   BackToTop() {
     document.documentElement.scrollTop=0;
+  }
+
+  Open1() {
+    this.router.navigateByUrl("medialist");
+  }
+  openSignUp() {
+    this.router.navigateByUrl("sign-up");
+  }
+  openLogIn() {
+    this.router.navigateByUrl("log-in");
   }
 }

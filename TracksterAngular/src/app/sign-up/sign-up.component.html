@@ -1,0 +1,56 @@
+<div class="maindiv">
+
+  <div class="signup">
+
+    <div class="title">Sign-up</div>
+
+    <div class="group">
+      <label class="label">Email:</label>
+      <input class="input"/>
+    </div>
+    <div class="group">
+      <label class="label">Username:</label>
+      <input class="input"/>
+    </div>
+
+    <div class="group">
+      <label class="label">Password:</label>
+      <div class="password-div">
+        <input class="inputpass" [type]="passwordType1"/>
+        <label class="labeleye" (click)="togglePassword1()">👁️</label>
+      </div>
+    </div>
+
+    <div class="group">
+      <label class="label">Repeat your password:</label>
+      <div class="password-div">
+        <input class="inputpass" [type]="passwordType2"/>
+        <label class="labeleye" (click)="togglePassword2()">👁️</label>
+      </div>
+    </div>
+
+
+    <label class="label2">Your profile picture:</label>
+    <div class="group2">
+      <div class="pfp">
+        <img src="{{url}}" alt="">
+      </div>
+      <input type="file" class="form-control-file" (change)="onselectFile($event)">
+    </div>
+    <div class="group3">
+      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+      <label class="form-check-label" style="color: white">
+        I agree to all statements in <a href="#!">Terms of service</a>
+      </label>
+    </div>
+    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+      <button type="button" class="btn">Register</button>
+    </div>
+    <div class="login">
+        <label class="label-login">Already have an account?</label>
+        <button type="button" class="btn" (click)="LogIn()">Log-in</button>
+    </div>
+
+  </div>
+
+</div>
