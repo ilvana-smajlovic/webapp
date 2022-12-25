@@ -10,8 +10,14 @@ import { TvseriesWatchlistComponent } from './tvseries-watchlist/tvseries-watchl
 import { AboutUsComponent } from './about-us/about-us.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MediaComponent } from './media/media.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import { MedialistComponent } from './medialist/medialist.component';
+import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+
+export function HttpLoaderFactory(http: HttpClient){
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -35,8 +41,18 @@ import { MedialistComponent } from './medialist/medialist.component';
       {path: 'tvseries-watchlist', component: TvseriesWatchlistComponent},
       {path: 'about-us', component: AboutUsComponent},
     ]),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    HttpClient
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

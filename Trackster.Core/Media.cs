@@ -17,6 +17,7 @@ namespace Trackster.Core
         public string Synopsis { get; set; }
         public float Rating { get; set; }
         public string? Picture { get; set; }
+        public string? Backdrop { get; set; }
 
         [ForeignKey("StatusID")]
         public virtual Status Status { get; set; }

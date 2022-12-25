@@ -6,17 +6,18 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="language-container">
-      <button class="language" type="button">
-        <p>ENG</p>
-      </button>
+      <select class="language" #selectedLang (change)="changeLang(selectedLang.value)">
+        <option value='en' [selected]="lang == 'en'">English</option>
+        <option value='ba' [selected]="lang == 'ba'">Bosanski</option>
+      </select>
     </div>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" routerLink="/home">Home</a>
-        <a class="nav-link" routerLink="/profile">Profile</a>
-        <a class="nav-link" routerLink="/movie-watchlist">Movie List</a>
-        <a class="nav-link" routerLink="/tvseries-watchlist">TVShow List</a>
-        <!--<a class="nav-link" routerLink="/putanja-about-us">About us</a>-->
+        <a class="nav-link" routerLink="/home">{{'Home' | translate}}</a>
+        <a class="nav-link" routerLink="/profile">{{'Profile' | translate}}</a>
+        <a class="nav-link" routerLink="/movie-watchlist">{{'Movie List' | translate}}</a>
+        <a class="nav-link" routerLink="/tvseries-watchlist">{{'TVShow List' | translate}}</a>
+        <!--<a class="nav-link" routerLink="/about-us">About us</a>-->
       </div>
     </div>
   </div>

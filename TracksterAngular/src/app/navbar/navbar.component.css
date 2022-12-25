@@ -38,16 +38,15 @@
   width: 50%;
 }
 .language-container{
-  position: fixed;
-  margin-left: 97%;
+  position: absolute;
+  margin-left: 95%;
 }
 .language{
   background-color: black;
   color: rgb(184, 84, 50);
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
+  padding: 5px 10px;
   border-radius: 10px;
+  border-color: black;
 }
 
 @media only screen and (max-width: 991px){
@@ -89,12 +88,12 @@
 }
 @media only screen and (max-width: 2330px) and (min-width: 1334px) {
   .language-container{
-    margin-left: 95%;
+    margin-left: 91%;
   }
 }
 @media only screen and (max-width: 1334px) and (min-width: 991px) {
   .language-container{
-    margin-left: 93%;
+    margin-left: 87%;
   }
 }
 
