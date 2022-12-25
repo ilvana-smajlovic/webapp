@@ -10,7 +10,7 @@
     </div>
     <div class="edit-container">
       <button class="edit" type="button"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
-      <div class="hide">Edit watchlist</div>
+      <div class="hide">{{'Edit watchlist' | translate}}</div>
     </div>
   </div>
   <div *ngIf="bgColorF" class="header2">
@@ -19,18 +19,18 @@
         <img src="https://i.pinimg.com/originals/a7/3c/4d/a73c4d7c5130adc8efe317fb1c6bc141.jpg">
       </div>
       <div class="user-name">
-        <h5>vlana</h5>
+        <h4>vlana</h4>
       </div>
     </div>
     <div class="edit-container">
       <button class="edit" type="button"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
-      <div class="hide">Edit watchlist</div>
+      <div class="hide">{{'Edit watchlist' | translate}}</div>
     </div>
   </div>
   <div class="content-container">
     <div class="sidebar">
-      <button class="state" (click)="showPlanning()">Planning</button>
-      <button class="state" (click)="showFinished()">Finished</button>
+      <button class="state" (click)="showPlanning()">{{'Planning' | translate}}</button>
+      <button class="state" (click)="showFinished()">{{'Finished' | translate}}</button>
     </div>
     <div class="content">
       <div *ngIf="list1" class="list">

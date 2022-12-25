@@ -3,7 +3,8 @@ export class Media {
   name: string;
   airDate: Date;
   synopsis: string;
-  poster: string;
   rating: number;
+  picture: string;
+  backdrop: string;
   status:string;
 }

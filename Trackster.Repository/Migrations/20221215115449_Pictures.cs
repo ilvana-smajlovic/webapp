@@ -141,6 +141,7 @@ namespace Trackster.Repository.Migrations
                     Synopsis = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rating = table.Column<float>(type: "real", nullable: false),
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Backdrop = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StatusID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
