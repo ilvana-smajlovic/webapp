@@ -14,6 +14,9 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/h
 import { MedialistComponent } from './medialist/medialist.component';
 import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {SearchPipe} from "./search.pipe";
+import {FormsModule} from "@angular/forms";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http);
@@ -29,7 +32,8 @@ export function HttpLoaderFactory(http: HttpClient){
     AboutUsComponent,
     NavbarComponent,
     MediaComponent,
-    MedialistComponent
+    MedialistComponent,
+    SearchPipe,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,7 @@ export function HttpLoaderFactory(http: HttpClient){
       {path: 'movie-watchlist', component: MovieWatchlistComponent},
       {path: 'tvseries-watchlist', component: TvseriesWatchlistComponent},
       {path: 'about-us', component: AboutUsComponent},
+      {path: 'media/:id', component: MediaComponent}
     ]),
     HttpClientModule,
     TranslateModule.forRoot({
@@ -48,7 +53,9 @@ export function HttpLoaderFactory(http: HttpClient){
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    FormsModule,
+    MatAutocompleteModule
   ],
   providers: [
     HttpClient

@@ -80,6 +80,12 @@ namespace Trackster.API.Controllers
             return Ok(dbContext.Movies.Include(t=>t.Media.Status)
                 .Where(r => (r.MovieID == Id)).FirstOrDefault());
         }
+        [HttpGet("{Id}")]
+        public ActionResult GetByMediaId(int Id)
+        {
+            return Ok(dbContext.Movies.Include(t => t.Media.Status)
+                .Where(r => (r.MediaId == Id)).FirstOrDefault());
+        }
         [HttpGet]
         public List<Movie> GetAll(int? Id)
         {
