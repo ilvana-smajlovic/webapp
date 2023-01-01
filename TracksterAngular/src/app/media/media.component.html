@@ -1,11 +1,11 @@
 <div class="div-main-media">
   <!--*ngIf="isDataLoaded"-->
-  <div class="banner" style="background-image: url(https://www.themoviedb.org/t/p/original/7ABsaBkO1jA2psC8Hy4IDhkID4h.jpg)">
+  <div class="banner" style="background-image: url('{{selectedMedia.backdrop}}')">
   </div>
   <div class="info" >
     <div class="cover-overlap-banner">
       <div class="poster-wrap">
-        <img class ="poster" src="https://www.themoviedb.org/t/p/original/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
+        <img class ="poster" src="{{selectedMedia.picture}}">
         <div class="buttons">
           <button class="add-button" type="button">{{'Add to Watchlist' | translate}}</button>
           <button class="favorite-button" type="button">♡</button>
@@ -13,44 +13,44 @@
       </div>
     </div>
     <div class="description-container">
-      <div clas="tags-container">
-        <p class="tag">Action</p>
-        <p class="tag">Adventure</p>
-        <p class="tag">Sci-Fi</p>
-        <p class="rating">{{'Rating' | translate}}: 7.8</p>
+      <div clas="tags-container" >
+        <p class="tag" *ngFor="let tag of genreMedia">{{tag.genre.genreName}}</p>
+        <p class="rating">{{'Rating' | translate}}: {{selectedMedia.rating}}</p>
       </div>
       <div class="description">
-        <h2>Avatar</h2>
-        <h5>Description</h5>
-        <p>A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.</p>
+        <h1>{{selectedMedia.name}}</h1>
+        <h3>Description</h3>
+        <p>{{selectedMedia.synopsis}}</p>
       </div>
     </div>
   </div>
   <div class="content-container">
     <div class="sidebar">
       <div class="name">Release Date:</div>
-      <p>10. 12. 2009</p>
-      <div class="name">Duration:</div>
-      <p>2h 42min</p>
+      <p>{{selectedMedia.airDate | date:'dd. MM. yyyy.'}}</p>
+      <div class="movie-info" [(ngModel)]='movie' *ngIf='movie !== null' >Duration:</div>
+      <p class="movie-info"  *ngIf='movie !== null' >{{movie.runtime}} min</p>
+      <div class="show-info" [(ngModel)]='tvShow' *ngIf='tvShow !== null' >Season count:</div>
+      <p class="show-info" *ngIf='tvShow !== null'>{{tvShow.seasonCount}} seasons</p>
+      <div class="show-info" [(ngModel)]='tvShow' *ngIf='tvShow !== null' >Episodes per season:</div>
+      <p class="show-info" *ngIf='tvShow !== null'>{{tvShow.episodeCount}} episodes</p>
+      <div class="show-info" [(ngModel)]='tvShow' *ngIf='tvShow !== null' >Episode duration:</div>
+      <p class="show-info" *ngIf='tvShow !== null'>{{tvShow.episodeRuntime}} min</p>
       <div class="name">Status:</div>
-      <p>Completed</p>
+      <p>{{selectedMedia.status.statusName}}</p>
     </div>
     <div class="staff-container">
       <div class="staff-info">
-        <h5>{{'Staff and Characters' | translate}}</h5>
+        <h3>{{'Cast and Crew' | translate}}</h3>
         <div class="staff">
-          <div class="person-container">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/blKKsHlJIL9PmUQZB8f3YmMBW5Y.jpg">
+          <div class="person-container"*ngFor="let staff of mediaPerson">
+            <img src="{{staff.person.picture}}">
             <div class="person-desc">
-              <p>Sam Worthington</p>
-              <p class="character">Jake Sully</p>
-            </div>
-          </div>
-          <div class="person-container">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/vQBwmsSOAd0JDaEcZ5p43J9xzsY.jpg">
-            <div class="person-desc">
-              <p>Zoe Saldaña</p>
-              <p class="character">Neytiri</p>
+              <p>{{staff.person.name}} {{staff.person.lastName}}</p>
+              <div class="role-character">
+                <p class="role">{{staff.role.roleName}}</p>
+                <p class="character">{{staff.character}}</p>
+              </div>
             </div>
           </div>
         </div>

@@ -106,7 +106,7 @@ namespace Trackster.API.Controllers
         public List<Media> GetAll(int? id, string? name)
         {
             var media = dbContext.Medias.Include(t => t.Status)
-                .Where(r => (id == null || id == r.MediaId) && (name == null || r.Name.ToLower() == name.ToLower()))
+                .Where(r => (id == null || id == r.MediaId) && (name == null || r.Name.ToLower().StartsWith(name.ToLower())))
                 .OrderBy(r => r.MediaId);
             return media.ToList();
         }

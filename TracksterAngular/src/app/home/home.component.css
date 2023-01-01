@@ -126,6 +126,7 @@ input:checked + .slider.round:before {
 
 .search-div {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 
   margin-left: auto;
@@ -172,7 +173,6 @@ input:checked + .slider.round:before {
   border-radius: 50px;
   border: 1px transparent solid;
   /*outline: none;*/
-
   padding: 5px;
   margin-left: 5px;
 
@@ -184,15 +184,28 @@ input:checked + .slider.round:before {
   /*transform: scale(1.1);*/
   filter: brightness(100%);
 }
+.list{
+  background-color: rgba(0, 0, 0, 0.53);
+  width:50%;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  color: white;
+  font-size: large;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: relative;
+}
 
 .div-main-home{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 98%;
-
   margin-right: auto;
   margin-left: auto;
+  position: relative;
   /*margin-top: 30px;*/
 }
 .imgdiv{
@@ -200,7 +213,6 @@ input:checked + .slider.round:before {
   width: 30%;
   min-width: 275px;
   margin-top: 40px;
-  position: relative;
   text-align: center;
 
   margin-left: 20px;

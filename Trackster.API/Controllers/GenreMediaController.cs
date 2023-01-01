@@ -78,15 +78,16 @@ namespace Trackster.API.Controllers
             //Ako nema, vraca true
             return true;
         }
-
-        [HttpGet]
-        public List<GenreMedia> GetAll(string? MediaName, string? GenreName)
+       
+    [HttpGet]
+        public List<GenreMedia> GetAll(int? mediaId, string? MediaName, string? GenreName)
         {
             var gm = dbContext.GenreMedia
                 .Include(gm => gm.Media)
                 .Include(gm => gm.Media.Status)
                 .Include(gm => gm.Genre)
-                .Where(gm => (GenreName == null || gm.Genre.GenreName.ToLower().StartsWith(GenreName))
+                .Where(gm => (mediaId==null || mediaId==gm.MediaID) 
+                && (GenreName == null || gm.Genre.GenreName.ToLower().StartsWith(GenreName))
                 && (MediaName == null || gm.Media.Name.ToLower().StartsWith(MediaName)))
                 .OrderBy(gm => gm.Id);
             return gm.Take(200).ToList();

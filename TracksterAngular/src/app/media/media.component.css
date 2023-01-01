@@ -106,10 +106,16 @@
   color:white;
 }
 .name{
-  margin: 10% 5% 2% 7%;
+  margin: 15% 5% 2% 10%;
+}
+.movie-info{
+  margin: 15% 5% 2% 10%;
+}
+.show-info{
+  margin: 15% 5% 2% 10%;
 }
 .sidebar p{
-  margin: 0% 5% 5% 8%;
+  margin: 0% 5% 20% 11%;
   color: rgba(255, 255, 255, 0.7);
 }
 .staff-container{
@@ -135,10 +141,22 @@
   display: block;
 }
 .person-desc p{
-  margin: 15px 5px 25px 15px;
+  margin: 15px 5px 20px 15px;
+}
+.role-character{
+  width: 100%;
+}
+.role{
+  display: inline-block;
+  vertical-align: bottom;
+  color: rgba(255, 255, 255, 0.5);
 }
 .character{
-  color: rgba(255, 255, 255, 0.5);
+  display: inline-block;
+  vertical-align: bottom;
+  float: right;
+  padding-right: 5px;
+  color: rgba(255, 255, 255, 0.6);
 }
 .person-container img{
   object-fit: contain;
@@ -150,7 +168,17 @@
   grid-template-columns: 20% auto;
   margin: 2% 2% 2% 0%;
 }
-
+@media screen and (min-width: 1600px){
+  .info{
+    height: 500px;
+  }
+  .description{
+    margin-top: 80px;
+  }
+  .description h3{
+    margin-top: 40px;
+  }
+}
 @media screen and (max-width: 1214px) and (min-width: 880px){
   .favorite-button{
     height: 60px;

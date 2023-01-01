@@ -98,14 +98,32 @@ namespace Trackster.API.Controllers
         }
 
         [HttpGet]
-        public List<MediaPersonRole> GetAll(string? MediaName, string? PersonName, string? RoleName, string? Character)
+        public ActionResult GetByMediaId(int? MediaId)
+        {
+            return Ok(dbContext.MediaPersonRoles
+                .Include(gm => gm.Media)
+                .Include(gm => gm.Media.Status)
+                .Include(gm => gm.Person.Gender)
+                .Where(gm => (MediaId == null || MediaId == gm.MediaID))
+                .Select(s => new MediaPersonRole()
+                {
+                    Id = s.Id,
+                    Media = s.Media,
+                    Person = s.Person,
+                    Role = s.Role,
+                    Character = s.Character
+                }).AsQueryable());
+        }
+
+        [HttpGet]
+        public List<MediaPersonRole> GetAll(int? MediaId, string? MediaName, string? PersonName, string? RoleName, string? Character)
         {
             var gm = dbContext.MediaPersonRoles
                 .Include(gm => gm.Media)
-                .Include(gm => gm.Person.Picture)
                 .Include(gm => gm.Media.Status)
                 .Include(gm => gm.Person.Gender)
                 .Where(gm => (MediaName == null || gm.Media.Name.StartsWith(MediaName))
+                && (MediaId==null || MediaId==gm.MediaID)
                 && (PersonName == null || gm.Person.Name.StartsWith(PersonName))
                 && (RoleName == null || gm.Role.RoleName.StartsWith(RoleName))
                 && (Character == null || gm.Character.StartsWith(Character)))

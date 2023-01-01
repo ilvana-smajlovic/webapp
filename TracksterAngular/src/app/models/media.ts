@@ -1,3 +1,5 @@
+import {Status} from "./status";
+
 export class Media {
   mediaId: number;
   name: string;
@@ -6,5 +8,5 @@ export class Media {
   rating: number;
   picture: string;
   backdrop: string;
-  status:string;
+  status: Status;
 }
