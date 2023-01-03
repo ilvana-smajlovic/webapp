@@ -198,7 +198,6 @@ input:checked + .slider.round:before {
   width: 30%;
   min-width: 275px;
   margin-top: 40px;
-  position: relative;
   text-align: center;
 
   margin-left: 20px;

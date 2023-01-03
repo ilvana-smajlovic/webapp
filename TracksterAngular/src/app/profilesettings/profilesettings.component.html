@@ -1,0 +1,49 @@
+<div class="main">
+
+  <div class="empty"></div>
+
+  <div class="settings-div">
+    <h1>Profile setings</h1>
+    <div class="group2">
+      <label class="label2">Change your profile picture:</label>
+      <div class="pfp">
+        <img src="{{url}}" alt="">
+      </div>
+      <input type="file" class="form-control-file" (change)="onselectFile($event)">
+      <div class="btn-container">
+        <button class="btn">Save</button>
+      </div>
+    </div>
+    <div class="group2">
+      <label class="label2">Change your profile data:</label>
+      <div class="data-div">
+        <label class="label3">Email</label>
+        <input class="input"/>
+      </div>
+      <div class="data-div">
+        <label class="label3">Username</label>
+        <input class="input"/>
+      </div>
+      <div class="data-div">
+        <label class="label3">Bio</label>
+        <input class="input"/>
+      </div>
+      <div class="btn-container">
+        <button class="btn">Save</button>
+      </div>
+    </div>
+    <div class="group2">
+      <label class="label2">Change your password:</label>
+      <div class="btn-container2">
+        <button class="btn2" (click)="Change1()">Change with email</button>
+        <button class="btn2" (click)="Change2()">Change with username</button>
+      </div>
+    </div>
+    <label class="label4">Delete your profile:</label>
+      <div class="btn-container2">
+        <button class="btn3">Delete</button>
+      </div>
+    <div class="empty"></div>
+  </div>
+
+</div>

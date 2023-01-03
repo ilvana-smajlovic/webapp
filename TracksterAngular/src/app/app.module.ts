@@ -14,6 +14,10 @@ import {HttpClientModule} from "@angular/common/http";
 import { MedialistComponent } from './medialist/medialist.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LogInComponent } from './log-in/log-in.component';
+import { Updatepassword1Component } from './updatepassword1/updatepassword1.component';
+import { Updatepassword2Component } from './updatepassword2/updatepassword2.component';
+import { ProfilesettingsComponent } from './profilesettings/profilesettings.component';
+import { TosComponent } from './tos/tos.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { LogInComponent } from './log-in/log-in.component';
     MediaComponent,
     MedialistComponent,
     SignUpComponent,
-    LogInComponent
+    LogInComponent,
+    Updatepassword1Component,
+    Updatepassword2Component,
+    ProfilesettingsComponent,
+    TosComponent
   ],
   imports: [
     BrowserModule,
@@ -40,8 +48,13 @@ import { LogInComponent } from './log-in/log-in.component';
       {path: 'about-us', component: AboutUsComponent},
       {path: 'medialist', component: MedialistComponent},
       {path: 'sign-up', component: SignUpComponent},
-      {path: 'log-in', component: LogInComponent}
-    ]),
+      {path: 'log-in', component: LogInComponent},
+      {path: 'media', component: MediaComponent},
+      {path: 'Updatepassword/email', component: Updatepassword1Component},
+      {path: 'Updatepassword/username', component: Updatepassword2Component},
+      {path: 'ProfileSetings', component: ProfilesettingsComponent},
+      {path: 'TermsOfService', component: TosComponent},
+    ], {scrollPositionRestoration: 'enabled'}),
   ],
   providers: [],
   bootstrap: [AppComponent]

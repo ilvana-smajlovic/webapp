@@ -21,6 +21,10 @@ export class SignUpComponent implements OnInit {
       reader.onload=(event:any)=>{
         this.url=event.target.result;
       }
+
+      /*const image = e.target.files[0];
+      const formdata = new FormData();
+      formdata.append('picture', image)*/
     }
   }
 
@@ -54,5 +58,9 @@ export class SignUpComponent implements OnInit {
 
   LogIn() {
     this.router.navigateByUrl("log-in");
+  }
+
+  goToLink(url2: string) {
+    window.open(url2, "");
   }
 }

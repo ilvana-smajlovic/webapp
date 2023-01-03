@@ -2,20 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-log-in',
-  templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.css']
+  selector: 'app-updatepassword1',
+  templateUrl: './updatepassword1.component.html',
+  styleUrls: ['./updatepassword1.component.css']
 })
-export class LogInComponent implements OnInit {
+export class Updatepassword1Component {
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-  }
-
   passwordType1: string = 'password';
   passwordShown: boolean = false;
-
 
   public togglePassword1(){
     if(this.passwordShown){
@@ -27,10 +23,8 @@ export class LogInComponent implements OnInit {
     }
   }
 
-  SignUp() {
-    this.router.navigateByUrl("sign-up");
+  EditPassword() {
+    this.router.navigateByUrl("Updatepassword/username");
   }
-  OpenPassword() {
-    this.router.navigateByUrl("Updatepassword/email");
-  }
+
 }
