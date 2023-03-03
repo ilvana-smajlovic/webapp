@@ -18,7 +18,6 @@ import {Router} from "@angular/router";
 import {MediaComponent} from "../media/media.component";
 import {environment} from "../../environments/environment";
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -46,7 +45,6 @@ export class HomeComponent implements OnInit {
   }
   */
 
-
   searchedMedia : Media[];
   isDataLoaded : boolean=false;
   searchText= '';
@@ -55,6 +53,7 @@ export class HomeComponent implements OnInit {
   id:number;
 
   constructor(private tracksterService : TracksterService, private router: Router) { }
+
 
   logged_in=0;
 
@@ -92,8 +91,19 @@ export class HomeComponent implements OnInit {
       console.log(this.searchedMedia);
   }
   redirectToMedia(media: Media) {
-    this.id=media.mediaId;
+    this.id = media.mediaId;
     this.router.navigate(['/media', this.id]);
+  }
+
+  Open1() {
+    this.router.navigateByUrl("medialist");
+  }
+  openSignUp() {
+    this.router.navigateByUrl("sign-up");
+  }
+  openLogIn() {
+    this.router.navigateByUrl("log-in");
+
   }
 }
 
