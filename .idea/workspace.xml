@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="568043e0-8ae1-463e-a0e8-e355549d111d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Trackster.Core/ViewModels/UserSignUp.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TracksterAngular/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TracksterAngular/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TracksterAngular/src/app/home/home.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/TracksterAngular/src/app/home/home.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TracksterAngular/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TracksterAngular/src/app/home/home.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TracksterAngular/src/app/log-in/log-in.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TracksterAngular/src/app/log-in/log-in.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TracksterAngular/src/app/medialist/medialist.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TracksterAngular/src/app/medialist/medialist.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TracksterAngular/src/app/medialist/medialist.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TracksterAngular/src/app/medialist/medialist.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TracksterAngular/src/app/profile/profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TracksterAngular/src/app/profile/profile.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TracksterAngular/src/app/profile/profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TracksterAngular/src/app/profile/profile.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TracksterAngular/src/app/sign-up/sign-up.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TracksterAngular/src/app/sign-up/sign-up.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TracksterAngular/src/app/sign-up/sign-up.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TracksterAngular/src/app/sign-up/sign-up.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +45,8 @@
       <workItem from="1670883401289" duration="27000" />
       <workItem from="1671699870563" duration="581000" />
       <workItem from="1672658011957" duration="8000" />
+      <workItem from="1674046797741" duration="28000" />
+      <workItem from="1674406262129" duration="41000" />
     </task>
     <servers />
   </component>
