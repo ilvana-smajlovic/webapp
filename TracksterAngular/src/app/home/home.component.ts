@@ -17,6 +17,7 @@ import {ActiveDescendantKeyManager, Highlightable} from "@angular/cdk/a11y";
 import {Router} from "@angular/router";
 import {MediaComponent} from "../media/media.component";
 import {environment} from "../../environments/environment";
+import {coerceNumberProperty} from "@angular/cdk/coercion";
 
 
 @Component({
@@ -46,14 +47,13 @@ export class HomeComponent implements OnInit {
   }
   */
 
-
   searchedMedia : Media[];
   isDataLoaded : boolean=false;
-  searchText= '';
+  searchText = '';
   allMedia : Media[];
   selectedMedia:Media;
   id:number;
-
+  name:string='';
   constructor(private tracksterService : TracksterService, private router: Router) { }
 
   logged_in=0;
@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
   }
   getMediaByName(){
     console.log('get media');
-    this.tracksterService.getMediaByName()
+    this.tracksterService.getAllMedia()
       .subscribe(response => {
         // @ts-ignore
         this.allMedia=response;
@@ -88,12 +88,21 @@ export class HomeComponent implements OnInit {
 
   searchMedia(text: string){
       this.searchedMedia=this.allMedia.filter((val) =>
-      val.name.toLowerCase().includes(text));
-      console.log(this.searchedMedia);
+      val.name.toLowerCase().includes(text.toLowerCase()));
   }
   redirectToMedia(media: Media) {
     this.id=media.mediaId;
     this.router.navigate(['/media', this.id]);
+  }
+
+  rediretToMovies() {
+    this.name='movies';
+    this.router.navigate(['medialist'],  {state: {data:this.name}});
+  }
+
+  rediretToShows() {
+    this.name='shows';
+    this.router.navigate(['medialist'], {state: {data:this.name}});
   }
 }
 

@@ -6,6 +6,9 @@ import {Person} from "../models/person";
 import {MediaPersonRole} from "../models/media-person-role";
 import {Movie} from "../models/movie";
 import {TvShow} from "../models/tv-show";
+import {Genre} from "../models/genre";
+import {GenreMedia} from "../models/genre-media";
+import {Status} from "../models/status";
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +21,6 @@ export class TracksterService {
     // now returns an Observable of Config
     return this.httpClient.get<Media>(environment.apiBaseUrl + 'Media/GetById/'+ id);
   }
-  getMediaByName(){
-    return this.httpClient.get<Media>(environment.apiBaseUrl + 'Media/GetAll');
-  }
   getMovieByMediaId(id:number){
     return this.httpClient.get<Movie>(environment.apiBaseUrl + 'Movie/GetByMediaId/'+ id);
   }
@@ -30,6 +30,9 @@ export class TracksterService {
   getAllMedia(){
     return this.httpClient.get<Media>(environment.apiBaseUrl + 'Media/GetAll');
   }
+  getMediaByName(name:string){
+    return this.httpClient.get<Media>(environment.apiBaseUrl + 'Media/GetAll?name=' + name);
+  }
   getPersonById(){
     return this.httpClient.get<Person>(environment.apiBaseUrl + 'Person/GetById/');
   }
@@ -38,5 +41,20 @@ export class TracksterService {
   }
   getMediaGenreByMediaId(id : number){
     return this.httpClient.get<Media>(environment.apiBaseUrl + 'GenreMedia/GetAll?mediaId=' + id);
+  }
+  getMovie(){
+    return this.httpClient.get<Movie>(environment.apiBaseUrl+'Movie/GetAll');
+  }
+  getTVShows(){
+    return this.httpClient.get<TvShow>(environment.apiBaseUrl+'TVShow/GetAll');
+  }
+  getAllGenres(){
+    return this.httpClient.get<Genre>(environment.apiBaseUrl + 'Genre/GetAll');
+  }
+  getAllGenreMedia(){
+    return this.httpClient.get<GenreMedia>(environment.apiBaseUrl + 'GenreMedia/GetAll');
+  }
+  getAllStatus() {
+    return this.httpClient.get<Status>(environment.apiBaseUrl + 'Status/GetAll')
   }
 }

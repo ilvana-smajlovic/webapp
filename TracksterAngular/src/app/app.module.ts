@@ -33,7 +33,7 @@ export function HttpLoaderFactory(http: HttpClient){
     NavbarComponent,
     MediaComponent,
     MedialistComponent,
-    SearchPipe,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
@@ -44,7 +44,8 @@ export function HttpLoaderFactory(http: HttpClient){
       {path: 'movie-watchlist', component: MovieWatchlistComponent},
       {path: 'tvseries-watchlist', component: TvseriesWatchlistComponent},
       {path: 'about-us', component: AboutUsComponent},
-      {path: 'media/:id', component: MediaComponent}
+      {path: 'media/:id', component: MediaComponent},
+      {path: 'medialist', component: MedialistComponent},
     ]),
     HttpClientModule,
     TranslateModule.forRoot({

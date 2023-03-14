@@ -4,7 +4,7 @@ import {Media} from "../models/media";
 import {Person} from "../models/person";
 import {MediaPersonRole} from "../models/media-person-role";
 import {environment} from "../../environments/environment";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {GenreMedia} from "../models/genre-media";
 import {Movie} from "../models/movie";
 import {TvShow} from "../models/tv-show";
@@ -24,18 +24,32 @@ export class MediaComponent implements OnInit {
   people:any[];
   movie:Movie;
   tvShow:TvShow;
-  constructor(private tracksterService: TracksterService, private route: ActivatedRoute) {
+
+  searchedMedia : Media[];
+  searchText= '';
+  allMedia : Media[];
+  constructor(private tracksterService: TracksterService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+    this.getMediaByName();
     this.getMediaById(this.id);
     this.getMediaPersonByMediaId(this.id);
     this.getGenreByMediaId(this.id);
     this.getMovieByMediaId(this.id);
     this.getTVShowByMediaId(this.id);
   }
-
+  getMediaByName(){
+    console.log('get media');
+    this.tracksterService.getAllMedia()
+      .subscribe(response => {
+        // @ts-ignore
+        this.allMedia=response;
+        this.isDataLoaded = true;
+        //this.selectedMedia=this.allMedia.map(item=>item.name);
+      });
+  }
   getMediaById(id: number) {
     this.tracksterService.getMediaById(id)
       .subscribe(response => {
@@ -97,6 +111,19 @@ export class MediaComponent implements OnInit {
         this.isDataLoaded = true;
         console.log(this.tvShow);
       })
+  }
+
+  searchMedia(text: string){
+    this.searchedMedia=this.allMedia.filter((val) =>
+      val.name.toLowerCase().includes(text));
+    console.log(this.searchedMedia);
+  }
+
+  redirectToMedia(media: Media) {
+    this.id=media.mediaId;
+    this.router.navigate(['/media', this.id]);
+    this.getMediaById(this.id);
+    this.searchText='';
   }
 }
 
