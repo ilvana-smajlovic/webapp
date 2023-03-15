@@ -54,13 +54,11 @@ export class HomeComponent implements OnInit {
 
   constructor(private tracksterService : TracksterService, private router: Router) { }
 
-
   logged_in=0;
 
   ngOnInit(): void {
     this.getMediaByName();
   }
-
   loggedin(){
     if(this.logged_in==0)
     {
@@ -70,10 +68,10 @@ export class HomeComponent implements OnInit {
       this.logged_in=0;
     }
   }
-
   BackToTop() {
     document.documentElement.scrollTop=0;
   }
+
   getMediaByName(){
     console.log('get media');
     this.tracksterService.getMediaByName()
@@ -103,7 +101,6 @@ export class HomeComponent implements OnInit {
   }
   openLogIn() {
     this.router.navigateByUrl("log-in");
-
   }
 }
 

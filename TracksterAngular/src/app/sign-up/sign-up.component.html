@@ -5,45 +5,49 @@
     <div class="title">Sign-up</div>
 
     <div class="group">
-      <label class="label">Email:</label>
-      <input class="input"/>
+      <label class="label">Email</label>
+      <input [(ngModel)]="Email" (input)="CheckEmail(Email)" class="input"/>
+      <div *ngIf="EmailUslov==0">
+        <p>Email must be in @gmail.com or @edu.fit.ba format</p>
+      </div>
+      <div *ngIf="EmailUslov!=0">
+        <p class="p-warning">Email already in use!</p>
+      </div>
     </div>
     <div class="group">
-      <label class="label">Username:</label>
-      <input class="input"/>
+      <label class="label">Username</label>
+      <input [(ngModel)]="Username" (input)="CheckUsername(Username)" class="input"/>
+      <div *ngIf="UsernameUslov==0">
+        <p>Username is case sensitive & must be 7 characters or more</p>
+      </div>
+      <div *ngIf="UsernameUslov!=0">
+        <p class="p-warning">Username already in use!</p>
+      </div>
     </div>
     <div class="group">
-      <label class="label">Password:</label>
+      <label class="label">Password</label>
       <div class="password-div">
-        <input class="inputpass" [type]="passwordType1"/>
+        <input class="inputpass" [(ngModel)]="Password1" [type]="passwordType1"/>
         <label class="labeleye" (click)="togglePassword1()">👁️</label>
       </div>
     </div>
     <div class="group">
-      <label class="label">Repeat your password:</label>
+      <label class="label">Repeat your password</label>
       <div class="password-div">
-        <input class="inputpass" [type]="passwordType2"/>
+        <input class="inputpass" [(ngModel)]="Password2" [type]="passwordType2"/>
         <label class="labeleye" (click)="togglePassword2()">👁️</label>
       </div>
+      <p>Make sure your password is 8 characters or longer, a mix of numbers and uppercase/lowercase letters works best!</p>
     </div>
 
-
-    <!--<label class="label2">Your profile picture:</label>
-    <div class="group2">
-      <div class="pfp">
-        <img src="{{url}}" alt="">
-      </div>
-      <input type="file" class="form-control-file" (change)="onselectFile($event)">
-    </div>-->
-
     <div class="group3">
-      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+      <input class="form-check-input me-2" type="checkbox" value="" [ngModel]="isChecked" (click)="isCheckedFunc()" id="form2Example3c" />
       <label class="form-check-label" style="color: white">
         I agree to all statements in <a class="link" (click)="goToLink('http://localhost:4200/TermsOfService')">Terms of service</a>
       </label>
     </div>
     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-      <button type="button" class="btn">Register</button>
+      <button type="button" class="btn" [disabled]="!ToEnable()" (click)="SignUp()">Register</button>
     </div>
     <div class="login">
         <label class="label-login">Already have an account?</label>

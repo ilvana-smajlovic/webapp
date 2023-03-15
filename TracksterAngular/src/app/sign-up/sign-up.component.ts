@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
 
 @Component({
@@ -8,12 +9,11 @@ import {Router} from "@angular/router";
 })
 export class SignUpComponent implements OnInit {
 
-  constructor(private router: Router) { }
-
-  url:string = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-  show = false;
+  constructor(private httpKlijent: HttpClient, private router: Router) { }
 
 
+/*
+ url:string = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   onselectFile(e:any){
     if(e.target.files){
       var reader = new FileReader();
@@ -22,19 +22,26 @@ export class SignUpComponent implements OnInit {
         this.url=event.target.result;
       }
 
-      /*const image = e.target.files[0];
+OVAJ DIO ZAKOM
+      const image = e.target.files[0];
       const formdata = new FormData();
-      formdata.append('picture', image)*/
+      formdata.append('picture', image)
     }
   }
+*/
 
   ngOnInit(): void {
   }
 
-  passwordType1: string = 'password';
-  passwordType2: string = 'password';
+  show = false;
+  passwordType1: string = 'password'; passwordType2: string = 'password';
   passwordShown: boolean = false;
-
+  Email: string = ''; Username: string = ''; Password1: string = ''; Password2: string = '';
+  Uslov: number = 0; EmailUslov: number = 0; UsernameUslov: number = 0;
+  isChecked: boolean = false;
+  EmailRegex = new RegExp('^([A-Z]|[a-z]|[0-9])*([._])?([A-Z]|[a-z]|[0-9])+(@gmail.com|@edu.fit.ba)$')
+  UsernameRegex = new RegExp('^([A-Z]|[a-z]|[0-9]|[_])*$');
+  PasswordRegex = new RegExp('^([A-Z]|[a-z]|[0-9]|/)*$');
 
   public togglePassword1(){
     if(this.passwordShown){
@@ -45,7 +52,6 @@ export class SignUpComponent implements OnInit {
       this.passwordType1='text';
     }
   }
-
   public togglePassword2(){
     if(this.passwordShown){
       this.passwordShown=false;
@@ -56,10 +62,59 @@ export class SignUpComponent implements OnInit {
     }
   }
 
+  isCheckedFunc() {
+    this.isChecked = !this.isChecked;
+  }
+  ToEnable() {
+    return this.EmailTest() && this.UsernameTest() && this.PasswordTest() && this.isChecked;
+  }
+  EmailTest(){
+    return this.EmailRegex.test(this.Email) && this.Email.length>11 && this.EmailUslov==0;
+  }
+  UsernameTest(){
+    return this.UsernameRegex.test(this.Username) && this.Username.length>6 && this.UsernameUslov==0;
+  }
+  PasswordTest(){
+    let test = this.PasswordRegex.test(this.Password1);
+    return test && this.Password1.length>7 && this.Password1 == this.Password2;
+  }
+
+  CheckEmail(Email: string) {
+    let param = new HttpParams().set('Email', this.Email);
+    this.httpKlijent.get<number>("https://localhost:7242/SignUp/EmailCheck", {params:param}).subscribe(x=>{
+      this.EmailUslov=x;
+    });
+  }
+  CheckUsername(Username: string) {
+    let param = new HttpParams().set('Username', this.Username);
+    this.httpKlijent.get<number>("https://localhost:7242/SignUp/UsernameCheck", {params:param}).subscribe(x=>{
+        this.UsernameUslov=x;
+      });
+  }
+  SignUp() {
+    let SignUpInfo = {
+      Email:this.Email,
+      Username: this.Username,
+      Password:this.Password2
+    };
+    this.httpKlijent.post("https://localhost:7242/SignUp/Add", SignUpInfo, {observe:"response"}).subscribe(
+      {
+        next:(obj)=>{
+          if(obj.status==200){
+            this.Uslov=0;
+            this.router.navigateByUrl("log-in");
+          }
+        }, error :(error)=>{
+            if(error.status==400){
+              this.Uslov=1;
+            }
+        }
+      });
+  }
+
   LogIn() {
     this.router.navigateByUrl("log-in");
   }
-
   goToLink(url2: string) {
     window.open(url2, "");
   }

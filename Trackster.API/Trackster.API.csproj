@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Trackster.Repository\Trackster.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helper\" />
+  </ItemGroup>
+
 </Project>
