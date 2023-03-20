@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Trackster.Repository.Migrations;
 
-namespace Trackster.API.Controllers.SignUpHelper
+namespace Trackster.API.Helper
 {
     [ApiController]
     [Route("[controller]/[action]")]
@@ -27,7 +27,6 @@ namespace Trackster.API.Controllers.SignUpHelper
                 return 1;
             return 0;
         }
-
         [HttpGet]
         public int UsernameCheck(string Username)
         {
@@ -36,6 +35,36 @@ namespace Trackster.API.Controllers.SignUpHelper
             return 0;
         }
 
+        private bool Provjera1(string uslov)
+        {
+            var useremail = dbContext.RegisteredUsers.FirstOrDefault(x => x.Email == uslov);
+            if (useremail == null)
+                return false;
+            return true;
+
+            //foreach (RegisteredUser user in dbContext.RegisteredUsers)
+            //{
+            //    if (user.Email == uslov)
+            //        return true;
+            //}
+            //return false;
+        }
+        private bool Provjera2(string uslov)
+        {
+            var user_username = dbContext.RegisteredUsers.FirstOrDefault(x => x.Username == uslov);
+            if (user_username == null)
+                return false;
+            return true;
+
+            //foreach (RegisteredUser user in dbContext.RegisteredUsers)
+            //{
+            //    if (user.Username == uslov)
+            //        return ;
+            //}
+            //return false;
+        }
+
+
         [HttpPost]
         public ActionResult Add(RegisteredUserAddVM x)
         {
@@ -43,32 +72,13 @@ namespace Trackster.API.Controllers.SignUpHelper
             {
                 Username = x.Username,
                 Email = x.Email,
-                Password = x.Password,
+                Password = PasswordHelper.Hash(x.Password),
                 Picture = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
                 Bio = "Your bio goes here:"
             };
             dbContext.RegisteredUsers.Add(newUser);
             dbContext.SaveChanges();
             return Ok();
-        }
-
-        private bool Provjera1(string uslov)
-        {
-            foreach (RegisteredUser user in dbContext.RegisteredUsers)
-            {
-                if (user.Email == uslov)
-                    return true;
-            }
-            return false;
-        }
-        private bool Provjera2(string uslov)
-        {
-            foreach (RegisteredUser user in dbContext.RegisteredUsers)
-            {
-                if (user.Username == uslov)
-                    return true;
-            }
-            return false;
         }
     }
 }
