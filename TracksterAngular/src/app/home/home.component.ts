@@ -19,7 +19,6 @@ import {MediaComponent} from "../media/media.component";
 import {environment} from "../../environments/environment";
 import {coerceNumberProperty} from "@angular/cdk/coercion";
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -56,6 +55,7 @@ export class HomeComponent implements OnInit {
   name:string='';
   constructor(private tracksterService : TracksterService, private router: Router) { }
 
+
   logged_in=0;
 
   ngOnInit(): void {
@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
       val.name.toLowerCase().includes(text.toLowerCase()));
   }
   redirectToMedia(media: Media) {
-    this.id=media.mediaId;
+    this.id = media.mediaId;
     this.router.navigate(['/media', this.id]);
   }
 
@@ -101,8 +101,18 @@ export class HomeComponent implements OnInit {
   }
 
   rediretToShows() {
-    this.name='shows';
-    this.router.navigate(['medialist'], {state: {data:this.name}});
+    this.name = 'shows';
+    this.router.navigate(['medialist'], {state: {data: this.name}});
+  }
+
+  Open1() {
+    this.router.navigateByUrl("medialist");
+  }
+  openSignUp() {
+    this.router.navigateByUrl("sign-up");
+  }
+  openLogIn() {
+    this.router.navigateByUrl("log-in");
   }
 }
 

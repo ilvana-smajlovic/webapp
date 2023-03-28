@@ -12,13 +12,19 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MediaComponent } from './media/media.component';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import { MedialistComponent } from './medialist/medialist.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { Updatepassword1Component } from './updatepassword1/updatepassword1.component';
+import { Updatepassword2Component } from './updatepassword2/updatepassword2.component';
+import { ProfilesettingsComponent } from './profilesettings/profilesettings.component';
+import { TosComponent } from './tos/tos.component';
 import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {SearchPipe} from "./search.pipe";
 import {FormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
-export function HttpLoaderFactory(http: HttpClient){
+export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
@@ -33,7 +39,13 @@ export function HttpLoaderFactory(http: HttpClient){
     NavbarComponent,
     MediaComponent,
     MedialistComponent,
-    SearchPipe
+    SearchPipe,
+    SignUpComponent,
+    LogInComponent,
+    Updatepassword1Component,
+    Updatepassword2Component,
+    ProfilesettingsComponent,
+    TosComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +58,16 @@ export function HttpLoaderFactory(http: HttpClient){
       {path: 'about-us', component: AboutUsComponent},
       {path: 'media/:id', component: MediaComponent},
       {path: 'medialist', component: MedialistComponent},
-    ]),
+      {path: 'medialist', component: MedialistComponent},
+      {path: 'sign-up', component: SignUpComponent},
+      {path: 'log-in', component: LogInComponent},
+      {path: 'media', component: MediaComponent},
+      {path: 'Updatepassword/email', component: Updatepassword1Component},
+      {path: 'Updatepassword/username', component: Updatepassword2Component},
+      {path: 'ProfileSetings', component: ProfilesettingsComponent},
+      {path: 'TermsOfService', component: TosComponent},
+      {path: 'media/:id', component: MediaComponent}
+    ], {scrollPositionRestoration: 'enabled'}),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -58,9 +79,7 @@ export function HttpLoaderFactory(http: HttpClient){
     FormsModule,
     MatAutocompleteModule
   ],
-  providers: [
-    HttpClient
-  ],
+  providers: [HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
