@@ -12,6 +12,6 @@ export class SearchPipe implements PipeTransform {
    * @returns list of elements filtered by search text or []
    */
   transform(list: any[], searchText: string): any[] {
-    return list ? list.filter(item => item.name.search(new RegExp(searchText))) : [];
+    return list ? list.filter(item => item.name.search(new RegExp(searchText.toLowerCase()))) : [];
   }
 }

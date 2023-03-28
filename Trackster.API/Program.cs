@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Trackster.API.Logger;
 using Trackster.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TracksterContext>(
         dbContext => dbContext.UseSqlServer("server = localhost; database = Trackster; integrated security = true; TrustServerCertificate = true")
     );
+
+builder.Logging.AddDbLogger(options =>
+{
+    builder.Configuration.GetSection("Logging").GetSection("Database").GetSection("Options").Bind(options);
+});
 
 var app = builder.Build();
 

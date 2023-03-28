@@ -56,6 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       {path: 'movie-watchlist', component: MovieWatchlistComponent},
       {path: 'tvseries-watchlist', component: TvseriesWatchlistComponent},
       {path: 'about-us', component: AboutUsComponent},
+      {path: 'media/:id', component: MediaComponent},
+      {path: 'medialist', component: MedialistComponent},
       {path: 'medialist', component: MedialistComponent},
       {path: 'sign-up', component: SignUpComponent},
       {path: 'log-in', component: LogInComponent},

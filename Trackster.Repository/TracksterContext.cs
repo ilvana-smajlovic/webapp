@@ -24,6 +24,7 @@ namespace Trackster.Repository
         public DbSet<UserFavourites> UserFavourites { get; set; }
         public DbSet<WatchlistMovie> WatchlistMovies { get; set; }
         public DbSet<WatchlistTVShow> WatchlistTVShows { get; set; }
+        public DbSet<CustomError> Errors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

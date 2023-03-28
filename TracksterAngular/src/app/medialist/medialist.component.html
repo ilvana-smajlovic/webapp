@@ -1,243 +1,86 @@
 <div class="main-div">
 
   <div class="chose">
-    <button class="pick">Movies</button>
-    <button class="pick">TV-Shows</button>
+    <button class="pick" (click)="openMovies()">Movies</button>
+    <button class="pick" (click)="openShows()">TV-Shows</button>
   </div>
   <div class="search-div">
-    <input class="search-bar" placeholder="Search media:">
-    <img class="img_search" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Google_Magnifying_Glass.svg/1024px-Google_Magnifying_Glass.svg.png" alt="">
+    <input class="search-bar" [(ngModel)]="searchText" (input)="searchMedia(searchText)" placeholder="{{'Search' | translate}}">
+    <!--<img class="img_search" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Google_Magnifying_Glass.svg/1024px-Google_Magnifying_Glass.svg.png" alt="">-->
   </div>
+  <ul class="list" *ngIf="searchText !== ''">
+    <li role="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="getByName(media)">
+      {{media.name}}
+    </li>
+  </ul>
 
   <div class="container">
     <form action="#" class="onepick">
-      <label class="name" for="orderby">Order by:</label>
-      <select name="select" id="orderby">
-        <option class="izbor" value="Any">Any</option>
-        <option class="izbor" value="Title">Title</option>
-        <option class="izbor" value="Rating">Rating</option>
+      <label class="name" for="orderby">{{'Order by' | translate}}:</label>
+      <select name="select" id="orderby" (change)="pickedOrder=$any($event.target).value">
+        <option class="izbor" value="Any">{{'Any' | translate}}</option>
+        <option class="izbor" value="Title" (select)="orderByName()">{{'Title' | translate}}</option>
+        <option class="izbor" value="Rating" (select)="orderByRating()">{{'Rating' | translate}}</option>
       </select>
     </form>
     <form action="#" class="onepick">
-      <label class="name" for="status">Status</label>
-      <select name="select" id="status">
-        <option class="izbor" value="Any">Any</option>
-        <option class="izbor" value="Upcoming">Upcoming</option>
-        <option class="izbor" value="Airing">Airing</option>
-        <option class="izbor" value="Completed">Completed</option>
+      <label class="name" for="status">{{'Status' | translate}}</label>
+      <select name="select" id="status" (change)="pickedStatus=$any($event.target).value">
+        <option class="izbor" value="Any">{{'Any' | translate}}</option>
+        <option class="izbor" value="Upcoming">{{'Upcoming' | translate}}</option>
+        <option class="izbor" value="Airing">{{'Airing' | translate}}</option>
+        <option class="izbor" value="Completed">{{'Completed' | translate}}</option>
       </select>
     </form>
     <form action="#" class="onepick">
-      <label class="name" for="genre">Genre</label>
-      <select name="select" id="genre">
-        <option class="izbor" value="Any">Any</option>
+      <label class="name" for="genre">{{'Genre' | translate}}</label>
+      <select name="select" id="genre" (change)="pickedGenre=$any($event.target).value">
+        <option class="izbor" value="Any">{{'Any' | translate}}</option>
         <option class="izbor" value="Action">Action</option>
-        <option class="izbor" value="Fantasy">Fantasy</option>
-        <option class="izbor" value="Romance">Romance</option>
+        <option class="izbor" value="Adventure">Adventure</option>
         <option class="izbor" value="Animation">Animation</option>
+        <option class="izbor" value="Biography">Biography</option>
+        <option class="izbor" value="Comedy">Comedy</option>
+        <option class="izbor" value="Crime">Crime</option>
+        <option class="izbor" value="Documentary">Documentary</option>
+        <option class="izbor" value="Drama">Drama</option>
+        <option class="izbor" value="Family">Family</option>
+        <option class="izbor" value="Fantasy">Fantasy</option>
+        <option class="izbor" value="History">History</option>
+        <option class="izbor" value="Horror">Horror</option>
+        <option class="izbor" value="Music">Music</option>
+        <option class="izbor" value="Mystery">Mystery</option>
+        <option class="izbor" value="Romance">Romance</option>
+        <option class="izbor" value="Sci-Fi">Sci-Fi</option>
+        <option class="izbor" value="Sport">Sport</option>
+        <option class="izbor" value="Superhero">Superhero</option>
+        <option class="izbor" value="Supernatural">Supernatural</option>
+        <option class="izbor" value="Thriller">Thriller</option>
       </select>
     </form>
-    <button class="filter">Search</button>
+    <button class="filter" (click)="searchFilters()">{{'Search' | translate}}</button>
   </div>
 
   <!--Ovo sam onako stavio da imas pretstavu gdje filmovi dolaze otprilike, ofc ti edituj kako hoces-->
-  <div class="media-container">
-    <div class="media">
+  <div class="movie-container" *ngIf="isMovie">
+    <div class="movie" *ngFor="let movie of movies" (click)="redirectToMedia(movie.media)">
       <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
+        <img src="{{movie.media.picture}}">
       </div>
       <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
+        <h2>{{movie.media.name}}</h2>
+        <p>({{movie.media.airDate | date: 'yyyy'}})</p>
       </div>
     </div>
-    <div class="media">
+  </div>
+  <div class="show-container" *ngIf="isShow">
+    <div class="show" *ngFor="let show of shows" (click)="redirectToMedia(show.media)">
       <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
+        <img src="{{show.media.picture}}">
       </div>
       <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
-      </div>
-    </div>
-    <div class="media">
-      <div class ="img-container">
-        <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-      </div>
-      <div class="opis">
-        <h2>Avatar</h2>
-        <p>(2009)</p>
+        <h2>{{show.media.name}}</h2>
+        <p>({{show.media.airDate | date: 'yyyy'}})</p>
       </div>
     </div>
   </div>

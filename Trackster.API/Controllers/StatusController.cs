@@ -28,7 +28,7 @@ namespace Trackster.API.Controllers
         public List<Status> GetAll()
         {
             var status = dbContext.Status.OrderBy(r => r.StatusID);
-            return status.Take(50).ToList();
+            return status.ToList();
         }
     }
 }
