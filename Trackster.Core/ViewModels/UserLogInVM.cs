@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Trackster.Core.ViewModels
 {
-    public class RegisteredUserAddVM
+    public class UserLogInVM
     {
-        public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
     }

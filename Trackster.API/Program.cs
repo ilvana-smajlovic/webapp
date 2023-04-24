@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Trackster.API.Logger;
 using Trackster.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.UseCors(x => x
             .AllowAnyOrigin()

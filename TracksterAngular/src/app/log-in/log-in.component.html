@@ -3,20 +3,20 @@
   <div class="signup">
     <div class="title">Log-in</div>
     <div class="group">
-      <label class="label">Username:</label>
-      <input class="input"/>
+      <label class="label">Email:</label>
+      <input [(ngModel)]="Email" class="input"/>
     </div>
 
     <div class="group">
       <label class="label">Password:</label>
       <div class="password-div">
-        <input class="inputpass" [type]="passwordType1"/>
+        <input class="inputpass" [type]="passwordType1" [(ngModel)]="Password"/>
         <label class="labeleye" (click)="togglePassword1()">👁️</label>
       </div>
       <p class="form-check-label" style="color: white">
         Forgot your password? <a class="link" (click)="OpenPassword()"> Update here!</a>
       </p>
-      <button type="button" class="btn">Log-in</button>
+      <button type="button" class="btn" [disabled]="!ToEnable()" (click)="LogIn()">Log-in</button>
     </div>
     <div class="login">
       <label class="label-login">Don't have an account?</label>

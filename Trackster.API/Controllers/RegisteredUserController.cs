@@ -31,7 +31,6 @@ namespace Trackster.API.Controllers
                     Email = x.Email,
                     Password = x.Password,
                     Picture = Picture,
-                    Bio = x.Bio,
                 };
                 dbContext.RegisteredUsers.Add(newUser);
                 dbContext.SaveChanges();
@@ -43,7 +42,7 @@ namespace Trackster.API.Controllers
         private bool Provjera(RegisteredUserAddVM x, string picture)
         {
             if (x.Username.IsNullOrEmpty() || x.Username == "string" || x.Email.IsNullOrEmpty() || x.Email == "string" ||
-                x.Password.IsNullOrEmpty() || x.Password == "string" || picture == null || x.Bio.IsNullOrEmpty() || x.Bio == "string")
+                x.Password.IsNullOrEmpty() || x.Password == "string" || picture == null)
                 return false;
             foreach (RegisteredUser user in dbContext.RegisteredUsers)
             {
@@ -60,7 +59,7 @@ namespace Trackster.API.Controllers
             if (user == null)
                 return BadRequest("Pogresan ID");
             if (x.Username.IsNullOrEmpty() || x.Username == "string" || x.Email.IsNullOrEmpty() || x.Email == "string" ||
-                x.Password.IsNullOrEmpty() || x.Password == "string" || x.Bio.IsNullOrEmpty() || x.Bio == "string")
+                x.Password.IsNullOrEmpty() || x.Password == "string")
                 return BadRequest("Loš unos");
 
             byte[] fileBytes = null;
@@ -74,7 +73,6 @@ namespace Trackster.API.Controllers
             user.Username = x.Username;
             user.Email = x.Email;
             user.Password = x.Password;
-            user.Bio = x.Bio;
 
             dbContext.SaveChanges();
             return Ok();

@@ -1,6 +1,7 @@
 .maindiv{
   display: flex;
-  height: 1100px;
+  min-width: 280px;
+  padding-bottom: 50px;
 }
 
 .signup{
@@ -8,8 +9,8 @@
 flex-wrap: wrap;
 justify-content: center;*/
   width: 90%;
-  height: 750px;
   max-width: 600px;
+  min-width: 260px;
   margin-top: 50px;
 
   align-items: center;
@@ -31,6 +32,15 @@ justify-content: center;*/
 .group{
   width: 100%;
 }
+
+.warningdiv{
+  text-align: center;
+}
+.p-warning{
+  color: red;
+  justify-content: center;
+}
+
 .label{
   color: white;
   font-size: larger;
@@ -41,6 +51,15 @@ justify-content: center;*/
   padding-top: 10px;
   padding-bottom: 5px;
   padding-left: 15px;
+}
+p{
+  color: white;
+  font-size: small;
+  text-align: center;
+  width: 70%;
+  min-width: 240px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .input{
   color: white;
@@ -57,7 +76,6 @@ justify-content: center;*/
   margin-right: auto;
   padding: 9px;
   padding-left: 10px;
-  margin-bottom: 20px;
 }
 .label2{
   color: white;
