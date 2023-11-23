@@ -3,28 +3,23 @@
   <div class="profile-div">
     <div class="settings-div">
       <button class="settings" (click)="OpenSettings()">⚙</button>
+      <button class="logout" (click)="LogOut()">Logout</button>
     </div>
     <div class="pfp">
-      <img src="https://staticc.sportskeeda.com/editor/2022/07/ce8fa-16583121888826.png" alt="">
+      <img src="{{user.picture}}" alt="">
     </div>
     <div class="profile_user_data">
-      <label class="username"><b>Hebaccio</b></label>
-      <label class="bio">This is an attempt to see how the bio would look like.
-        Pressed enter just now and I hope this is in the new row (It's not sadly), I ran out of things to say so I'm just talking
-        jubberish to try and get as many words as possible. Also hope this will look good in responsive, BISMILLAH!</label>
+      <label class="username"><b>{{user.username}}</b></label>
+      <label class="bio">{{user.bio}}</label>
     </div>
   </div>
 
   <div class="faves-div">
     <label class="faveslabel">{{'Favourites' | translate}}</label>
     <div class="faves">
-      <div class="favesimg"><img src="https://lumiere-a.akamaihd.net/v1/images/p_avatar_de27b20f.jpeg" (click)="OpenMedia()" alt=""></div>
-      <div class="favesimg"><img src="https://assets-prd.ignimgs.com/2022/02/18/house-of-the-dragon-button-02-1645217002655.jpg" alt=""></div>
-      <div class="favesimg"><img src="https://m.media-amazon.com/images/M/MV5BNDVkYjU0MzctMWRmZi00NTkxLTgwZWEtOWVhYjZlYjllYmU4XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_FMjpg_UX1000_.jpg" alt=""></div>
-      <div class="favesimg"><img src="https://kbimages1-a.akamaihd.net/1e6c340c-02c9-4a19-bef4-e000882f0056/1200/1200/False/avatar-the-last-airbender-the-lost-adventures-1.jpg" alt=""></div>
-      <div class="favesimg"><img src="https://m.media-amazon.com/images/M/MV5BNTg3NjcxYzgtYjljNC00Y2I2LWE3YmMtOTliZTkwYTE1MmZiXkEyXkFqcGdeQXVyNTY4NDc5MDE@._V1_FMjpg_UX1000_.jpg" alt=""></div>
-      <div class="favesimg"><img src="https://lumiere-a.akamaihd.net/v1/images/p_thechronicalsofnarnia_lionwitchwadrobe_19890_fe46d195.jpeg" alt=""></div>
-      <div class="favesimg"><img src="https://lumiere-a.akamaihd.net/v1/images/avco_payoff_1-sht_v7_lg_32e68793.jpeg?region=0%2C0%2C1620%2C2400&width=960" alt=""></div>
+      <div class="faves-container" *ngFor="let favourites of userFavourites" (click)="OpenMedia(favourites.media)">
+        <div class="favesimg"><img src="{{favourites.media.picture}}"  alt=""></div>
+      </div>
     </div>
   </div>
 

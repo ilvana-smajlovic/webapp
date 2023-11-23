@@ -17,10 +17,38 @@ namespace Trackster.Repository.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Trackster.Core.AuthenticationToken", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("isAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("registeredUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("timeOfGeneration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("tokenValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("registeredUserId");
+
+                    b.ToTable("authenticationTokens");
+                });
 
             modelBuilder.Entity("Trackster.Core.CustomError", b =>
                 {
@@ -269,6 +297,12 @@ namespace Trackster.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("isAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isRegular")
+                        .HasColumnType("bit");
+
                     b.HasKey("RegisteredUserId");
 
                     b.ToTable("RegisteredUsers");
@@ -386,13 +420,14 @@ namespace Trackster.Repository.Migrations
                     b.Property<int>("MovieID")
                         .HasColumnType("int");
 
-                    b.Property<int>("RatingID")
+                    b.Property<int?>("RatingID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("StateID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("UserRegisteredUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -403,7 +438,7 @@ namespace Trackster.Repository.Migrations
 
                     b.HasIndex("StateID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserRegisteredUserId");
 
                     b.ToTable("WatchlistMovies");
                 });
@@ -416,7 +451,8 @@ namespace Trackster.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("RatingID")
+                    b.Property<int?>("RatingID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("StateID")
@@ -425,7 +461,7 @@ namespace Trackster.Repository.Migrations
                     b.Property<int>("TVShowID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("UserRegisteredUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -436,9 +472,20 @@ namespace Trackster.Repository.Migrations
 
                     b.HasIndex("TVShowID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserRegisteredUserId");
 
                     b.ToTable("WatchlistTVShows");
+                });
+
+            modelBuilder.Entity("Trackster.Core.AuthenticationToken", b =>
+                {
+                    b.HasOne("Trackster.Core.RegisteredUser", "registeredUser")
+                        .WithMany()
+                        .HasForeignKey("registeredUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("registeredUser");
                 });
 
             modelBuilder.Entity("Trackster.Core.GenreMedia", b =>
@@ -572,7 +619,7 @@ namespace Trackster.Repository.Migrations
 
                     b.HasOne("Trackster.Core.RegisteredUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserRegisteredUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -607,7 +654,7 @@ namespace Trackster.Repository.Migrations
 
                     b.HasOne("Trackster.Core.RegisteredUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserRegisteredUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

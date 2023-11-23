@@ -8,6 +8,11 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {GenreMedia} from "../models/genre-media";
 import {Movie} from "../models/movie";
 import {TvShow} from "../models/tv-show";
+import {HttpClient} from "@angular/common/http";
+import {UserFavourites} from "../models/user-favourites";
+import {RegisteredUser} from "../models/registered-user";
+
+declare function porukaSuccess(a: string):any;
 
 @Component({
   selector: 'app-media',
@@ -28,7 +33,11 @@ export class MediaComponent implements OnInit {
   searchedMedia : Media[];
   searchText= '';
   allMedia : Media[];
-  constructor(private tracksterService: TracksterService, private route: ActivatedRoute, private router: Router) {
+  user:any;
+  token:any;
+  tokenString:any;
+  registeredUserId:any;
+  constructor(private tracksterService: TracksterService, private httpClient: HttpClient, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -39,6 +48,13 @@ export class MediaComponent implements OnInit {
     this.getGenreByMediaId(this.id);
     this.getMovieByMediaId(this.id);
     this.getTVShowByMediaId(this.id);
+
+
+    this.tokenString = localStorage.getItem('authentication-token');
+    const token = JSON.parse(this.tokenString);
+    this.registeredUserId = token._user.registeredUserId;
+
+
   }
   getMediaByName(){
     console.log('get media');
@@ -74,7 +90,8 @@ export class MediaComponent implements OnInit {
          err=>{
             alert('Greska' + err);
          }
-       )
+       );
+     console.log(id);
   }
 
   getGenreByMediaId(id : number){
@@ -116,7 +133,6 @@ export class MediaComponent implements OnInit {
   searchMedia(text: string){
     this.searchedMedia=this.allMedia.filter((val) =>
       val.name.toLowerCase().includes(text));
-    console.log(this.searchedMedia);
   }
 
   redirectToMedia(media: Media) {
@@ -124,6 +140,18 @@ export class MediaComponent implements OnInit {
     this.router.navigate(['/media', this.id]);
     this.getMediaById(this.id);
     this.searchText='';
+  }
+
+  AddToFavourites(selectedMedia: Media) {
+    let userFavourite={
+      MediaID:selectedMedia.mediaId,
+      UserID:this.registeredUserId
+    }
+    console.log(userFavourite);
+    this.httpClient.post(environment.apiBaseUrl + 'UserFavourites/Add', userFavourite).subscribe((x:any) =>{
+      porukaSuccess("Logout uspješan");
+
+    });
   }
 }
 

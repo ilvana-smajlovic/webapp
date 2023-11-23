@@ -66,7 +66,7 @@ namespace Trackster.API.Controllers
             dbContext.SaveChanges();
             return GetById(id);
         }
-        [HttpPost("{id}")]
+        [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
             TVShow? show = dbContext.TVShows.Find(id);

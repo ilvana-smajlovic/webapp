@@ -55,10 +55,11 @@ export class HomeComponent implements OnInit {
   name:string='';
   constructor(private tracksterService : TracksterService, private router: Router) { }
 
-  logged_in=0;
+  logged_in=1;
 
   ngOnInit(): void {
     this.getMediaByName();
+    this.loggedin();
   }
   loggedin(){
     if(this.logged_in==0)

@@ -8,7 +8,7 @@ namespace Trackster.Core.ViewModels
 {
     public class WatchlistMediaAddVM
     {
-        public int UserID { get; set; }
+        public int UserRegisteredUserId { get; set; }
         public int MediaID { get; set; }
         public int StateID { get; set; }
         public int RatingID { get; set; }

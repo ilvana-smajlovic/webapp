@@ -14,11 +14,13 @@ namespace Trackster.Core
         public int Id { get; set; }
 
         [ForeignKey("UserID")]
-        public RegisteredUser User { get; set; }
         public int UserID { get; set; }
+        public RegisteredUser User { get; set; }
+
 
         [ForeignKey("MediaID")]
-        public Media Media { get; set; }
         public int MediaID { get; set; }
+        public Media Media { get; set; }
+
     }
 }

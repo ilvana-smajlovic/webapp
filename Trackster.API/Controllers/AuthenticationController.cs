@@ -1,31 +1,30 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Trackster.Core.ViewModels;
-using Trackster.Core;
-using Trackster.Repository;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
-using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Text;
+using Trackster.API.Helper;
+using Trackster.API.Helper.AuthenticationAuthorization;
+using Trackster.Core;
+using Trackster.Core.ViewModels;
+using Trackster.Repository;
+using static Trackster.API.Helper.AuthenticationAuthorization.MyAuthTokenExtension;
 
-namespace Trackster.API.Helper
+namespace Trackster.API.Controllers
 {
+    //[Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
-    public class LogInController : ControllerBase
+    public class AuthenticationController : Controller
     {
         private readonly TracksterContext dbContext;
         private readonly UserService userService;
 
-
-        public LogInController(TracksterContext dbContext, UserService userService)
+        public AuthenticationController(TracksterContext dbContext)
         {
             this.dbContext = dbContext;
-            this.userService = userService;
         }
-
 
         private RegisteredUser ProvjeraEmail(string email)
         {
@@ -39,18 +38,27 @@ namespace Trackster.API.Helper
         }
 
         [HttpPost]
-        public IResult LogInAuth(UserLogInVM x)
+        public ActionResult<LoginInformation> LogInAuth(UserLogInVM x)
         {
 
             #region UserAuth
 
             var User = ProvjeraEmail(x.Email);
             if (User == null)
-                return Results.BadRequest("Email");
+                return BadRequest("Email");
 
             string? UserPassword = PasswordChecker(x.Password);
             if (User.Password != UserPassword)
-                return Results.BadRequest("Password");
+                return BadRequest("Password");
+
+            RegisteredUser? loggedInUser = dbContext.RegisteredUsers
+                .FirstOrDefault(k =>
+                k.Email == x.Email && k.Password == UserPassword);
+            if (loggedInUser == null)
+            {
+                return new LoginInformation(null);
+            }
+
 
             #endregion
 
@@ -79,10 +87,34 @@ namespace Trackster.API.Helper
             var token = tokenhandler.CreateToken(TokenDescriptor);
             var jwtToken = tokenhandler.WriteToken(token);
 
-            return Results.Ok(jwtToken);
+            var noviToken = new AuthenticationToken()
+            {
+                isAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+                tokenValue = jwtToken,
+                registeredUser = loggedInUser,
+                timeOfGeneration = DateTime.Now
+            };
+
+            dbContext.Add(noviToken);
+            dbContext.SaveChanges();
+
+            return new LoginInformation(noviToken);
 
             #endregion
 
+        }
+
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            AuthenticationToken? authenticationToken = HttpContext.GetAuthToken();
+
+            if (authenticationToken == null)
+                return Ok();
+
+            dbContext.Remove(authenticationToken);
+            dbContext.SaveChanges();
+            return Ok();
         }
 
         [HttpGet]
@@ -98,6 +130,6 @@ namespace Trackster.API.Helper
                 }
                 );
         }
-
+ 
     }
 }

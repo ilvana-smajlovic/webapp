@@ -19,7 +19,7 @@
         <img class ="poster" src="{{selectedMedia.picture}}">
         <div class="buttons">
           <button class="add-button" type="button">{{'Add to Watchlist' | translate}}</button>
-          <button class="favorite-button" type="button">♡</button>
+          <button class="favorite-button" type="button" (click)="AddToFavourites(selectedMedia)">♡</button>
         </div>
       </div>
     </div>

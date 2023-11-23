@@ -80,7 +80,7 @@ namespace Trackster.API.Controllers
             return Ok();
         }
 
-        [HttpPost("{Id}")]
+        [HttpDelete("{Id}")]
         public ActionResult Delete(int Id)
         {
             Person person = dbContext.People.Find(Id);

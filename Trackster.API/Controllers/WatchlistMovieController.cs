@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Trackster.Core.ViewModels;
 using Trackster.Core;
 using Trackster.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Trackster.API.Controllers
 {
@@ -24,7 +25,7 @@ namespace Trackster.API.Controllers
             {
                 var newGM = new WatchlistMovie
                 {
-                    UserID = x.UserID,
+                    UserRegisteredUserId = x.UserRegisteredUserId,
                     MovieID = x.MediaID,
                     StateID = x.StateID,
                     RatingID = x.RatingID
@@ -38,15 +39,15 @@ namespace Trackster.API.Controllers
         private bool Provjera(WatchlistMediaAddVM x)
         {
             //Onemoguci da se dodaju keys koji nisu u tabeli
-            if (dbContext.RegisteredUsers.Find(x.UserID) == null ||
+            if (dbContext.RegisteredUsers.Find(x.UserRegisteredUserId) == null ||
                 dbContext.Movies.Find(x.MediaID) == null ||
-                dbContext.States.Find(x.MediaID) == null ||
+                dbContext.States.Find(x.StateID) == null ||
                 dbContext.Ratings.Find(x.RatingID) == null)
                 return false;
             foreach (var gm in dbContext.WatchlistMovies)
             {
                 //Onemoguci da vec postojeci se dodaju
-                if (x.UserID == gm.UserID && x.MediaID == gm.MovieID &&
+                if (x.UserRegisteredUserId == gm.UserRegisteredUserId && x.MediaID == gm.MovieID &&
                     x.StateID == gm.StateID && x.RatingID == gm.RatingID)
                     return false;
             }
@@ -63,7 +64,7 @@ namespace Trackster.API.Controllers
             if (!Provjera(x))
                 return BadRequest("Loš unos");
 
-            WatchlistMovie.UserID = x.UserID;
+            WatchlistMovie.UserRegisteredUserId = x.UserRegisteredUserId;
             WatchlistMovie.MovieID = x.MediaID;
             WatchlistMovie.StateID = x.StateID;
             WatchlistMovie.RatingID = x.RatingID;
@@ -72,7 +73,7 @@ namespace Trackster.API.Controllers
             return GetById(Id);
         }
 
-        [HttpPost("{Id}")]
+        [HttpDelete("{Id}")]
         public ActionResult Delete(int Id)
         {
             WatchlistMovie? WatchlistMovie = dbContext.WatchlistMovies.Find(Id);
@@ -94,11 +95,15 @@ namespace Trackster.API.Controllers
                 return BadRequest("Nepostojeci ID");
 
             return Ok(
-                dbContext.WatchlistMovies.Where(r => (r.Id == Id))
+                dbContext.WatchlistMovies
+                .Include(s => s.User)
+                .Include(s => s.Movie)
+                .Include(s => s.Rating)
+                .Include(s => s.State).Where(r => (r.Id == Id))
                 .Select(gm => new WatchlistMediaShowVM()
                 {
                     Id = gm.Id,
-                    UserID = gm.UserID,
+                    UserRegisteredUserId = gm.UserRegisteredUserId,
                     MediaID = gm.MovieID,
                     StateID = gm.StateID,
                     RatingID = gm.RatingID
@@ -106,22 +111,18 @@ namespace Trackster.API.Controllers
         }
 
         [HttpGet]
-        public List<WatchlistMediaShowVM> GetAll(int? UserID, int? MediaID, int? StateID, int? RatingID)
+        public List<WatchlistMovie> GetAll(int? UserID, int? MediaID, int? StateID, int? RatingID)
         {
             var gm = dbContext.WatchlistMovies
-                .Where(gm => (UserID == null || gm.UserID == UserID)
-                && (MediaID == null || gm.MovieID == MediaID)
+                .Include(gm => gm.User)
+                .Include(gm => gm.Movie.Media)
+                .Include(gm => gm.State)
+                .Include(gm => gm.Rating)
+                .Where(gm => (UserID == null || gm.UserRegisteredUserId == UserID)
+                && (MediaID == null || gm.Movie.MediaId == MediaID)
                 && (StateID == null || gm.StateID == StateID)
                 && (RatingID == null || gm.RatingID == RatingID))
-                .OrderBy(gm => gm.Id)
-                .Select(s => new WatchlistMediaShowVM()
-                {
-                    Id = s.Id,
-                    UserID = s.UserID,
-                    MediaID = s.MovieID,
-                    StateID = s.StateID,
-                    RatingID = s.RatingID
-                }).AsQueryable();
+                .OrderBy(gm => gm.Id);
             return gm.Take(20).ToList();
         }
     }
