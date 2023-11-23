@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Trackster.API.Helper;
 using Trackster.Core;
 using Trackster.Core.ViewModels;
 using Trackster.Repository;
@@ -13,6 +14,7 @@ namespace Trackster.API.Controllers
     public class RegisteredUserController : ControllerBase
     {
         private readonly TracksterContext dbContext;
+        public UserService _userService { get; set; }
 
         public RegisteredUserController(TracksterContext dbContext)
         {
@@ -79,7 +81,7 @@ namespace Trackster.API.Controllers
         }
 
 
-        [HttpPost("{Id}")]
+        [HttpDelete("{Id}")]
         public ActionResult Delete(int Id)
         {
             RegisteredUser user = dbContext.RegisteredUsers.Find(Id);
@@ -98,6 +100,19 @@ namespace Trackster.API.Controllers
             return Ok(dbContext.RegisteredUsers.
                 Where(r => (r.RegisteredUserId == Id)).FirstOrDefault());
         }
+        [HttpGet]
+        public ActionResult<object> GetLoggedInUserName()
+        {
+            var user = _userService.GetLoggedInUser(HttpContext);
+
+            return user == null ? Accepted() :
+                Ok(new
+                {
+                    username = user.ToString(),
+                    userId = user.RegisteredUserId
+                });
+        }
+        
 
         [HttpGet]
         public List<RegisteredUser> GetAll(int? id, string? username)

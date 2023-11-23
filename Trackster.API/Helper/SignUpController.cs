@@ -5,7 +5,6 @@ using Trackster.Core;
 using Trackster.Repository;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
-using Trackster.Repository.Migrations;
 
 namespace Trackster.API.Helper
 {

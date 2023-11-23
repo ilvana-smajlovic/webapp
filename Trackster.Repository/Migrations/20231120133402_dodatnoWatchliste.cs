@@ -6,11 +6,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trackster.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class Pictures : Migration
+    public partial class dodatnoWatchliste : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Errors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Values = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Errors", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Genders",
                 columns: table => new
@@ -60,7 +74,9 @@ namespace Trackster.Repository.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isAdmin = table.Column<bool>(type: "bit", nullable: false),
+                    isRegular = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,6 +143,28 @@ namespace Trackster.Repository.Migrations
                         column: x => x.GenderID,
                         principalTable: "Genders",
                         principalColumn: "GenderID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "authenticationTokens",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    tokenValue = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    registeredUserId = table.Column<int>(type: "int", nullable: false),
+                    timeOfGeneration = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    isAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_authenticationTokens", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_authenticationTokens_RegisteredUsers_registeredUserId",
+                        column: x => x.registeredUserId,
+                        principalTable: "RegisteredUsers",
+                        principalColumn: "RegisteredUserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -289,7 +327,7 @@ namespace Trackster.Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    UserRegisteredUserId = table.Column<int>(type: "int", nullable: false),
                     MovieID = table.Column<int>(type: "int", nullable: false),
                     StateID = table.Column<int>(type: "int", nullable: false),
                     RatingID = table.Column<int>(type: "int", nullable: false)
@@ -310,8 +348,8 @@ namespace Trackster.Repository.Migrations
                         principalColumn: "RatingID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WatchlistMovies_RegisteredUsers_UserID",
-                        column: x => x.UserID,
+                        name: "FK_WatchlistMovies_RegisteredUsers_UserRegisteredUserId",
+                        column: x => x.UserRegisteredUserId,
                         principalTable: "RegisteredUsers",
                         principalColumn: "RegisteredUserId",
                         onDelete: ReferentialAction.Cascade);
@@ -329,7 +367,7 @@ namespace Trackster.Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    UserRegisteredUserId = table.Column<int>(type: "int", nullable: false),
                     TVShowID = table.Column<int>(type: "int", nullable: false),
                     StateID = table.Column<int>(type: "int", nullable: false),
                     RatingID = table.Column<int>(type: "int", nullable: false)
@@ -344,8 +382,8 @@ namespace Trackster.Repository.Migrations
                         principalColumn: "RatingID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WatchlistTVShows_RegisteredUsers_UserID",
-                        column: x => x.UserID,
+                        name: "FK_WatchlistTVShows_RegisteredUsers_UserRegisteredUserId",
+                        column: x => x.UserRegisteredUserId,
                         principalTable: "RegisteredUsers",
                         principalColumn: "RegisteredUserId",
                         onDelete: ReferentialAction.Cascade);
@@ -362,6 +400,11 @@ namespace Trackster.Repository.Migrations
                         principalColumn: "TVShowID",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_authenticationTokens_registeredUserId",
+                table: "authenticationTokens",
+                column: "registeredUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GenreMedia_GenreID",
@@ -434,9 +477,9 @@ namespace Trackster.Repository.Migrations
                 column: "StateID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WatchlistMovies_UserID",
+                name: "IX_WatchlistMovies_UserRegisteredUserId",
                 table: "WatchlistMovies",
-                column: "UserID");
+                column: "UserRegisteredUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WatchlistTVShows_RatingID",
@@ -454,14 +497,20 @@ namespace Trackster.Repository.Migrations
                 column: "TVShowID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WatchlistTVShows_UserID",
+                name: "IX_WatchlistTVShows_UserRegisteredUserId",
                 table: "WatchlistTVShows",
-                column: "UserID");
+                column: "UserRegisteredUserId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "authenticationTokens");
+
+            migrationBuilder.DropTable(
+                name: "Errors");
+
             migrationBuilder.DropTable(
                 name: "GenreMedia");
 

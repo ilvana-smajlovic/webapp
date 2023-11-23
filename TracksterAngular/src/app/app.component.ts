@@ -16,6 +16,7 @@ export class AppComponent implements OnInit{
   logged_in=0;
 
   ngOnInit(): void {
+    this.loggedin();
   }
 
   loggedin(){

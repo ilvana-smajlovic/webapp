@@ -13,9 +13,9 @@ namespace Trackster.Core
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("UserID")]
+        [ForeignKey("UserRegisteredUserId")]
         public RegisteredUser User { get; set; }
-        public int UserID { get; set; }
+        public int UserRegisteredUserId { get; set; }
 
         [ForeignKey("MovieID")]
         public Movie Movie { get; set; }
@@ -27,6 +27,6 @@ namespace Trackster.Core
 
         [ForeignKey("RatingID")]
         public Rating Rating { get; set; }
-        public int RatingID { get; set; }
+        public int? RatingID { get; set; }
     }
 }

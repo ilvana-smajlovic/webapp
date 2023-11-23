@@ -9,6 +9,7 @@ import {TvShow} from "../models/tv-show";
 import {Genre} from "../models/genre";
 import {GenreMedia} from "../models/genre-media";
 import {Status} from "../models/status";
+import {UserFavourites} from "../models/user-favourites";
 
 @Injectable({
   providedIn: 'root'

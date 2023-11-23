@@ -17,5 +17,8 @@ namespace Trackster.Core
         public string Password { get; set; }
         public string Picture { get; set; }
         public string Bio { get; set; }
+        public bool isAdmin { get; set; }
+        public bool isRegular { get; set; }
+
     }
 }

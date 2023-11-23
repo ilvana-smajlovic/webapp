@@ -83,7 +83,7 @@ namespace Trackster.API.Controllers
         }
 
 
-        [HttpPost("{Id}")]
+        [HttpDelete("{Id}")]
         public ActionResult Delete(int Id)
         {
             Media media = dbContext.Medias.Find(Id);

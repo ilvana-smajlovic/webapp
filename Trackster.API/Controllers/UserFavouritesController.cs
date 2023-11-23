@@ -55,7 +55,7 @@ namespace Trackster.API.Controllers
             return true;
         }
 
-        [HttpPost("{UserId}/{MediaId}")]
+        [HttpDelete("{UserId}/{MediaId}")]
         public ActionResult Delete(int UserId, int MediaId)
         {
             var UserMedia = dbContext.UserFavourites
@@ -67,21 +67,28 @@ namespace Trackster.API.Controllers
         }
 
         [HttpGet]
-        public List<UserFavourites> GetAll(int? UserID, int? MediaID)
+        public List<UserFavourites> GetAll(int? UserID)
         {
-            var gm = dbContext.UserFavourites
-                .Include(gm => gm.Media)
-                .Include(gm => gm.Media.Status)
-                .Where(gm => (UserID == null || gm.UserID == UserID)
-                && (MediaID == null || gm.MediaID == MediaID))
-                .OrderBy(gm => gm.Id)
-                .Select(s => new UserFavourites()
-                {
-                    Id = s.Id,
-                    UserID=s.UserID,
-                    MediaID = s.MediaID,
-                }).AsQueryable();
-            return gm.Take(20).ToList();
+            if (UserID == null)
+                BadRequest("Nije validan UserID");
+            var gm = dbContext.UserFavourites.Include(x=>x.User).Include(x=>x.Media)
+                .Where(x => x.UserID == UserID).ToList();
+
+            return gm;
+
+            //var gm = dbContext.UserFavourites
+            //    .Include(gm => gm.Media)
+            //    .Include(gm => gm.Media.Status)
+            //    .Where(gm => (UserID == null || gm.UserID == UserID)
+            //    && (MediaID == null || gm.MediaID == MediaID))
+            //    .OrderBy(gm => gm.Id)
+            //    .Select(s => new UserFavourites()
+            //    {
+            //        Id = s.Id,
+            //        UserID=s.UserID,
+            //        MediaID = s.MediaID,
+            //    }).AsQueryable();
+            //return gm.Take(20).ToList();
         }
     }
 }

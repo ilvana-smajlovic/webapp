@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Trackster.Core;
 
 namespace Trackster.Repository
@@ -25,6 +26,7 @@ namespace Trackster.Repository
         public DbSet<WatchlistMovie> WatchlistMovies { get; set; }
         public DbSet<WatchlistTVShow> WatchlistTVShows { get; set; }
         public DbSet<CustomError> Errors { get; set; }
+        public DbSet<AuthenticationToken> authenticationTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

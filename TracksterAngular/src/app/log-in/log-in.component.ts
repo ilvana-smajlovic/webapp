@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {RegisteredUser} from "../models/registered-user";
+import {AuthHelper} from "../helper/auth-helper";
+import {LoginInfo} from "../helper/login-info";
+
 
 @Component({
   selector: 'app-log-in',
@@ -29,17 +34,49 @@ export class LogInComponent implements OnInit {
       Email:this.Email,
       Password:this.Password
     };
-    this.httpKlijent.post("https://localhost:7242/LogIn/LogInAuth", LogInInfo, {observe:'response'}).subscribe(
-      {
-        next:response =>{
-          if(response.status===200){
-            sessionStorage.setItem('token', JSON.parse(JSON.stringify(response.body))['value']);
-          }
-        }, error :(error)=>{
-          if(error.status==400){
-          }
+    this.httpKlijent.post<LoginInfo>(environment.apiBaseUrl+ "Authentication/LogInAuth", LogInInfo)
+      .subscribe((x:LoginInfo)=> {
+        if (x.isLogged) {
+          AuthHelper.setLoginInfo(x);
+          this.router.navigateByUrl("/home");
+
+        }
+        else {
+          AuthHelper.setLoginInfo(null);
         }
       });
+  }
+
+  private async fetchUserInformation(){
+    const fetchInfo = async (): Promise<RegisteredUser> =>{
+      return new Promise(resolve => {
+        const userInfo = new RegisteredUser();
+        this.httpKlijent.get("https://localhost:7242/LogIn/GetLoggedInUser", {
+          headers:{
+            Authorization:  `Bearer ${sessionStorage.getItem(
+              'token'
+            )}`,
+          },
+          observe: 'response',
+        })
+          .subscribe({
+            next: response =>{
+              console.log(response.status);
+              if(response.status === 200){
+                const user = JSON.parse(
+                  JSON.stringify(response.body)
+                );
+                userInfo.registeredUserId=user.registeredUserId;
+                userInfo.username=user.username;
+                userInfo.email=user.email;
+                userInfo.picture=user.picture;
+                userInfo.bio=user.bio;
+              }
+            }
+          })
+        console.log(userInfo);
+      })
+    }
   }
 
 
