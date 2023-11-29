@@ -3,6 +3,11 @@ import {RegisteredUser} from "../models/registered-user";
 import {resolve} from "@angular/compiler-cli";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {Router} from "@angular/router";
+import {AuthHelper} from "../helper/auth-helper";
+import {WatchlistMovie} from "../models/watchlist-movie";
+import {TracksterService} from "../services/trackster.service";
+import {DialogService} from "../dialog.service";
 
 @Component({
   selector: 'app-movie-watchlist',
@@ -14,38 +19,18 @@ export class MovieWatchlistComponent implements OnInit {
   list2:boolean=false;
   bgColorP:boolean=true;
   bgColorF:boolean=false;
+  token : any;
+  user:any;
+  movies:any[];
+  isDataLoaded:boolean=false;
 
-
-  constructor(private httpKlijent:HttpClient) { }
+  constructor(private tracksterService: TracksterService, private httpClient: HttpClient, private router: Router,
+              private dialogService: DialogService) { }
 
   ngOnInit(): void {
-
-  }
-
-  private async fetchUserInformation(){
-    const fetchInfo=async ():Promise<RegisteredUser> =>{
-      return new Promise(resolve =>{
-        const userInfo=new RegisteredUser();
-          this.httpKlijent
-            .get(environment.apiBaseUrl + 'RegisteredUser/GetById/', {
-              headers: {
-                Authorization: `Bearer ${sessionStorage.getItem(
-                  'token'
-                )}`,
-              },
-                observe: 'response',
-              })
-            .subscribe({
-              next: response =>{
-                if (response.status === 200){
-                  const user=JSON.parse(
-                    JSON.stringify(response.body)
-                  );
-                }
-              }
-            })
-      })
-    }
+    this.token = AuthHelper.getLoginInfo();
+    this.user=this.token._user;
+    this.GetWatchlistMovies();
   }
 
   showPlanning() {
@@ -63,4 +48,25 @@ export class MovieWatchlistComponent implements OnInit {
   }
 
 
+  public GetWatchlistMovies() {
+    this.tracksterService.getWatchlistMovies(this.user.registeredUserId)
+      .subscribe(response => {
+        // @ts-ignore
+        this.movies = response;
+        this.isDataLoaded = true;
+      });
+  }
+
+  Edit(movie:any) {
+    console.log(movie);
+    this.dialogService.openFormDialog(1, movie);
+  }
+
+  Delete(movie: any) {
+    console.log(movie);
+    this.httpClient.delete(environment.apiBaseUrl + "WatchlistMovie/Delete/"+ movie.movieID).subscribe(x=>{
+      console.log('ok');
+      location.reload();
+    });
+  }
 }

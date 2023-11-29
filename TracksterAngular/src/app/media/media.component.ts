@@ -11,8 +11,13 @@ import {TvShow} from "../models/tv-show";
 import {HttpClient} from "@angular/common/http";
 import {UserFavourites} from "../models/user-favourites";
 import {RegisteredUser} from "../models/registered-user";
+import {DialogService} from "../dialog.service";
+import {MatDialog} from "@angular/material/dialog";
+import {MatDialogModule} from "@angular/material/dialog";
 
-declare function porukaSuccess(a: string):any;
+declare function messageError(a: string):any;
+declare function messageSuccess(a: string):any;
+
 
 @Component({
   selector: 'app-media',
@@ -29,6 +34,7 @@ export class MediaComponent implements OnInit {
   people:any[];
   movie:Movie;
   tvShow:TvShow;
+  addMedia:any;
 
   searchedMedia : Media[];
   searchText= '';
@@ -37,7 +43,8 @@ export class MediaComponent implements OnInit {
   token:any;
   tokenString:any;
   registeredUserId:any;
-  constructor(private tracksterService: TracksterService, private httpClient: HttpClient, private route: ActivatedRoute, private router: Router) {
+  constructor(private tracksterService: TracksterService, private httpClient: HttpClient, private route: ActivatedRoute, private router: Router,
+              private dialogService: DialogService) {
   }
 
   ngOnInit(): void {
@@ -57,7 +64,6 @@ export class MediaComponent implements OnInit {
 
   }
   getMediaByName(){
-    console.log('get media');
     this.tracksterService.getAllMedia()
       .subscribe(response => {
         // @ts-ignore
@@ -119,15 +125,14 @@ export class MediaComponent implements OnInit {
       .subscribe(response => {
         this.movie = response;
         this.isDataLoaded = true;
-      })
+      });
   }
   getTVShowByMediaId(id : number){
     this.tracksterService.getTVShowByMediaId(id)
       .subscribe(response => {
         this.tvShow = response;
         this.isDataLoaded = true;
-        console.log(this.tvShow);
-      })
+      });
   }
 
   searchMedia(text: string){
@@ -149,10 +154,23 @@ export class MediaComponent implements OnInit {
     }
     console.log(userFavourite);
     this.httpClient.post(environment.apiBaseUrl + 'UserFavourites/Add', userFavourite).subscribe((x:any) =>{
-      porukaSuccess("Logout uspješan");
+      messageSuccess("Logout successful");
 
     });
   }
+
+  AddToWatchlist() {
+    if(this.movie != null){
+      this.dialogService.openFormDialog(1, this.movie);
+    }
+    else if(this.tvShow != null){
+      this.dialogService.openFormDialog(2, this.tvShow);
+    }
+    else{
+      messageError("Failed to add to watchlist!");
+    }
+  }
+
 }
 
 //ovaj dio ide unutar ngOnInit()

@@ -5,6 +5,10 @@ import {environment} from "../../environments/environment";
 import {RegisteredUser} from "../models/registered-user";
 import {AuthHelper} from "../helper/auth-helper";
 import {LoginInfo} from "../helper/login-info";
+import {catchError, throwError} from "rxjs";
+
+declare function messageSuccess(a: string):any;
+declare function messageError(a: string):any;
 
 
 @Component({
@@ -34,51 +38,25 @@ export class LogInComponent implements OnInit {
       Email:this.Email,
       Password:this.Password
     };
-    this.httpKlijent.post<LoginInfo>(environment.apiBaseUrl+ "Authentication/LogInAuth", LogInInfo)
-      .subscribe((x:LoginInfo)=> {
-        if (x.isLogged) {
-          AuthHelper.setLoginInfo(x);
-          this.router.navigateByUrl("/home");
-
-        }
-        else {
-          AuthHelper.setLoginInfo(null);
-        }
-      });
-  }
-
-  private async fetchUserInformation(){
-    const fetchInfo = async (): Promise<RegisteredUser> =>{
-      return new Promise(resolve => {
-        const userInfo = new RegisteredUser();
-        this.httpKlijent.get("https://localhost:7242/LogIn/GetLoggedInUser", {
-          headers:{
-            Authorization:  `Bearer ${sessionStorage.getItem(
-              'token'
-            )}`,
-          },
-          observe: 'response',
-        })
-          .subscribe({
-            next: response =>{
-              console.log(response.status);
-              if(response.status === 200){
-                const user = JSON.parse(
-                  JSON.stringify(response.body)
-                );
-                userInfo.registeredUserId=user.registeredUserId;
-                userInfo.username=user.username;
-                userInfo.email=user.email;
-                userInfo.picture=user.picture;
-                userInfo.bio=user.bio;
-              }
-            }
+      this.httpKlijent.post<LoginInfo>(environment.apiBaseUrl+ "Authentication/LogInAuth", LogInInfo)
+        .pipe(
+          catchError((error) =>{
+            messageError('Error during login');
+            console.log('Error during login', error);
+            return throwError(error);
           })
-        console.log(userInfo);
-      })
-    }
+        )
+        .subscribe((x:LoginInfo)=> {
+          if (x.isLogged) {
+            AuthHelper.setLoginInfo(x);
+            this.router.navigateByUrl("/home");
+            messageSuccess("Login successful");
+          }
+          else {
+            AuthHelper.setLoginInfo(null);
+          }
+        });
   }
-
 
   public togglePassword1(){
     if(this.passwordShown){

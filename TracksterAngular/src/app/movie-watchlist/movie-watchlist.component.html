@@ -2,29 +2,21 @@
   <div *ngIf="bgColorP" class="header1">
     <div class="user-container">
       <div class="profile-photo">
-        <img src="https://i.pinimg.com/originals/a7/3c/4d/a73c4d7c5130adc8efe317fb1c6bc141.jpg">
+        <img src="{{user.picture}}">
       </div>
       <div class="user-name">
-        <h4>vlana</h4>
+        <h4>{{user.username}}</h4>
       </div>
-    </div>
-    <div class="edit-container">
-      <button class="edit" type="button"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
-      <div class="hide">{{'Edit watchlist' | translate}}</div>
     </div>
   </div>
   <div *ngIf="bgColorF" class="header2">
     <div class="user-container">
       <div class="profile-photo">
-        <img src="https://i.pinimg.com/originals/a7/3c/4d/a73c4d7c5130adc8efe317fb1c6bc141.jpg">
+        <img src="{{user.picture}}">
       </div>
       <div class="user-name">
-        <h4>vlana</h4>
+        <h4>{{user.username}}</h4>
       </div>
-    </div>
-    <div class="edit-container">
-      <button class="edit" type="button"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
-      <div class="hide">{{'Edit watchlist' | translate}}</div>
     </div>
   </div>
   <div class="content-container">
@@ -34,64 +26,44 @@
     </div>
     <div class="content">
       <div *ngIf="list1" class="list">
-        <div class="movie-container">
-          <div class="movie-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg">
-          </div>
-          <div class="movie-name">
-            <h4>Avatar</h4>
-            <p>2h 42min</p>
-          </div>
-        </div>
-        <div class="movie-container">
-          <div class="movie-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/fNOH9f1aA7XRTzl1sAOx9iF553Q.jpg">
-          </div>
-          <div class="movie-name">
-            <h4>Back to the Future</h4>
-            <p>1h 56min</p>
-            <p></p>
+        <div class="container" *ngFor="let m of movies">
+          <div class="movie-container" *ngIf="m.state.stateID==1">
+            <div class="movie-poster">
+              <img src="{{m.movie.media.picture}}">
+            </div>
+            <div class="movie-name"*ngIf="m.state.stateID==1">
+              <h4>{{m.movie.media.name}}</h4>
+              <p>{{m.movie.runtime}} min</p>
+            </div>
+            <div class="edit-container">
+              <button class="edit" type="button" (click)="Edit(m.movie)"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
+              <div class="hide-edit">{{'Edit watchlist' | translate}}</div>
+              <button class="delete" type="button" (click)="Delete(m.movie)"><img src="https://www.svgrepo.com/show/437579/clear.svg"></button>
+              <div class="hide-delete">{{'Delete from watchlist' | translate}}</div>
+            </div>
           </div>
         </div>
-        <div class="movie-container">
-          <div class="movie-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/pFlaoHTZeyNkG83vxsAJiGzfSsa.jpg">
-          </div>
-          <div class="movie-name">
-            <h4>Black Adam</h4>
-            <p>2h 5min</p>
-          </div>
-        </div>
+
       </div>
       <div *ngIf="list2" class="list">
-        <div class="movie-container">
-          <div class="movie-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/wqnLdwVXoBjKibFRR5U3y0aDUhs.jpg">
-          </div>
-          <div class="movie-name">
-            <h4>Star Wars: The Force Awakens</h4>
-            <p>2h 16min</p>
-          </div>
-        </div>
-        <div class="movie-container">
-          <div class="movie-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/or06FN3Dka5tukK1e9sl16pB3iy.jpg">
-          </div>
-          <div class="movie-name">
-            <h4>Avengers: Endgame</h4>
-            <p>3h 1min</p>
-            <p></p>
+        <div class="container" *ngFor="let m of movies">
+          <div class="movie-container" *ngIf="m.state.stateID==3">
+            <div class="movie-poster">
+              <img src="{{m.movie.media.picture}}">
+            </div>
+            <div class="movie-name">
+              <h4>{{m.movie.media.name}}</h4>
+              <p>{{m.movie.runtime}} min</p>
+            </div>
+            <div class="edit-container">
+              <button class="edit" type="button" (click)="Edit(m.movie)"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
+              <div class="hide-edit">{{'Edit watchlist' | translate}}</div>
+              <button class="delete" type="button" (click)="Delete(m.movie)"><img src="https://www.svgrepo.com/show/437579/clear.svg"></button>
+              <div class="hide-delete">{{'Delete from watchlist' | translate}}</div>
+            </div>
           </div>
         </div>
-        <div class="movie-container">
-          <div class="movie-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg">
-          </div>
-          <div class="movie-name">
-            <h4>Avengers: Infinity War</h4>
-            <p>2h 29min</p>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>

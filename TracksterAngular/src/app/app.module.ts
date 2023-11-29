@@ -23,6 +23,10 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {SearchPipe} from "./search.pipe";
 import {FormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { WatchlistFormComponent } from './watchlist-form/watchlist-form.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -45,7 +49,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     Updatepassword1Component,
     Updatepassword2Component,
     ProfilesettingsComponent,
-    TosComponent
+    TosComponent,
+    WatchlistFormComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +82,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     FormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDialogModule,
+    NoopAnimationsModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

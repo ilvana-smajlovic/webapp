@@ -30,26 +30,52 @@
 .edit-container{
   width: 100px;
   float: right;
+  position: relative;
 }
 .edit{
   background-color: transparent;
   border-color: transparent;
   width: 40px;
   float: right;
-  margin-top: -30px;
+  margin-top: 15px;
+  margin-right: 20px;
+}
+.delete{
+  background-color: transparent;
+  border-color: transparent;
+  width: 40px;
+  float: right;
+  margin-top: 40px;
   margin-right: 20px;
 }
 .edit img{
   width: 100%;
   object-fit: contain;
 }
-.edit:hover + .hide{
+.delete img{
+  width: 100%;
+  object-fit: contain;
+}
+.edit:hover + .hide-edit{
   display: block;
 }
-.hide{
+.delete:hover + .hide-delete{
+  display: block;
+}
+.hide-edit{
   display: none;
+  position: absolute;
   font-size: small;
   float: right;
+  margin-top: 40px;
+  margin-right: 10px;
+}
+.hide-delete{
+  display: none;
+  position: absolute;
+  font-size: small;
+  float: right;
+  margin-top: 110px;
   margin-right: 10px;
 }
 .content-container{

@@ -6,6 +6,11 @@ import {environment} from "../../environments/environment";
 import {RegisteredUser} from "../models/registered-user";
 import {LoginInfo} from "../helper/login-info";
 import {UserFavourites} from "../models/user-favourites";
+import "../../assets/popupmessage.js";
+
+declare function messageSuccess(a: string):any;
+declare function messageError(a:string):any;
+
 
 @Component({
   selector: 'app-profile',
@@ -47,6 +52,7 @@ export class ProfileComponent implements OnInit {
 
     this.httpClient.post(environment.apiBaseUrl + "Authentication/Logout", null).subscribe((x:any)=>{
       this.router.navigateByUrl('/log-in');
+      messageSuccess("Logout successful");
     });
   }
 }
