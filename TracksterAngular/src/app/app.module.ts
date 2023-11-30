@@ -27,6 +27,7 @@ import { WatchlistFormComponent } from './watchlist-form/watchlist-form.componen
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatDialog} from "@angular/material/dialog";
+import {HighlightPipe} from "./highlight.pipe";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MediaComponent,
     MedialistComponent,
     SearchPipe,
+    HighlightPipe,
     SignUpComponent,
     LogInComponent,
     Updatepassword1Component,

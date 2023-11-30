@@ -9,8 +9,8 @@
     <!--<img class="img_search" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Google_Magnifying_Glass.svg/1024px-Google_Magnifying_Glass.svg.png" alt="">-->
   </div>
   <ul class="list" *ngIf="searchText !== ''">
-    <li role="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="getByName(media)">
-      {{media.name}}
+    <li class="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="redirectToMedia(media)" (mouseenter)="onMouseEnter(media)" (mouseleave)="onMouseLeave()">
+      <span [innerHTML]="media.name | highlight: searchText: hoveredMedia"></span>
     </li>
   </ul>
 

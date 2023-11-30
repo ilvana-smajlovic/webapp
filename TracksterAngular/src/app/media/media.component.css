@@ -224,6 +224,11 @@
   grid-template-columns: 20% auto;
   margin: 2% 2% 2% 0%;
 }
+.option:hover{
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
 @media screen and (min-width: 1600px){
   .info{
     height: 500px;

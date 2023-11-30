@@ -5,8 +5,8 @@
 </div>
 </div>
 <ul class="list" *ngIf="searchText !== ''">
-  <li role="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="redirectToMedia(media)">
-    {{media.name}}
+  <li class="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="redirectToMedia(media)" (mouseenter)="onMouseEnter(media)" (mouseleave)="onMouseLeave()">
+    <span [innerHTML]="media.name | highlight: searchText: hoveredMedia"></span>
   </li>
 </ul>
 <div class="div-main-media">

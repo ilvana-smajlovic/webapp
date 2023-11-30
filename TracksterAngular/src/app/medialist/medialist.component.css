@@ -253,6 +253,11 @@ select {
   margin-bottom: 0px;
 }
 
+.option:hover{
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
 @media only screen and (max-width: 1300px){
   .search-div {
     width: 60%;

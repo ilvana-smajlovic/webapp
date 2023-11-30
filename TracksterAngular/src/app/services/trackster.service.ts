@@ -74,4 +74,7 @@ export class TracksterService {
   getAllRatings(){
     return this.httpClient.get<Rating>(environment.apiBaseUrl + "Rating/GetAll");
   }
+  getAllFavorites(userID:number){
+    return this.httpClient.get<UserFavourites>(environment.apiBaseUrl + "UserFavourites/GetAll?UserID="+ userID);
+  }
 }

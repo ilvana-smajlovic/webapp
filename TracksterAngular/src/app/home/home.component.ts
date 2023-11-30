@@ -53,23 +53,24 @@ export class HomeComponent implements OnInit {
   selectedMedia:Media;
   id:number;
   name:string='';
+  tokenString:any;
+  user:any;
+  token:any;
+  hoveredMedia: any = null;
+
   constructor(private tracksterService : TracksterService, private router: Router) { }
 
-  logged_in=1;
+  logged_in:boolean;
 
   ngOnInit(): void {
     this.getMediaByName();
-    this.loggedin();
+
+    this.tokenString = localStorage.getItem('authentication-token');
+    this.token = JSON.parse(this.tokenString);
+    this.user=this.token._user;
+    this.logged_in=this.token.isLogged;
   }
-  loggedin(){
-    if(this.logged_in==0)
-    {
-      this.logged_in=1;
-    }
-    else {
-      this.logged_in=0;
-    }
-  }
+
   BackToTop() {
     document.documentElement.scrollTop=0;
   }
@@ -113,5 +114,15 @@ export class HomeComponent implements OnInit {
   openLogIn() {
     this.router.navigateByUrl("log-in");
   }
+
+  onMouseEnter(media: any) {
+    this.hoveredMedia=media;
+  }
+
+  onMouseLeave() {
+    this.hoveredMedia=null;
+  }
+
+
 }
 

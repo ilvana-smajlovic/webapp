@@ -14,9 +14,12 @@ import {RegisteredUser} from "../models/registered-user";
 import {DialogService} from "../dialog.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatDialogModule} from "@angular/material/dialog";
+import {resolveFileWithPostfixes} from "@angular/compiler-cli/ngcc/src/utils";
+import {subscribeOn} from "rxjs";
 
 declare function messageError(a: string):any;
 declare function messageSuccess(a: string):any;
+declare function messageInfo(a: string):any;
 
 
 @Component({
@@ -35,6 +38,7 @@ export class MediaComponent implements OnInit {
   movie:Movie;
   tvShow:TvShow;
   addMedia:any;
+  getFavorites:any[];
 
   searchedMedia : Media[];
   searchText= '';
@@ -43,6 +47,9 @@ export class MediaComponent implements OnInit {
   token:any;
   tokenString:any;
   registeredUserId:any;
+  hoveredMedia: any = null;
+
+
   constructor(private tracksterService: TracksterService, private httpClient: HttpClient, private route: ActivatedRoute, private router: Router,
               private dialogService: DialogService) {
   }
@@ -56,11 +63,11 @@ export class MediaComponent implements OnInit {
     this.getMovieByMediaId(this.id);
     this.getTVShowByMediaId(this.id);
 
-
     this.tokenString = localStorage.getItem('authentication-token');
     const token = JSON.parse(this.tokenString);
     this.registeredUserId = token._user.registeredUserId;
 
+    this.getUserFavorites();
 
   }
   getMediaByName(){
@@ -148,15 +155,12 @@ export class MediaComponent implements OnInit {
   }
 
   AddToFavourites(selectedMedia: Media) {
-    let userFavourite={
-      MediaID:selectedMedia.mediaId,
-      UserID:this.registeredUserId
+    if(this.getFavorites.some(m=>m.mediaID == selectedMedia.mediaId)){
+      this.RemoveFromFavorites(this.registeredUserId, selectedMedia.mediaId);
     }
-    console.log(userFavourite);
-    this.httpClient.post(environment.apiBaseUrl + 'UserFavourites/Add', userFavourite).subscribe((x:any) =>{
-      messageSuccess("Logout successful");
-
-    });
+    else{
+      this.addToFavorites(selectedMedia);
+    }
   }
 
   AddToWatchlist() {
@@ -170,7 +174,41 @@ export class MediaComponent implements OnInit {
       messageError("Failed to add to watchlist!");
     }
   }
+  getUserFavorites(){
+    this.tracksterService.getAllFavorites(this.registeredUserId).subscribe(response=>{
+      // @ts-ignore
+      this.getFavorites=response;
+      this.isDataLoaded = true;
+    });
+  }
 
+  addToFavorites(media:any){
+    let userFavourite={
+      MediaID:media.mediaId,
+      UserID:this.registeredUserId
+    }
+    console.log(userFavourite);
+    this.httpClient.post(environment.apiBaseUrl + 'UserFavourites/Add', userFavourite).subscribe((x:any) =>{
+      location.reload();
+      messageSuccess("Added to favorites");
+    });
+  }
+
+  RemoveFromFavorites(userID:any, mediaID:any) {
+    this.httpClient.delete(environment.apiBaseUrl + "UserFavourites/Delete/" + userID + "/" + mediaID)
+      .subscribe(x=>{
+        location.reload();
+        messageInfo('Removed from favorites');
+      });
+  }
+
+  onMouseEnter(media: any) {
+    this.hoveredMedia=media;
+  }
+
+  onMouseLeave() {
+    this.hoveredMedia=null;
+  }
 }
 
 //ovaj dio ide unutar ngOnInit()

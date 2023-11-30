@@ -43,6 +43,8 @@ export class MedialistComponent implements OnInit {
   pickedStatus: string;
   pickedOrder: string;
   id: number;
+  hoveredMedia: any = null;
+
 
   constructor(private tracksterService: TracksterService, private route : ActivatedRoute, private router : Router) { }
 
@@ -236,5 +238,13 @@ export class MedialistComponent implements OnInit {
   redirectToMedia(media: Media) {
    this.id=media.mediaId;
    this.router.navigate(['/media', this.id]);
+  }
+
+  onMouseEnter(media: any) {
+    this.hoveredMedia=media;
+  }
+
+  onMouseLeave() {
+    this.hoveredMedia=null;
   }
 }
