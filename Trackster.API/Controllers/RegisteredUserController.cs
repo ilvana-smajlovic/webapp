@@ -6,6 +6,7 @@ using Trackster.API.Helper;
 using Trackster.Core;
 using Trackster.Core.ViewModels;
 using Trackster.Repository;
+using static Trackster.API.Helper.AuthenticationAuthorization.MyAuthTokenExtension;
 
 namespace Trackster.API.Controllers
 {
@@ -79,6 +80,7 @@ namespace Trackster.API.Controllers
             dbContext.SaveChanges();
             return Ok();
         }
+
 
 
         [HttpDelete("{Id}")]

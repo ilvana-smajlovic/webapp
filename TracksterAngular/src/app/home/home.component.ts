@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit {
   user:any;
   token:any;
   hoveredMedia: any = null;
+  type:number;
 
   constructor(private tracksterService : TracksterService, private router: Router) { }
 
@@ -97,17 +98,16 @@ export class HomeComponent implements OnInit {
 
   rediretToMovies() {
     this.name='movies';
-    this.router.navigate(['medialist'],  {state: {data:this.name}});
+    this.type=0;
+    this.router.navigate(['medialist'],  {state: {data:this.name, type:this.type}});
   }
 
   rediretToShows() {
     this.name = 'shows';
-    this.router.navigate(['medialist'], {state: {data: this.name}});
+    this.type=0;
+    this.router.navigate(['medialist'], {state: {data: this.name, type: this.type}});
   }
 
-  Open1() {
-    this.router.navigateByUrl("medialist");
-  }
   openSignUp() {
     this.router.navigateByUrl("sign-up");
   }
@@ -124,5 +124,28 @@ export class HomeComponent implements OnInit {
   }
 
 
+  rediretToUpcomingMovies() {
+    this.name='movies';
+    this.type=1;
+    this.router.navigate(['medialist'],  {state: {data:this.name, type: this.type}});
+  }
+
+  rediretToUpcomingShows() {
+    this.name = 'shows';
+    this.type=1;
+    this.router.navigate(['medialist'], {state: {data: this.name, type: this.type}});
+  }
+
+  rediretToTopMovies() {
+    this.name='movies';
+    this.type=2;
+    this.router.navigate(['medialist'],  {state: {data:this.name, type: this.type}});
+  }
+
+  rediretToTopShows() {
+    this.name = 'shows';
+    this.type=2;
+    this.router.navigate(['medialist'], {state: {data: this.name, type: this.type}});
+  }
 }
 

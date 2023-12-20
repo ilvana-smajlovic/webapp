@@ -25,9 +25,10 @@ export class ProfileComponent implements OnInit {
   userFavourites:any;
 
   constructor(private httpClient: HttpClient, private router: Router) { }
-  ngOnInit(): void {
+
+  ngOnInit() {
     this.token = AuthHelper.getLoginInfo();
-    this.user=this.token._user;
+    this.user=this.token.authenticationToken.registeredUser;
     this.getFavourites();
   }
 

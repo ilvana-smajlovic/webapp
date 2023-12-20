@@ -1,5 +1,5 @@
 .main-div{
-  height: 2000px;
+  padding-bottom: 30px;
   background-color: rgba(94, 101, 128, 1);
 }
 .list{
@@ -186,7 +186,6 @@ select {
 .movie-container{
   margin-top: 30px;
   width: 75%;
-  height: 80%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
@@ -194,11 +193,11 @@ select {
   flex-wrap: wrap;
   justify-content: center;
   overflow-y: scroll;
+  position: relative;
 }
 .show-container{
   margin-top: 30px;
   width: 75%;
-  height: 80%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
@@ -206,6 +205,7 @@ select {
   flex-wrap: wrap;
   justify-content: center;
   overflow-y: scroll;
+  position: relative;
 }
 .movie-container::-webkit-scrollbar{
   background-color: #4d5369;
@@ -244,6 +244,10 @@ select {
 .img-container img{
   width: 100%;
   object-fit: contain;
+  border-radius: 10px;
+}
+.img-container img:hover{
+  transform: scale(1.05);
 }
 .opis{
   margin-top: 15px;
@@ -256,6 +260,11 @@ select {
 .option:hover{
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+}
+
+.mat-paginator{
+  background-color: transparent;
+  margin-top: auto;
 }
 
 @media only screen and (max-width: 1300px){

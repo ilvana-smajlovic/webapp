@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {ActivatedRoute, Route, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Route, Router} from "@angular/router";
 import {Movie} from "../models/movie";
 import {environment} from "../../environments/environment";
 import {TracksterService} from "../services/trackster.service";
@@ -10,7 +10,7 @@ import {Genre} from "../models/genre";
 import {GenreMedia} from "../models/genre-media";
 import * as constants from "constants";
 import {Status} from "../models/status";
-
+import { MatPaginatorModule } from '@angular/material/paginator'
 
 @Component({
   selector: 'app-medialist',
@@ -20,10 +20,10 @@ import {Status} from "../models/status";
 export class MedialistComponent implements OnInit {
 
   media:Media[];
-  movies:Movie[];
-  _movies:Movie[];
-  shows:TvShow[];
-  _shows:TvShow[];
+  movies:Movie[]=[];
+  _movies:Movie[]=[];
+  shows:TvShow[]=[];
+  _shows:TvShow[]=[];
   isDataLoaded: boolean=false;
   isMovie: boolean=false;
   isShow:boolean=false;
@@ -44,6 +44,9 @@ export class MedialistComponent implements OnInit {
   pickedOrder: string;
   id: number;
   hoveredMedia: any = null;
+  pageSize=10;
+  pageIndex=0;
+  type:number;
 
 
   constructor(private tracksterService: TracksterService, private route : ActivatedRoute, private router : Router) { }
@@ -55,21 +58,56 @@ export class MedialistComponent implements OnInit {
     this.getStatus();
 
     this._name = history.state.data;
+    this.type=history.state.type;
+    if(this.type==null)
+      this.type=0;
 
     this.getShows();
     this.getMovies();
+  }
 
-    if (this._name == 'shows') {
-      this.isShow=true;
-      this.isMovie=false;
-      this.openShows();
+  CheckType(){
+    if(this.type==0) {
+      if (this._name == 'shows') {
+        this.isShow=true;
+        this.isMovie=false;
+        this.openShows();
+      } else {
+        this.isShow=false;
+        this.isMovie=true;
+        this.openMovies();
+      }
     }
-    else {
-      this.isShow=false;
-      this.isMovie=true;
-      this.openMovies();
+    else if(this.type==1){
+      if (this._name == 'shows') {
+        this.isShow=true;
+        this.isMovie=false;
+        this.openShows();
+        this.orderByStatus("Upcoming");
+      }
+      else {
+        this.isShow=false;
+        this.isMovie=true;
+        this.openMovies();
+        this.orderByStatus("Upcoming");
+      }
+    }
+    else if(this.type==2){
+      if (this._name == 'shows') {
+        this.isShow=true;
+        this.isMovie=false;
+        this.openShows();
+        this.orderByRating();
+      }
+      else {
+        this.isShow=false;
+        this.isMovie=true;
+        this.openMovies();
+        this.orderByRating();
+      }
     }
   }
+
 
   getMedia(){
     this.tracksterService.getAllMedia()
@@ -83,10 +121,10 @@ export class MedialistComponent implements OnInit {
     this.tracksterService.getMovie()
       .subscribe(response => {
         // @ts-ignore
-        this.movies=response;
-        // @ts-ignore
-        this._movies=response;
+        this.movies = response;
+        this._movies=[...this.movies];
         this.isDataLoaded = true;
+        this.CheckType();
       });
   }
   getShows() {
@@ -94,9 +132,9 @@ export class MedialistComponent implements OnInit {
       .subscribe(response => {
         // @ts-ignore
         this.shows = response;
-        // @ts-ignore
-        this._shows = response;
+        this._shows = [...this.shows];
         this.isDataLoaded = true;
+        this.CheckType();
       });
   }
   getGenres(){
@@ -152,15 +190,17 @@ export class MedialistComponent implements OnInit {
       case "Any":
         break;
       case "Upcoming":
-        this.movies=this.movies.filter(m=>m.media.status.statusID==1);
-        this.shows=this.shows.filter(m=>m.media.status.statusID==1);
+        this.movies=this._movies.filter(m=>m.media.status.statusID==1);
+        this.shows=this._shows.filter(m=>m.media.status.statusID==1);
+
+        console.log('unutar orderby', this.movies)
         break;
       case "Airing":
-        this.shows = this.shows.filter(a => a.media.status.statusID == 2);
+        this.shows = this._shows.filter(a => a.media.status.statusID == 2);
         break;
       case "Completed":
-        this.movies = this.movies.filter(a => a.media.status.statusID == 3);
-        this.shows = this.shows.filter(a => a.media.status.statusID == 3);
+        this.movies = this._movies.filter(a => a.media.status.statusID == 3);
+        this.shows = this._shows.filter(a => a.media.status.statusID == 3);
         break;
     }
   }
@@ -230,9 +270,11 @@ export class MedialistComponent implements OnInit {
   }
 
   searchFilters() {
+    console.log(this.shows);
     this.orderByGenre(this.pickedGenre);
     this.orderByStatus(this.pickedStatus);
     this.orderBy(this.pickedOrder);
+    console.log(this.shows);
   }
 
   redirectToMedia(media: Media) {
@@ -246,5 +288,18 @@ export class MedialistComponent implements OnInit {
 
   onMouseLeave() {
     this.hoveredMedia=null;
+  }
+
+  onMoviePageChange(event: any) {
+    console.log('ok');
+    console.log('Page changed:', event.pageIndex);
+    this.pageIndex = event.pageIndex;
+    this.getMovies();
+  }
+
+  onShowPageChange(event: any) {
+    console.log('Page changed:', event.pageIndex);
+    this.pageIndex = event.pageIndex;
+    this.getShows();
   }
 }

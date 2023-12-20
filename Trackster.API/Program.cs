@@ -4,6 +4,8 @@ using Trackster.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.Identity.Client;
+using Trackster.API.Helper.AuthenticationAuthorization;
+using Trackster.API.Helper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.OperationFilter<AuthorizationSwaggerHeader>();
+});
+
 
 builder.Services.AddDbContext<TracksterContext>(
         dbContext => dbContext.UseSqlServer("server = localhost; database = Trackster; integrated security = true; TrustServerCertificate = true")
@@ -27,6 +33,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "tracksterOrigins", policy => {
         policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
     }));
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
@@ -34,7 +41,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trackster API V1");
+    });
 }
 
 
@@ -44,6 +54,7 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 app.UseCors(x => x
+            .SetIsOriginAllowed(s => _ =true)
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());

@@ -61,9 +61,8 @@
     <button class="filter" (click)="searchFilters()">{{'Search' | translate}}</button>
   </div>
 
-  <!--Ovo sam onako stavio da imas pretstavu gdje filmovi dolaze otprilike, ofc ti edituj kako hoces-->
   <div class="movie-container" *ngIf="isMovie">
-    <div class="movie" *ngFor="let movie of movies" (click)="redirectToMedia(movie.media)">
+    <div class="movie" *ngFor="let movie of movies.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)" (click)="redirectToMedia(movie.media)">
       <div class ="img-container">
         <img src="{{movie.media.picture}}">
       </div>
@@ -72,9 +71,14 @@
         <p>({{movie.media.airDate | date: 'yyyy'}})</p>
       </div>
     </div>
+    <mat-paginator [length]="movies.length"
+                   [pageSize]="pageSize"
+                   [pageIndex]="pageIndex"
+                   (page)="onMoviePageChange($event)">
+    </mat-paginator>
   </div>
   <div class="show-container" *ngIf="isShow">
-    <div class="show" *ngFor="let show of shows" (click)="redirectToMedia(show.media)">
+    <div class="show" *ngFor="let show of shows.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)" (click)="redirectToMedia(show.media)">
       <div class ="img-container">
         <img src="{{show.media.picture}}">
       </div>
@@ -83,5 +87,10 @@
         <p>({{show.media.airDate | date: 'yyyy'}})</p>
       </div>
     </div>
+    <mat-paginator [length]="shows.length"
+                   [pageSize]="pageSize"
+                   [pageIndex]="pageIndex"
+                   (page)="onShowPageChange($event)">
+    </mat-paginator>
   </div>
 </div>

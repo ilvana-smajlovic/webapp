@@ -12,18 +12,23 @@ namespace Trackster.API.Helper.AuthenticationAuthorization
     {
         public class LoginInformation
         {
-            public LoginInformation(AuthenticationToken? autenticationToken)
+            public LoginInformation(AuthenticationToken? authenticationToken)
             {
-                this.autenticationToken = autenticationToken;
+                this.authenticationToken = authenticationToken;
             }
 
-            public RegisteredUser? _user => autenticationToken?.registeredUser;
-            public AuthenticationToken? autenticationToken { get; set; }
+            [JsonIgnore]
+            public RegisteredUser? _user => authenticationToken?.registeredUser;
+            public AuthenticationToken? authenticationToken { get; set; }
 
             public bool isLogged => _user != null;
 
         }
 
+        public class ForgotPasswordRequest
+        {
+            public string Email { get; set; }
+        }
 
         public static LoginInformation GetLoginInfo(this HttpContext httpContext)
         {
@@ -37,11 +42,12 @@ namespace Trackster.API.Helper.AuthenticationAuthorization
             string token = httpContext.GetMyAuthToken();
             TracksterContext dbContext = httpContext.RequestServices.GetService<TracksterContext>();
 
-            AuthenticationToken? _registeredUser = dbContext.authenticationTokens
+            AuthenticationToken? _registeredUserToken = dbContext?.authenticationTokens
                 .Include(s => s.registeredUser)
-                .SingleOrDefault(x => x.tokenValue == token);
+                .FirstOrDefault(x => x.tokenValue == token);
 
-            return _registeredUser;
+            return _registeredUserToken;
+
         }
 
 
@@ -50,5 +56,14 @@ namespace Trackster.API.Helper.AuthenticationAuthorization
             string token = httpContext.Request.Headers["authentication-token"];
             return token;
         }
+
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+       
     }
 }

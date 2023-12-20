@@ -32,9 +32,6 @@ export class ProfilesettingsComponent implements OnInit {
   }
 
   Change1() {
-    this.router.navigateByUrl("Updatepassword/email");
-  }
-  Change2() {
-    this.router.navigateByUrl("Updatepassword/username");
+    this.router.navigateByUrl("updatepassword");
   }
 }

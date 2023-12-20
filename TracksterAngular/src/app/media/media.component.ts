@@ -58,16 +58,15 @@ export class MediaComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.getMediaByName();
     this.getMediaById(this.id);
-    this.getMediaPersonByMediaId(this.id);
-    this.getGenreByMediaId(this.id);
-    this.getMovieByMediaId(this.id);
-    this.getTVShowByMediaId(this.id);
+
 
     this.tokenString = localStorage.getItem('authentication-token');
     const token = JSON.parse(this.tokenString);
     this.registeredUserId = token._user.registeredUserId;
 
     this.getUserFavorites();
+
+    console.log('media id', this.id);
 
   }
   getMediaByName(){
@@ -84,7 +83,12 @@ export class MediaComponent implements OnInit {
       .subscribe(response => {
         this.selectedMedia = response;
         this.isDataLoaded = true;
-      })
+         console.log('id', this.id);
+        this.getMediaPersonByMediaId(this.id);
+        this.getGenreByMediaId(this.id);
+        this.getMovieByMediaId(this.id);
+        this.getTVShowByMediaId(this.id);
+      });
   }
   getMediaPersonByMediaId(id : number){
      fetch(environment.apiBaseUrl + "MediaPerson/GetAll?MediaId=" + id)
@@ -211,17 +215,3 @@ export class MediaComponent implements OnInit {
   }
 }
 
-//ovaj dio ide unutar ngOnInit()
-  /*this.id=1;
-  console.log('testiram log');
-  this.getMediaById(this.id);*/
-
-//ovo je funkcija ispod ngOnInit()
-  /*getMediaById(id: number) {
-    this.tracksterService.getMediaById(id)
-      .subscribe(response => {
-        this.selectedMedia = response;
-        this.isDataLoaded = true;
-      });
-  }
-*/
