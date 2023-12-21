@@ -34,8 +34,8 @@
 }
 
 footer{
-  /*border: 1px red solid;*/
   background-color: black;
+  height: 140px;
 }
 .footer-logo-name {
   color: white;
@@ -45,6 +45,7 @@ footer{
   margin-left: auto;
   margin-right: auto;
   padding: 20px;
+  padding-bottom: 0;
   /*border: 2px white solid;*/
 }
 

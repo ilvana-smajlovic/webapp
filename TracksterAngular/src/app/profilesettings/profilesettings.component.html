@@ -5,43 +5,42 @@
   <div class="settings-div">
     <h1>Profile setings</h1>
     <div class="group2">
-      <label class="label2">Change your profile picture:</label>
+      <label class="label2">{{'Change your profile picture' | translate}}:</label>
       <div class="pfp">
-        <img src="{{url}}" alt="">
+        <img src="{{user.picture}}" alt="">
       </div>
       <input type="file" class="form-control-file" (change)="onselectFile($event)">
       <div class="btn-container">
-        <button class="btn">Save</button>
+        <button class="btn" (click)="SaveChanges()">{{'Save' | translate}}</button>
       </div>
     </div>
     <div class="group2">
-      <label class="label2">Change your profile data:</label>
+      <label class="label2">{{'Edit your profile data' | translate}}:</label>
       <div class="data-div">
         <label class="label3">Email</label>
-        <input class="input"/>
+        <input class="input" id="email" [value]="user.email"/>
       </div>
       <div class="data-div">
-        <label class="label3">Username</label>
-        <input class="input"/>
+        <label class="label3">{{'Username' | translate}}</label>
+        <input class="input" id="username" [value]="user.username" />
       </div>
       <div class="data-div">
-        <label class="label3">Bio</label>
-        <input class="input"/>
+        <label class="label3">{{'Bio' | translate}}</label>
+        <input class="input" id="bio" [value]="user.bio" />
       </div>
       <div class="btn-container">
-        <button class="btn">Save</button>
+        <button class="btn" (click)="SaveChanges()">{{'Save' | translate}}</button>
       </div>
     </div>
     <div class="group2">
-      <label class="label2">Change your password:</label>
+      <label class="label2">{{'Change your password' | translate}}:</label>
       <div class="btn-container2">
-        <button class="btn2" (click)="Change1()">Change with email</button>
-        <button class="btn2" (click)="Change2()">Change with username</button>
+        <button class="btn2" (click)="Change()">{{'Change' | translate}}</button>
       </div>
     </div>
-    <label class="label4">Delete your profile:</label>
+    <label class="label4">{{'Delete profile' | translate}}:</label>
       <div class="btn-container2">
-        <button class="btn3">Delete</button>
+        <button class="btn3" (click)="Delete()">{{'Delete' | translate}}</button>
       </div>
     <div class="empty"></div>
   </div>

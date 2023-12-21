@@ -1,4 +1,4 @@
 export class Rating {
   ratingId:number;
-  ratinValue:number;
+  ratingValue:number;
 }

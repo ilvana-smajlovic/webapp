@@ -20,7 +20,7 @@ namespace Trackster.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add([FromBody] UserFavouritesAddVM x)
+        public IActionResult Add([FromBody] UserFavouritesAddVM x)
         {
             //Trazi da li postoji ta media
             RegisteredUser? RegisteredUser = dbContext.RegisteredUsers.FirstOrDefault(m => m.RegisteredUserId == x.UserID);
@@ -42,7 +42,7 @@ namespace Trackster.API.Controllers
             };
             dbContext.UserFavourites.Add(newGM);
             dbContext.SaveChanges();
-            return Ok("Succesfully added");
+            return Ok();
         }
         private bool Provjera(UserFavouritesAddVM x)
         {
@@ -56,14 +56,14 @@ namespace Trackster.API.Controllers
         }
 
         [HttpDelete("{UserId}/{MediaId}")]
-        public ActionResult Delete(int UserId, int MediaId)
+        public IActionResult Delete(int UserId, int MediaId)
         {
-            var UserMedia = dbContext.UserFavourites
-                .Where(gm => gm.UserID == UserId && gm.MediaID == MediaId).Single();
+            var userFavorite = dbContext.UserFavourites
+                .FirstOrDefault(gm => gm.UserID == UserId && gm.MediaID == MediaId);
 
-            dbContext.UserFavourites.Remove(UserMedia);
+            dbContext.UserFavourites.Remove(userFavorite);
             dbContext.SaveChanges();
-            return Ok("Media removed from favourites");
+            return Ok();
         }
 
         [HttpGet]

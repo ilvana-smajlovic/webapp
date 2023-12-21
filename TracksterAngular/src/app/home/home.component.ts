@@ -26,26 +26,6 @@ import {coerceNumberProperty} from "@angular/cdk/coercion";
 })
 export class HomeComponent implements OnInit {
 
-  /*
-  @viewchild('BtnToTop') private ButtonToTop! : ElementRef<HTMLButtonElement>//Da je div isao bih HTMLDivElement
-
-  window.onscroll = function() {scrollFunction()};
-
-  scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      this.ButtonToTop.nativeElement.style.display = "block"
-    } else {
-      this.ButtonToTop.nativeElement.style.display = "none";
-    }
-  }
-
-// When the user clicks on the button, scroll to the top of the document
-  function topFunction() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-  }
-  */
-
   searchedMedia : Media[];
   isDataLoaded : boolean=false;
   searchText = '';
@@ -53,26 +33,25 @@ export class HomeComponent implements OnInit {
   selectedMedia:Media;
   id:number;
   name:string='';
+  tokenString:any;
+  user:any;
+  token:any;
+  hoveredMedia: any = null;
+  type:number;
+
   constructor(private tracksterService : TracksterService, private router: Router) { }
 
-  logged_in=1;
+  logged_in:boolean;
 
   ngOnInit(): void {
     this.getMediaByName();
-    this.loggedin();
+
+    this.tokenString = localStorage.getItem('authentication-token');
+    this.token = JSON.parse(this.tokenString);
+    this.user=this.token._user;
+    this.logged_in=this.token.isLogged;
   }
-  loggedin(){
-    if(this.logged_in==0)
-    {
-      this.logged_in=1;
-    }
-    else {
-      this.logged_in=0;
-    }
-  }
-  BackToTop() {
-    document.documentElement.scrollTop=0;
-  }
+
 
   getMediaByName(){
     console.log('get media');
@@ -96,22 +75,54 @@ export class HomeComponent implements OnInit {
 
   rediretToMovies() {
     this.name='movies';
-    this.router.navigate(['medialist'],  {state: {data:this.name}});
+    this.type=0;
+    this.router.navigate(['medialist'],  {state: {data:this.name, type:this.type}});
   }
 
   rediretToShows() {
     this.name = 'shows';
-    this.router.navigate(['medialist'], {state: {data: this.name}});
+    this.type=0;
+    this.router.navigate(['medialist'], {state: {data: this.name, type: this.type}});
   }
 
-  Open1() {
-    this.router.navigateByUrl("medialist");
-  }
   openSignUp() {
     this.router.navigateByUrl("sign-up");
   }
   openLogIn() {
     this.router.navigateByUrl("log-in");
+  }
+
+  onMouseEnter(media: any) {
+    this.hoveredMedia=media;
+  }
+
+  onMouseLeave() {
+    this.hoveredMedia=null;
+  }
+
+
+  rediretToUpcomingMovies() {
+    this.name='movies';
+    this.type=1;
+    this.router.navigate(['medialist'],  {state: {data:this.name, type: this.type}});
+  }
+
+  rediretToUpcomingShows() {
+    this.name = 'shows';
+    this.type=1;
+    this.router.navigate(['medialist'], {state: {data: this.name, type: this.type}});
+  }
+
+  rediretToTopMovies() {
+    this.name='movies';
+    this.type=2;
+    this.router.navigate(['medialist'],  {state: {data:this.name, type: this.type}});
+  }
+
+  rediretToTopShows() {
+    this.name = 'shows';
+    this.type=2;
+    this.router.navigate(['medialist'], {state: {data: this.name, type: this.type}});
   }
 }
 

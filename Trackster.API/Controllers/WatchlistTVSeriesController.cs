@@ -58,7 +58,7 @@ namespace Trackster.API.Controllers
         [HttpPost("{Id}")]
         public ActionResult Update(int Id, [FromBody] WatchlistMediaAddVM x)
         {
-            WatchlistTVShow? WatchlistTVShow = dbContext.WatchlistTVShows.FirstOrDefault(r => r.Id == Id);
+            WatchlistTVShow? WatchlistTVShow = dbContext.WatchlistTVShows.FirstOrDefault(r => r.TVShowID == Id);
 
             if (WatchlistTVShow == null)
                 return BadRequest("Pogresan ID");
@@ -71,20 +71,20 @@ namespace Trackster.API.Controllers
             WatchlistTVShow.RatingID = x.RatingID;
 
             dbContext.SaveChanges();
-            return GetById(Id);
+            return Ok();
         }
 
         [HttpDelete("{Id}")]
-        public ActionResult Delete(int Id)
+        public IActionResult Delete(int Id)
         {
-            WatchlistTVShow? WatchlistTVShow = dbContext.WatchlistTVShows.Find(Id);
+            WatchlistTVShow? WatchlistTVShow = dbContext.WatchlistTVShows.FirstOrDefault(r=>r.TVShowID == Id);
 
             if (WatchlistTVShow == null)
                 return BadRequest("Pogresan ID");
 
             dbContext.WatchlistTVShows.Remove(WatchlistTVShow);
             dbContext.SaveChanges();
-            return GetById(Id);
+            return Ok();
         }
 
         [HttpGet("{Id}")]

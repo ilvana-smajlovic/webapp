@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {RegisteredUser} from "../models/registered-user";
 import {AuthHelper} from "../helper/auth-helper";
 import {LoginInfo} from "../helper/login-info";
+import * as qrcode from 'qrcode';
+import { OtpValidation } from "../models/otp-validation";
+
+
+declare function messageSuccess(a: string):any;
+declare function messageError(a: string):any;
 
 
 @Component({
@@ -14,7 +20,8 @@ import {LoginInfo} from "../helper/login-info";
 })
 export class LogInComponent implements OnInit {
 
-  constructor(private httpKlijent: HttpClient, private router: Router) { }
+  constructor(private httpKlijent: HttpClient, private router: Router) {
+  }
 
   ngOnInit(): void {
   }
@@ -22,63 +29,44 @@ export class LogInComponent implements OnInit {
   passwordType1: string = 'password';
   passwordShown: boolean = false;
 
-  Email: string = ''; Password: string = '';
+  Email: string = '';
+  Password: string = '';
   EmailRegex = new RegExp('^([A-Z]|[a-z]|[0-9])*([._])?([A-Z]|[a-z]|[0-9])+(@gmail.com|@edu.fit.ba)$')
 
   ToEnable() {
-    return this.EmailRegex.test(this.Email) && this.Email !='' && this.Password.length>7;
+    return this.EmailRegex.test(this.Email) && this.Email != '' && this.Password.length > 7;
   }
 
   LogIn() {
     let LogInInfo = {
-      Email:this.Email,
-      Password:this.Password
+      Email: this.Email,
+      Password: this.Password
     };
-    this.httpKlijent.post<LoginInfo>(environment.apiBaseUrl+ "Authentication/LogInAuth", LogInInfo)
-      .subscribe((x:LoginInfo)=> {
+
+    this.httpKlijent.post<LoginInfo>(environment.apiBaseUrl + "Authentication/LogInAuth", LogInInfo)
+      .subscribe((x: LoginInfo) => {
         if (x.isLogged) {
           AuthHelper.setLoginInfo(x);
-          this.router.navigateByUrl("/home");
-
-        }
-        else {
+          if (x.authenticationToken) {
+            console.log(x);
+            let token = x;
+            this.httpKlijent.get(environment.apiBaseUrl + 'Authentication/Get', {
+              headers: new HttpHeaders({
+                'authentication-token': x.authenticationToken.tokenValue
+              })
+            }).subscribe(() => {
+              this.router.navigateByUrl('/two-f-auth');
+            });
+          } else {
+            console.error("Authentication token is undefined");
+          }
+        } else {
           AuthHelper.setLoginInfo(null);
+          messageError("Wrong login info");
         }
       });
-  }
 
-  private async fetchUserInformation(){
-    const fetchInfo = async (): Promise<RegisteredUser> =>{
-      return new Promise(resolve => {
-        const userInfo = new RegisteredUser();
-        this.httpKlijent.get("https://localhost:7242/LogIn/GetLoggedInUser", {
-          headers:{
-            Authorization:  `Bearer ${sessionStorage.getItem(
-              'token'
-            )}`,
-          },
-          observe: 'response',
-        })
-          .subscribe({
-            next: response =>{
-              console.log(response.status);
-              if(response.status === 200){
-                const user = JSON.parse(
-                  JSON.stringify(response.body)
-                );
-                userInfo.registeredUserId=user.registeredUserId;
-                userInfo.username=user.username;
-                userInfo.email=user.email;
-                userInfo.picture=user.picture;
-                userInfo.bio=user.bio;
-              }
-            }
-          })
-        console.log(userInfo);
-      })
-    }
   }
-
 
   public togglePassword1(){
     if(this.passwordShown){
@@ -94,6 +82,6 @@ export class LogInComponent implements OnInit {
     this.router.navigateByUrl("sign-up");
   }
   OpenPassword() {
-    this.router.navigateByUrl("Updatepassword/email");
+    this.router.navigateByUrl("forgot-password");
   }
 }

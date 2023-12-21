@@ -10,6 +10,10 @@ import {Genre} from "../models/genre";
 import {GenreMedia} from "../models/genre-media";
 import {Status} from "../models/status";
 import {UserFavourites} from "../models/user-favourites";
+import {WatchlistMovie} from "../models/watchlist-movie";
+import {State} from "../models/state";
+import {Rating} from "../models/rating";
+import {RtlScrollAxisType} from "@angular/cdk/platform";
 
 @Injectable({
   providedIn: 'root'
@@ -57,5 +61,20 @@ export class TracksterService {
   }
   getAllStatus() {
     return this.httpClient.get<Status>(environment.apiBaseUrl + 'Status/GetAll')
+  }
+  getWatchlistMovies(id:number){
+    return this.httpClient.get<WatchlistMovie>(environment.apiBaseUrl + "WatchlistMovie/GetAll?UserID=" + id);
+  }
+  getWatchlistTVShows(id:number){
+    return this.httpClient.get<WatchlistMovie>(environment.apiBaseUrl + "WatchlistTVSeries/GetAll?UserID=" + id);
+  }
+  getAllStates(){
+    return this.httpClient.get<State>(environment.apiBaseUrl + "State/GetAll");
+  }
+  getAllRatings(){
+    return this.httpClient.get<Rating>(environment.apiBaseUrl + "Rating/GetAll");
+  }
+  getAllFavorites(userID:number){
+    return this.httpClient.get<UserFavourites>(environment.apiBaseUrl + "UserFavourites/GetAll?UserID="+ userID);
   }
 }

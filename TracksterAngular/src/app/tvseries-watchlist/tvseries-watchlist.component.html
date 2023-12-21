@@ -2,43 +2,31 @@
   <div *ngIf="bgColorP" class="header1">
     <div class="user-container">
       <div class="profile-photo">
-        <img src="https://i.pinimg.com/originals/a7/3c/4d/a73c4d7c5130adc8efe317fb1c6bc141.jpg">
+        <img src="{{user.picture}}">
       </div>
       <div class="user-name">
-        <h4>vlana</h4>
+        <h4>{{user.username}}</h4>
       </div>
-    </div>
-    <div class="edit-container">
-      <button class="edit" type="button"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
-      <div class="hide">{{'Edit watchlist' | translate}}</div>
     </div>
   </div>
   <div *ngIf="bgColorW" class="header2">
     <div class="user-container">
       <div class="profile-photo">
-        <img src="https://i.pinimg.com/originals/a7/3c/4d/a73c4d7c5130adc8efe317fb1c6bc141.jpg">
+        <img src="{{user.picture}}">
       </div>
       <div class="user-name">
-        <h4>vlana</h4>
+        <h4>{{user.username}}</h4>
       </div>
-    </div>
-    <div class="edit-container">
-      <button class="edit" type="button"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
-      <div class="hide">{{'Edit watchlist' | translate}}</div>
     </div>
   </div>
   <div *ngIf="bgColorF" class="header3">
     <div class="user-container">
       <div class="profile-photo">
-        <img src="https://i.pinimg.com/originals/a7/3c/4d/a73c4d7c5130adc8efe317fb1c6bc141.jpg">
+        <img src="{{user.picture}}">
       </div>
       <div class="user-name">
-        <h4>vlana</h4>
+        <h4>{{user.username}}</h4>
       </div>
-    </div>
-    <div class="edit-container">
-      <button class="edit" type="button"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
-      <div class="hide">{{'Edit watchlist' | translate}}</div>
     </div>
   </div>
   <div class="content-container">
@@ -49,95 +37,65 @@
     </div>
     <div class="content">
       <div *ngIf="list1" class="list">
-        <div class="show-container">
-          <div class="show-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg">
-          </div>
-          <div class="show-name">
-            <h4>Arcane</h4>
-            <p>39min</p>
-          </div>
-        </div>
-        <div class="show-container">
-          <div class="show-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/jeGtaMwGxPmQN5xM4ClnwPQcNQz.jpg">
-          </div>
-          <div class="show-name">
-            <h4>Wednesday</h4>
-            <p>45min</p>
-            <p></p>
-          </div>
-        </div>
-        <div class="show-container">
-          <div class="show-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/ggFHVNu6YYI5L9pCfOacjizRGt.jpg">
-          </div>
-          <div class="show-name">
-            <h4>Breaking Bad</h4>
-            <p>45min</p>
+        <div class="container" *ngFor="let s of shows">
+          <div class="show-container" *ngIf="s.state.stateID==1">
+            <div class="show-poster">
+              <img src="{{s.tvShow.media.picture}}">
+            </div>
+            <div class="show-name">
+              <h4>{{s.tvShow.media.name}}</h4>
+              <p>{{s.tvShow.episodeRuntime}} min</p>
+            </div>
+            <div class="edit-container">
+              <button class="edit" type="button" (click)="Edit(s.tvShow)"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
+              <div class="hide-edit">{{'Edit watchlist' | translate}}</div>
+              <button class="delete" type="button" (click)="Delete(s.tvShow)"><img src="https://www.svgrepo.com/show/437579/clear.svg"></button>
+              <div class="hide-delete">{{'Delete from watchlist' | translate}}</div>
+            </div>
           </div>
         </div>
       </div>
+
       <div *ngIf="list2" class="list">
-        <div class="show-container">
-          <div class="show-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/cvhNj9eoRBe5SxjCbQTkh05UP5K.jpg">
-          </div>
-          <div class="show-name">
-            <h4>Rick and Morty</h4>
-            <p>22min</p>
-          </div>
-        </div>
-        <div class="show-container">
-          <div class="show-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/hgRMSOt7a1b8qyQR68vUixJPang.jpg">
-          </div>
-          <div class="show-name">
-            <h4>Brooklyn Nine-Nine</h4>
-            <p>21min</p>
-            <p></p>
-          </div>
-        </div>
-        <div class="show-container">
-          <div class="show-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg">
-          </div>
-          <div class="show-name">
-            <h4>Stranger Things</h4>
-            <p>50min</p>
+        <div class="container" *ngFor="let s of shows">
+          <div class="show-container" *ngIf="s.state.stateID==2">
+            <div class="show-poster">
+              <img src="{{s.tvShow.media.picture}}">
+            </div>
+            <div class="show-name">
+              <h4>{{s.tvShow.media.name}}</h4>
+              <p>{{s.tvShow.episodeRuntime}} min</p>
+            </div>
+            <div class="edit-container">
+              <button class="edit" type="button" (click)="Edit(s.tvShow)"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
+              <div class="hide-edit">{{'Edit watchlist' | translate}}</div>
+              <button class="delete" type="button" (click)="Delete(s.tvShow)"><img src="https://www.svgrepo.com/show/437579/clear.svg"></button>
+              <div class="hide-delete">{{'Delete from watchlist' | translate}}</div>
+            </div>
           </div>
         </div>
       </div>
+
       <div *ngIf="list3" class="list">
-        <div class="show-container">
-          <div class="show-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/aiy35Evcofzl7hASZZvsFgltHTX.jpg">
-          </div>
-          <div class="show-name">
-            <h4>Attack on Titan</h4>
-            <p>25min</p>
-          </div>
-        </div>
-        <div class="show-container">
-          <div class="show-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg">
-          </div>
-          <div class="show-name">
-            <h4>Chernobyl</h4>
-            <p>1h 10min</p>
-            <p></p>
-          </div>
-        </div>
-        <div class="show-container">
-          <div class="show-poster">
-            <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/f496cm9enuEsZkSPzCwnTESEK5s.jpg">
-          </div>
-          <div class="show-name">
-            <h4>Friends</h4>
-            <p>25min</p>
+        <div class="container" *ngFor="let s of shows">
+          <div class="show-container" *ngIf="s.state.stateID==3">
+            <div class="show-poster">
+              <img src="{{s.tvShow.media.picture}}">
+            </div>
+            <div class="show-name">
+              <h4>{{s.tvShow.media.name}}</h4>
+              <p>{{s.tvShow.episodeRuntime}} min</p>
+            </div>
+            <div class="edit-container">
+              <button class="edit" type="button" (click)="Edit(s.tvShow)"><img src="https://www.svgrepo.com/show/36160/edit-button.svg"></button>
+              <div class="hide-edit">{{'Edit watchlist' | translate}}</div>
+              <button class="delete" type="button" (click)="Delete(s.tvShow)"><img src="https://www.svgrepo.com/show/437579/clear.svg"></button>
+              <div class="hide-delete">{{'Delete from watchlist' | translate}}</div>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

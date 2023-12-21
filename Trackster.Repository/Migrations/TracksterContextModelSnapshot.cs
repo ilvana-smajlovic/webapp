@@ -43,6 +43,13 @@ namespace Trackster.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("twoFCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("twoFIsUnlocked")
+                        .HasColumnType("bit");
+
                     b.HasKey("id");
 
                     b.HasIndex("registeredUserId");

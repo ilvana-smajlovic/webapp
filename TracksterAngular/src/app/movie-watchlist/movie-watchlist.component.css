@@ -1,5 +1,6 @@
 .main-div{
   background-color: rgb(94, 101, 128);
+  min-height: calc(100vh - 140px);
 }
 .header1{
   background-image: linear-gradient(#b85432, #5e6580);
@@ -30,26 +31,52 @@
 .edit-container{
   width: 100px;
   float: right;
+  position: relative;
 }
 .edit{
   background-color: transparent;
   border-color: transparent;
   width: 40px;
   float: right;
-  margin-top: -30px;
+  margin-top: 15px;
+  margin-right: 20px;
+}
+.delete{
+  background-color: transparent;
+  border-color: transparent;
+  width: 40px;
+  float: right;
+  margin-top: 40px;
   margin-right: 20px;
 }
 .edit img{
   width: 100%;
   object-fit: contain;
 }
-.edit:hover + .hide{
+.delete img{
+  width: 100%;
+  object-fit: contain;
+}
+.edit:hover + .hide-edit{
   display: block;
 }
-.hide{
+.delete:hover + .hide-delete{
+  display: block;
+}
+.hide-edit{
   display: none;
+  position: absolute;
   font-size: small;
   float: right;
+  margin-top: 40px;
+  margin-right: 10px;
+}
+.hide-delete{
+  display: none;
+  position: absolute;
+  font-size: small;
+  float: right;
+  margin-top: 110px;
   margin-right: 10px;
 }
 .content-container{
@@ -147,6 +174,16 @@
   }
   .edit:hover + .hide{
     display: none;
+  }
+}
+
+@media screen and (max-width: 674px) and (min-width: 450px) {
+  .sidebar {
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-bottom: auto;
+    margin-top: -150px;
   }
 }
 @media screen and (max-width: 450px) {

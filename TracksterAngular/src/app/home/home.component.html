@@ -1,45 +1,47 @@
-<div class="empty" *ngIf="logged_in==1">
+<div class="empty" *ngIf="logged_in==true">
 </div>
 
-<div *ngIf="logged_in==0" class="footer-buttons1">
+<div *ngIf="logged_in==false" class="footer-buttons1">
   <button class="footer-button1" (click)="openLogIn()">{{'Log-in' | translate}}</button>
   <button class="footer-button1" (click)="openSignUp()">{{'Sign-up' | translate}}</button>
 </div>
-
-<div class="search-div">
-  <input class="search-bar" [(ngModel)]="searchText" (input)="searchMedia(searchText)" placeholder="{{'Search' | translate}}">
-  <!--<img class="img_search" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Google_Magnifying_Glass.svg/1024px-Google_Magnifying_Glass.svg.png" alt="">-->
+<div class="search-container">
+  <div class="search-div">
+    <input class="search-bar" [(ngModel)]="searchText" (input)="searchMedia(searchText)" placeholder="{{'Search' | translate}}">
+    <!--<img class="img_search" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Google_Magnifying_Glass.svg/1024px-Google_Magnifying_Glass.svg.png" alt="">-->
+  </div>
+  <ul class="list" *ngIf="searchText !== ''">
+    <li class="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="redirectToMedia(media)" (mouseenter)="onMouseEnter(media)" (mouseleave)="onMouseLeave()">
+      <span [innerHTML]="media.name | highlight: searchText: hoveredMedia"></span>
+    </li>
+  </ul>
 </div>
-<ul class="list" *ngIf="searchText !== ''">
-  <li role="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="redirectToMedia(media)">
-    {{media.name}}
-  </li>
-</ul>
+
 
 
 <div class="div-main-home">
 
-  <div class="imgdiv" (click)="Open1()">
+  <div class="imgdiv" (click)="rediretToMovies()">
     <img src="https://filmschoolrejects.com/wp-content/uploads/2019/05/john-wick-3.jpg" alt="Interstellar">
     <div class="centered">{{'Movies' | translate}}</div>
   </div>
-  <div class="imgdiv" (click)="Open1()">
+  <div class="imgdiv" (click)="rediretToShows()">
     <img src="https://filmdaze.net/wp-content/uploads/2022/09/1HOTDstill.jpg" alt="HOTD">
     <div class="centered">{{'TV-Shows' | translate}}</div>
   </div>
-  <div class="imgdiv" (click)="Open1()">
+  <div class="imgdiv" (click)="rediretToUpcomingMovies()">
     <img src="https://pbs.twimg.com/media/FjAJiZZXECEBS9x?format=jpg&name=900x900" alt="The Flash">
     <div class="centered">{{'Upcoming' | translate}}<br>{{'Movies' | translate}}</div>
   </div>
-  <div class="imgdiv" (click)="Open1()">
+  <div class="imgdiv" (click)="rediretToUpcomingShows()">
     <img src="https://www.geeky-gadgets.com/wp-content/uploads/2019/07/Witcher-series.jpg" alt="The Boys">
     <div class="centered">{{'Upcoming ' | translate}}<br>{{'TV-Shows' | translate}}</div>
   </div>
-  <div class="imgdiv" (click)="Open1()">
+  <div class="imgdiv" (click)="rediretToTopMovies()">
     <img src="https://filmschoolrejects.com/wp-content/uploads/2019/11/29-wolf-of-wall-street.jpg" alt="Interstellar">
     <div class="centered">{{'Top rated' | translate}}<br>{{'Movies' | translate}}</div>
   </div>
-  <div class="imgdiv" (click)="Open1()">
+  <div class="imgdiv" (click)="rediretToTopShows()">
     <img src="https://www.geeky-gadgets.com/wp-content/uploads/2020/08/Peaky-Blinders-game.jpg" alt="Friends">
     <div class="centered">{{'Top rated ' | translate}}<br>{{'TV-Shows' | translate}}</div>
   </div>

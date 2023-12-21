@@ -15,7 +15,6 @@ import { MedialistComponent } from './medialist/medialist.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { Updatepassword1Component } from './updatepassword1/updatepassword1.component';
-import { Updatepassword2Component } from './updatepassword2/updatepassword2.component';
 import { ProfilesettingsComponent } from './profilesettings/profilesettings.component';
 import { TosComponent } from './tos/tos.component';
 import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
@@ -23,6 +22,14 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {SearchPipe} from "./search.pipe";
 import {FormsModule} from "@angular/forms";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { WatchlistFormComponent } from './watchlist-form/watchlist-form.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
+import {HighlightPipe} from "./highlight.pipe";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { TwoFAuthComponent } from './two-f-auth/two-f-auth.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -40,12 +47,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     MediaComponent,
     MedialistComponent,
     SearchPipe,
+    HighlightPipe,
     SignUpComponent,
     LogInComponent,
     Updatepassword1Component,
-    Updatepassword2Component,
     ProfilesettingsComponent,
-    TosComponent
+    TosComponent,
+    WatchlistFormComponent,
+    TwoFAuthComponent,
+    ForgotpasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -62,13 +72,15 @@ export function HttpLoaderFactory(http: HttpClient) {
       {path: 'sign-up', component: SignUpComponent},
       {path: 'log-in', component: LogInComponent},
       {path: 'media', component: MediaComponent},
-      {path: 'Updatepassword/email', component: Updatepassword1Component},
-      {path: 'Updatepassword/username', component: Updatepassword2Component},
+      {path: 'updatepassword', component: Updatepassword1Component},
+      {path: 'forgot-password', component: ForgotpasswordComponent},
       {path: 'ProfileSetings', component: ProfilesettingsComponent},
       {path: 'TermsOfService', component: TosComponent},
-      {path: 'media/:id', component: MediaComponent}
+      {path: 'media/:id', component: MediaComponent},
+      {path: 'two-f-auth', component: TwoFAuthComponent}
     ], {scrollPositionRestoration: 'enabled'}),
     HttpClientModule,
+    MatPaginatorModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -77,7 +89,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     FormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDialogModule,
+    NoopAnimationsModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

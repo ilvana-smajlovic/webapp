@@ -1,18 +1,20 @@
 <div class="main-div">
 
   <div class="chose">
-    <button class="pick" (click)="openMovies()">Movies</button>
-    <button class="pick" (click)="openShows()">TV-Shows</button>
+    <button class="pick" (click)="openMovies()">{{'Movies' | translate}}</button>
+    <button class="pick" (click)="openShows()">{{'TV-Shows' | translate}}</button>
   </div>
-  <div class="search-div">
-    <input class="search-bar" [(ngModel)]="searchText" (input)="searchMedia(searchText)" placeholder="{{'Search' | translate}}">
-    <!--<img class="img_search" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Google_Magnifying_Glass.svg/1024px-Google_Magnifying_Glass.svg.png" alt="">-->
+  <div class="search-container">
+    <div class="search-div">
+      <input class="search-bar" [(ngModel)]="searchText" (input)="searchMedia(searchText)" placeholder="{{'Search' | translate}}">
+      <!--<img class="img_search" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Google_Magnifying_Glass.svg/1024px-Google_Magnifying_Glass.svg.png" alt="">-->
+    </div>
+    <ul class="list" *ngIf="searchText !== ''">
+      <li class="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="redirectToMedia(media)" (mouseenter)="onMouseEnter(media)" (mouseleave)="onMouseLeave()">
+        <span [innerHTML]="media.name | highlight: searchText: hoveredMedia"></span>
+      </li>
+    </ul>
   </div>
-  <ul class="list" *ngIf="searchText !== ''">
-    <li role="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="getByName(media)">
-      {{media.name}}
-    </li>
-  </ul>
 
   <div class="container">
     <form action="#" class="onepick">
@@ -36,34 +38,33 @@
       <label class="name" for="genre">{{'Genre' | translate}}</label>
       <select name="select" id="genre" (change)="pickedGenre=$any($event.target).value">
         <option class="izbor" value="Any">{{'Any' | translate}}</option>
-        <option class="izbor" value="Action">Action</option>
-        <option class="izbor" value="Adventure">Adventure</option>
-        <option class="izbor" value="Animation">Animation</option>
-        <option class="izbor" value="Biography">Biography</option>
-        <option class="izbor" value="Comedy">Comedy</option>
-        <option class="izbor" value="Crime">Crime</option>
-        <option class="izbor" value="Documentary">Documentary</option>
-        <option class="izbor" value="Drama">Drama</option>
-        <option class="izbor" value="Family">Family</option>
-        <option class="izbor" value="Fantasy">Fantasy</option>
-        <option class="izbor" value="History">History</option>
-        <option class="izbor" value="Horror">Horror</option>
-        <option class="izbor" value="Music">Music</option>
-        <option class="izbor" value="Mystery">Mystery</option>
-        <option class="izbor" value="Romance">Romance</option>
-        <option class="izbor" value="Sci-Fi">Sci-Fi</option>
-        <option class="izbor" value="Sport">Sport</option>
-        <option class="izbor" value="Superhero">Superhero</option>
-        <option class="izbor" value="Supernatural">Supernatural</option>
-        <option class="izbor" value="Thriller">Thriller</option>
+        <option class="izbor" value="Action">{{'Action' | translate}}</option>
+        <option class="izbor" value="Adventure">{{'Adventure' | translate}}</option>
+        <option class="izbor" value="Animation">{{'Animation' | translate}}</option>
+        <option class="izbor" value="Biography">{{'Biography' | translate}}</option>
+        <option class="izbor" value="Comedy">{{'Comedy' | translate}}</option>
+        <option class="izbor" value="Crime">{{'Crime' | translate}}</option>
+        <option class="izbor" value="Documentary">{{'Documentary' | translate}}</option>
+        <option class="izbor" value="Drama">{{'Drama' | translate}}</option>
+        <option class="izbor" value="Family">{{'Family' | translate}}</option>
+        <option class="izbor" value="Fantasy">{{'Fantasy' | translate}}</option>
+        <option class="izbor" value="History">{{'History' | translate}}</option>
+        <option class="izbor" value="Horror">{{'Horror' | translate}}</option>
+        <option class="izbor" value="Music">{{'Music' | translate}}</option>
+        <option class="izbor" value="Mystery">{{'Mystery' | translate}}</option>
+        <option class="izbor" value="Romance">{{'Romance' | translate}}</option>
+        <option class="izbor" value="Sci-Fi">{{'Sci-Fi' | translate}}</option>
+        <option class="izbor" value="Sport">{{'Sport' | translate}}</option>
+        <option class="izbor" value="Superhero">{{'Superhero' | translate}}</option>
+        <option class="izbor" value="Supernatural">{{'Supernatural' | translate}}</option>
+        <option class="izbor" value="Thriller">{{'Thriller' | translate}}</option>
       </select>
     </form>
     <button class="filter" (click)="searchFilters()">{{'Search' | translate}}</button>
   </div>
 
-  <!--Ovo sam onako stavio da imas pretstavu gdje filmovi dolaze otprilike, ofc ti edituj kako hoces-->
   <div class="movie-container" *ngIf="isMovie">
-    <div class="movie" *ngFor="let movie of movies" (click)="redirectToMedia(movie.media)">
+    <div class="movie" *ngFor="let movie of movies.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)" (click)="redirectToMedia(movie.media)">
       <div class ="img-container">
         <img src="{{movie.media.picture}}">
       </div>
@@ -72,9 +73,14 @@
         <p>({{movie.media.airDate | date: 'yyyy'}})</p>
       </div>
     </div>
+    <mat-paginator [length]="movies.length"
+                   [pageSize]="pageSize"
+                   [pageIndex]="pageIndex"
+                   (page)="onMoviePageChange($event)">
+    </mat-paginator>
   </div>
   <div class="show-container" *ngIf="isShow">
-    <div class="show" *ngFor="let show of shows" (click)="redirectToMedia(show.media)">
+    <div class="show" *ngFor="let show of shows.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)" (click)="redirectToMedia(show.media)">
       <div class ="img-container">
         <img src="{{show.media.picture}}">
       </div>
@@ -83,5 +89,10 @@
         <p>({{show.media.airDate | date: 'yyyy'}})</p>
       </div>
     </div>
+    <mat-paginator [length]="shows.length"
+                   [pageSize]="pageSize"
+                   [pageIndex]="pageIndex"
+                   (page)="onShowPageChange($event)">
+    </mat-paginator>
   </div>
 </div>

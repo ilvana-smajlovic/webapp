@@ -1,0 +1,86 @@
+.show-form {
+  background-color: #262525FF;
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.movie-form{
+  background-color: #262525FF;
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.show-form label {
+  color: white;
+  font-size: larger;
+  margin-bottom: 5px;
+  display: block;
+}
+.movie-form label{
+  color: white;
+  font-size: larger;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.show-form select {
+  color: white;
+  width: 100%;
+  max-width: 700px;
+  min-width: 240px;
+  font-size: large;
+  background-color: #726f6f;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  padding: 9px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+.movie-form select {
+  color: white;
+  width: 100%;
+  max-width: 700px;
+  min-width: 240px;
+  font-size: large;
+  background-color: #726f6f;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  padding: 9px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.show-form button {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  color: white;
+  background-color: rgb(184, 84, 50);
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.movie-form button {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  color: white;
+  background-color: rgb(184, 84, 50);
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.show-form button:hover {
+  background-color: rgb(229, 86, 40);
+}
+.movie-form button:hover {
+  background-color: rgb(229, 86, 40);
+}

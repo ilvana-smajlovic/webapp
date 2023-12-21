@@ -1,11 +1,11 @@
 import {RegisteredUser} from "../models/registered-user";
 
 export class LoginInfo{
-  authenticationToken?: AutheticationToken|null=null;
+  authenticationToken?: AuthenticationToken|null=null;
   isLogged:boolean=false;
 }
 
-export interface AutheticationToken{
+export interface AuthenticationToken{
   id: number;
   tokenValue: string;
   registeredUserId:number;
