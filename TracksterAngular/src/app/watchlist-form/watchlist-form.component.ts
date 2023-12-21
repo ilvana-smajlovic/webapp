@@ -77,10 +77,8 @@ export class WatchlistFormComponent implements OnInit {
 
   AddToWatchlist() {
     if(this.mediaType == 1){
-      console.log('movie', this.media.movieID);
 
       if(this.getMovies.some(m=>m.movie.movieID == this.media.movieID)){
-        console.log('ok', this.getMovies.some(m=>m.movie.movieID == this.media.movieID));
         this.UpdateMovieWatchlist();
       }
       else {
@@ -88,8 +86,6 @@ export class WatchlistFormComponent implements OnInit {
       }
     }
     else if(this.mediaType == 2){
-      console.log('id', this.media.tvShowID);
-      console.log(this.user.registeredUserId);
       if(this.getShows.some(s=>s.tvShow.tvShowID == this.media.tvShowID))
         this.UpdateShowWatchlist();
       else{
@@ -153,7 +149,6 @@ export class WatchlistFormComponent implements OnInit {
     }
     console.log(movie);
     this.httpClient.post(environment.apiBaseUrl + "WatchlistMovie/Update/" + movie.MediaID, movie).subscribe(x=>{
-      console.log(movie);
       messageSuccess("Successfully updated to watchlist");
       location.reload();
     });
@@ -168,7 +163,6 @@ export class WatchlistFormComponent implements OnInit {
     }
     console.log(show);
     this.httpClient.post(environment.apiBaseUrl + "WatchlistTVSeries/Update/" + show.MediaID, show).subscribe(x=>{
-      console.log(show);
       messageSuccess("Successfully updated to watchlist");
       location.reload();
     });

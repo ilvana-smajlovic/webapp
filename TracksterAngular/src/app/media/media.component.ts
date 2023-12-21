@@ -16,6 +16,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {MatDialogModule} from "@angular/material/dialog";
 import {resolveFileWithPostfixes} from "@angular/compiler-cli/ngcc/src/utils";
 import {subscribeOn} from "rxjs";
+import {AuthHelper} from "../helper/auth-helper";
 
 declare function messageError(a: string):any;
 declare function messageSuccess(a: string):any;
@@ -60,11 +61,9 @@ export class MediaComponent implements OnInit {
     this.getMediaById(this.id);
 
 
-    this.tokenString = localStorage.getItem('authentication-token');
-    const token = JSON.parse(this.tokenString);
-    this.registeredUserId = token._user.registeredUserId;
-
-    this.getUserFavorites();
+    this.token = AuthHelper.getLoginInfo();
+    this.user=this.token.authenticationToken.registeredUser;
+    this.registeredUserId = this.user.registeredUserId;
 
     console.log('media id', this.id);
 
@@ -178,11 +177,12 @@ export class MediaComponent implements OnInit {
       messageError("Failed to add to watchlist!");
     }
   }
-  getUserFavorites(){
+  getUserFavorites(selectedMedia:Media){
     this.tracksterService.getAllFavorites(this.registeredUserId).subscribe(response=>{
       // @ts-ignore
       this.getFavorites=response;
       this.isDataLoaded = true;
+      this.AddToFavourites(selectedMedia);
     });
   }
 

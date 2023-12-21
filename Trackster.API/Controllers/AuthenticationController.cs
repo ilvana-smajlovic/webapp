@@ -13,6 +13,7 @@ using OtpNet;
 using static Trackster.API.Helper.AuthenticationAuthorization.MyAuthTokenExtension;
 using Newtonsoft.Json.Linq;
 using static QRCoder.PayloadGenerator;
+using Microsoft.AspNetCore.Cors;
 
 namespace Trackster.API.Controllers
 {
@@ -134,6 +135,7 @@ namespace Trackster.API.Controllers
             return BadRequest("Pogresan URL");
         }
 
+        [EnableCors]
         [HttpPost]
         public ActionResult ForgotPassword([FromBody]string userEmail)
         {

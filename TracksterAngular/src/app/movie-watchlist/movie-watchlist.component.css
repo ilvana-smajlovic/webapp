@@ -1,5 +1,6 @@
 .main-div{
   background-color: rgb(94, 101, 128);
+  min-height: calc(100vh - 140px);
 }
 .header1{
   background-image: linear-gradient(#b85432, #5e6580);
@@ -173,6 +174,16 @@
   }
   .edit:hover + .hide{
     display: none;
+  }
+}
+
+@media screen and (max-width: 674px) and (min-width: 450px) {
+  .sidebar {
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-bottom: auto;
+    margin-top: -150px;
   }
 }
 @media screen and (max-width: 450px) {

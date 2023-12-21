@@ -26,26 +26,6 @@ import {coerceNumberProperty} from "@angular/cdk/coercion";
 })
 export class HomeComponent implements OnInit {
 
-  /*
-  @viewchild('BtnToTop') private ButtonToTop! : ElementRef<HTMLButtonElement>//Da je div isao bih HTMLDivElement
-
-  window.onscroll = function() {scrollFunction()};
-
-  scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      this.ButtonToTop.nativeElement.style.display = "block"
-    } else {
-      this.ButtonToTop.nativeElement.style.display = "none";
-    }
-  }
-
-// When the user clicks on the button, scroll to the top of the document
-  function topFunction() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-  }
-  */
-
   searchedMedia : Media[];
   isDataLoaded : boolean=false;
   searchText = '';
@@ -72,9 +52,6 @@ export class HomeComponent implements OnInit {
     this.logged_in=this.token.isLogged;
   }
 
-  BackToTop() {
-    document.documentElement.scrollTop=0;
-  }
 
   getMediaByName(){
     console.log('get media');

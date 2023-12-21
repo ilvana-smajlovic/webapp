@@ -1,14 +1,14 @@
 <div class="search-container">
-<div class="search-div">
-  <input class="search-bar" [(ngModel)]="searchText" (input)="searchMedia(searchText)" placeholder="{{'Search' | translate}}">
-  <!--<img class="img_search" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Google_Magnifying_Glass.svg/1024px-Google_Magnifying_Glass.svg.png" alt="">-->
+  <div class="search-div">
+    <input class="search-bar" [(ngModel)]="searchText" (input)="searchMedia(searchText)" placeholder="{{'Search' | translate}}">
+    <!--<img class="img_search" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Google_Magnifying_Glass.svg/1024px-Google_Magnifying_Glass.svg.png" alt="">-->
+  </div>
+  <ul class="list" *ngIf="searchText !== ''">
+    <li class="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="redirectToMedia(media)" (mouseenter)="onMouseEnter(media)" (mouseleave)="onMouseLeave()">
+      <span [innerHTML]="media.name | highlight: searchText: hoveredMedia"></span>
+    </li>
+  </ul>
 </div>
-</div>
-<ul class="list" *ngIf="searchText !== ''">
-  <li class="option" *ngFor="let media of searchedMedia | appFilter: searchText" (click)="redirectToMedia(media)" (mouseenter)="onMouseEnter(media)" (mouseleave)="onMouseLeave()">
-    <span [innerHTML]="media.name | highlight: searchText: hoveredMedia"></span>
-  </li>
-</ul>
 <div class="div-main-media">
   <!--*ngIf="isDataLoaded"-->
   <div class="banner" style="background-image: url('{{selectedMedia.backdrop}}')">
@@ -19,12 +19,12 @@
         <img class ="poster" src="{{selectedMedia.picture}}">
         <div class="buttons">
           <button class="add-button" type="button" (click)="AddToWatchlist()">{{'Add to Watchlist' | translate}}</button>
-          <button class="favorite-button" type="button" (click)="AddToFavourites(selectedMedia)">♡</button>
+          <button class="favorite-button" type="button" (click)="getUserFavorites(selectedMedia)">♡</button>
         </div>
       </div>
     </div>
     <div class="description-container">
-      <div clas="tags-container" >
+      <div class="tags-container" >
         <p class="tag" *ngFor="let tag of genreMedia">{{tag.genre.genreName}}</p>
         <p class="rating">{{'Rating' | translate}}: {{selectedMedia.rating}}</p>
       </div>
@@ -39,13 +39,13 @@
     <div class="sidebar">
       <div class="name">Release Date:</div>
       <p>{{selectedMedia.airDate | date:'dd. MM. yyyy.'}}</p>
-      <div class="movie-info" [(ngModel)]='movie' *ngIf='movie !== null' >Duration:</div>
+      <div class="movie-info" [(ngModel)]='movie' *ngIf='movie !== null' >{{'Duration' | translate}}:</div>
       <p class="movie-info"  *ngIf='movie !== null' >{{movie.runtime}} min</p>
-      <div class="show-info" [(ngModel)]='tvShow' *ngIf='tvShow !== null' >Season count:</div>
-      <p class="show-info" *ngIf='tvShow !== null'>{{tvShow.seasonCount}} seasons</p>
-      <div class="show-info" [(ngModel)]='tvShow' *ngIf='tvShow !== null' >Episodes per season:</div>
-      <p class="show-info" *ngIf='tvShow !== null'>{{tvShow.episodeCount}} episodes</p>
-      <div class="show-info" [(ngModel)]='tvShow' *ngIf='tvShow !== null' >Episode duration:</div>
+      <div class="show-info" [(ngModel)]='tvShow' *ngIf='tvShow !== null' >{{'Season count' | translate}}:</div>
+      <p class="show-info" *ngIf='tvShow !== null'>{{tvShow.seasonCount}} {{'seasons' | translate}}</p>
+      <div class="show-info" [(ngModel)]='tvShow' *ngIf='tvShow !== null' >{{'Episodes per season' | translate}}:</div>
+      <p class="show-info" *ngIf='tvShow !== null'>{{tvShow.episodeCount}} {{'episodes' | translate}}</p>
+      <div class="show-info" [(ngModel)]='tvShow' *ngIf='tvShow !== null' >{{'Episode duration' | translate}}:</div>
       <p class="show-info" *ngIf='tvShow !== null'>{{tvShow.episodeRuntime}} min</p>
       <div class="name">Status:</div>
       <p>{{selectedMedia.status.statusName}}</p>

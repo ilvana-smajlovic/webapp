@@ -1,26 +1,26 @@
 
 <div class="maindiv">
   <div class="signup">
-    <div class="title">Log-in</div>
+    <div class="title">{{'Log-in' | translate}}</div>
     <div class="group">
       <label class="label">Email:</label>
       <input [(ngModel)]="Email" class="input"/>
     </div>
 
     <div class="group">
-      <label class="label">Password:</label>
+      <label class="label">{{'Password' | translate}}:</label>
       <div class="password-div">
         <input class="inputpass" [type]="passwordType1" [(ngModel)]="Password"/>
         <label class="labeleye" (click)="togglePassword1()">👁️</label>
       </div>
       <p class="form-check-label" style="color: white">
-        Forgot your password? <a class="link" (click)="OpenPassword()"> Update here!</a>
+        Forgot your password? <a class="link" (click)="OpenPassword()">{{'Update here' | translate}}!</a>
       </p>
-      <button type="button" class="btn" [disabled]="!ToEnable()" (click)="LogIn()">Log-in</button>
+      <button type="button" class="btn" [disabled]="!ToEnable()" (click)="LogIn()">{{'Log-in' | translate}}</button>
     </div>
     <div class="login">
-      <label class="label-login">Don't have an account?</label>
-      <button type="button" class="btn" (click)="SignUp()">Sign-Up</button>
+      <label class="label-login">{{"Don't have an account" | translate}}?</label>
+      <button type="button" class="btn" (click)="SignUp()">{{'Sign-Up' | translate}}</button>
     </div>
   </div>
 </div>

@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Trackster.API.Helper;
 using Trackster.Core;
 using Trackster.Core.ViewModels;
@@ -55,30 +59,72 @@ namespace Trackster.API.Controllers
             return true;
         }
 
+        [EnableCors]
         [HttpPost("{id}")]
-        public ActionResult Update(int id, [FromForm] RegisteredUserAddVM x, string? Picture)
+        public ActionResult<LoginInformation> Update(int id, [FromBody] RegisteredUserUpdateVM x)
         {
             RegisteredUser user = dbContext.RegisteredUsers.FirstOrDefault(r => r.RegisteredUserId == id);
             if (user == null)
                 return BadRequest("Pogresan ID");
+
             if (x.Username.IsNullOrEmpty() || x.Username == "string" || x.Email.IsNullOrEmpty() || x.Email == "string" ||
-                x.Password.IsNullOrEmpty() || x.Password == "string")
+                x.Bio.IsNullOrEmpty() || x.Bio == "string")
                 return BadRequest("Loš unos");
 
             byte[] fileBytes = null;
-            if (Picture != null)
+            if (x.Picture != null)
             {
-               user.Picture = Picture;
+               user.Picture = x.Picture;
             }
             else
                 user.Picture = user.Picture;
 
             user.Username = x.Username;
             user.Email = x.Email;
-            user.Password = x.Password;
+            user.Bio = x.Bio;
 
+
+            var builder = WebApplication.CreateBuilder();
+
+            var issuer = builder.Configuration["Jwt:Issuer"];
+            var audience = builder.Configuration["Jwt:Audience"];
+            var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
+
+            var TokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.RegisteredUserId.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                }),
+                Expires = DateTime.UtcNow.AddMonths(1),
+                Issuer = issuer,
+                Audience = audience,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature),
+            };
+
+            var tokenhandler = new JwtSecurityTokenHandler();
+            var token = tokenhandler.CreateToken(TokenDescriptor);
+            var jwtToken = tokenhandler.WriteToken(token);
+
+            Random random = new Random();
+
+            var code = random.Next(1000, 9999);
+
+            var noviToken = new AuthenticationToken()
+            {
+                isAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+                tokenValue = jwtToken,
+                registeredUser = user,
+                timeOfGeneration = DateTime.Now,
+                twoFCode = code.ToString()
+            };
+
+            dbContext.Add(noviToken);
             dbContext.SaveChanges();
-            return Ok();
+
+            return new LoginInformation(noviToken);
+
         }
 
 

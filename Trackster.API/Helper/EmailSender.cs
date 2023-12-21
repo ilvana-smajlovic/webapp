@@ -22,7 +22,7 @@ namespace Trackster.API.Helper
             email.Body = messageBody;
             email.IsBodyHtml = isBodyHtml;
             //END
-            SmtpServer.Timeout = 5000;
+            SmtpServer.Timeout = 10000;
             SmtpServer.EnableSsl = true;
             SmtpServer.UseDefaultCredentials = false;
             SmtpServer.Credentials = new NetworkCredential(SendMailFrom, "brir ncol vqnd ywfq");

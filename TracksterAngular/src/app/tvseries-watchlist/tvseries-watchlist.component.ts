@@ -28,7 +28,7 @@ export class TvseriesWatchlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = AuthHelper.getLoginInfo();
-    this.user=this.token._user;
+    this.user=this.token.authenticationToken.registeredUser;
     this.GetWatchlistTVShows();
   }
 

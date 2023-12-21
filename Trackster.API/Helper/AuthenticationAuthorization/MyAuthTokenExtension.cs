@@ -30,6 +30,7 @@ namespace Trackster.API.Helper.AuthenticationAuthorization
             public string Email { get; set; }
         }
 
+
         public static LoginInformation GetLoginInfo(this HttpContext httpContext)
         {
             var token = httpContext.GetAuthToken();

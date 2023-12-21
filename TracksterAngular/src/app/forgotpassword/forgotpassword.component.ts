@@ -26,8 +26,11 @@ export class ForgotpasswordComponent implements OnInit {
     this.email = JSON.stringify(emailInput.value);
     console.log(this.email);
     if(this.email != null) {
-     this.httpClient.post(environment.apiBaseUrl + "Authentication/ForgotPassword", {userEmail: this.email})
+     this.httpClient.post(environment.apiBaseUrl + "Authentication/ForgotPassword", this.email, {
+       headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'})
+     })
        .subscribe(x=>{
+         messageSuccess("Sent to email");
          this.router.navigateByUrl("/log-in");
        });
     }

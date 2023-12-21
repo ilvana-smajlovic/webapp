@@ -11,25 +11,6 @@ export class SignUpComponent implements OnInit {
 
   constructor(private httpKlijent: HttpClient, private router: Router) { }
 
-
-/*
- url:string = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-  onselectFile(e:any){
-    if(e.target.files){
-      var reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload=(event:any)=>{
-        this.url=event.target.result;
-      }
-
-OVAJ DIO ZAKOM
-      const image = e.target.files[0];
-      const formdata = new FormData();
-      formdata.append('picture', image)
-    }
-  }
-*/
-
   ngOnInit(): void {
   }
 
@@ -115,7 +96,8 @@ OVAJ DIO ZAKOM
   LogIn() {
     this.router.navigateByUrl("log-in");
   }
-  goToLink(url2: string) {
-    window.open(url2, "");
+
+  OpenTOS() {
+    this.router.navigateByUrl('TermsOfService')
   }
 }

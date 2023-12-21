@@ -2,6 +2,7 @@
   width: 100%;
   background-color: rgb(94, 101, 128);
   padding-top: 20px;
+  position: relative;
 }
 .search-div {
   display: flex;
@@ -42,8 +43,13 @@
   padding-left: 10px;
 }
 .list{
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.53);
-  width:50%;
+  width: 50%;
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
@@ -52,8 +58,8 @@
   font-size: large;
   padding-top: 10px;
   padding-bottom: 10px;
-  position: relative;
 }
+
 .div-main-media {
   display: block;
   background-color: rgb(94, 101, 128);
@@ -251,6 +257,28 @@
     margin: 0px 0px 5px 155px;
   }
 }
+@media screen and (max-width: 1221px) and (min-width: 836px){
+  .favorite-button{
+    height: 60px;
+  }
+  .tag{
+    margin: 0px 25px 5px 0px;
+  }
+  .rating{
+    margin: 0px 0px 5px 50px;
+  }
+}
+@media screen and (max-width: 836px) and (min-width:801px)  {
+  .favorite-button{
+    height: 60px;
+  }
+  .tag{
+    margin: 0px 25px 5px 0px;
+  }
+  .rating{
+    margin: 0px 0px 5px 20px;
+  }
+}
 @media screen and (max-width: 800px){
   .info{
     grid-column-gap: 25px;
@@ -292,16 +320,23 @@
     display: block;
   }
   .sidebar{
-    margin: 0% 10% 0% 10%;
+    margin: 5% 10% 0% 10%;
     width: 80%;
     display: block;
+    padding-bottom: 10px;
   }
   .name{
-    margin-top: 5px;
-    margin-bottom: 2px;
+    padding-top: 20px;
+   margin: 5% 0% 2% 10%;
+  }
+  .movie-info{
+    margin: 5% 5% 2% 10%;
+  }
+  .show-info{
+    margin: 5% 5% 2% 10%;
   }
   .sidebar p{
-    margin: 0% 5% 2% 7%;
+    margin: 0% 5% 2% 10%;
   }
   .staff-container{
     margin: 0% 10% 0% 10%;
@@ -313,5 +348,10 @@
   .person-container{
     grid-column-gap: 12px;
     grid-template-columns: 25% auto;
+  }
+}
+@media screen and (max-width: 500px){
+  .content-container{
+    margin-top: 10%;
   }
 }

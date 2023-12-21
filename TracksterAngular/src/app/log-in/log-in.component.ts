@@ -55,7 +55,6 @@ export class LogInComponent implements OnInit {
                 'authentication-token': x.authenticationToken.tokenValue
               })
             }).subscribe(() => {
-              console.log('prije slanja', token);
               this.router.navigateByUrl('/two-f-auth');
             });
           } else {

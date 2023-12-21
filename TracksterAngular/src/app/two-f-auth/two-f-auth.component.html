@@ -1,4 +1,14 @@
-<input [(ngModel)]="code">
+<div class="main">
+  <div class="empty"></div>
+  <div class="two-fa-container">
+    <h2>{{'Enter your code' | translate}}:</h2>
+    <div class="details">
+      <label class="label"></label>
+      <input class="input" [(ngModel)]="code">
 
-<br>
-<button (click)="Unlock()">Unlock</button>
+    </div>
+    <div class="btncontainer">
+      <button class="btn"  (click)="Unlock()">{{'Unlock' | translate}}</button>
+    </div>
+  </div>
+</div>

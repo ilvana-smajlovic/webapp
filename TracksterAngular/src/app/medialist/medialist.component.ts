@@ -291,14 +291,11 @@ export class MedialistComponent implements OnInit {
   }
 
   onMoviePageChange(event: any) {
-    console.log('ok');
-    console.log('Page changed:', event.pageIndex);
     this.pageIndex = event.pageIndex;
     this.getMovies();
   }
 
   onShowPageChange(event: any) {
-    console.log('Page changed:', event.pageIndex);
     this.pageIndex = event.pageIndex;
     this.getShows();
   }

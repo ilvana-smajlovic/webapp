@@ -29,7 +29,7 @@ export class MovieWatchlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = AuthHelper.getLoginInfo();
-    this.user=this.token._user;
+    this.user=this.token.authenticationToken.registeredUser;
     this.GetWatchlistMovies();
   }
 
@@ -63,9 +63,7 @@ export class MovieWatchlistComponent implements OnInit {
   }
 
   Delete(movie: any) {
-    console.log(movie);
     this.httpClient.delete(environment.apiBaseUrl + "WatchlistMovie/Delete/"+ movie.movieID).subscribe(x=>{
-      console.log('ok');
       location.reload();
     });
   }

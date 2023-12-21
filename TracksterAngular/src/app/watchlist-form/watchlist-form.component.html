@@ -1,27 +1,27 @@
 <form class="movie-form" *ngIf="mediaType==1">
-  <label class="state">State</label>
+  <label class="state">{{'State' | translate}}</label>
   <select id="dropdown1" (change)="selectedState=$any($event.target).value">
     <option *ngFor="let s of movieStates" [value]="s.stateID">{{s.stateName}}</option>
   </select>
 
-  <label class="rating">Rating</label>
+  <label class="rating">{{'Rating' | translate}}</label>
   <select id="dropdown2" (change)="selectedRating=$any($event.target).value">
     <option *ngFor="let r of ratings" [value]="r.ratingID">{{r.ratingValue}}</option>
   </select>
 
-  <button (click)="AddToWatchlist()">Add</button>
+  <button (click)="AddToWatchlist()">{{'Add' | translate}}</button>
 </form>
 
 <form class="show-form" *ngIf="mediaType==2">
-  <label class="state">State</label>
+  <label class="state">{{'State' | translate}}</label>
   <select id="dropdown3" (change)="selectedState=$any($event.target).value">
     <option *ngFor="let s of showStates" [value]="s.stateID">{{s.stateName}}</option>
   </select>
 
-  <label class="rating">Rating</label>
+  <label class="rating">{{'Rating' | translate}}</label>
   <select id="dropdown4" (change)="selectedRating=$any($event.target).value">
     <option *ngFor="let r of ratings" [value]="r.ratingID">{{r.ratingValue}}</option>
   </select>
 
-  <button (click)="AddToWatchlist()">Add</button>
+  <button (click)="AddToWatchlist()">{{'Add' | translate}}</button>
 </form>
