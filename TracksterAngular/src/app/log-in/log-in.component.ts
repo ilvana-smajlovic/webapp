@@ -7,6 +7,7 @@ import {AuthHelper} from "../helper/auth-helper";
 import {LoginInfo} from "../helper/login-info";
 import * as qrcode from 'qrcode';
 import { OtpValidation } from "../models/otp-validation";
+import {catchError} from "rxjs";
 
 
 declare function messageSuccess(a: string):any;
@@ -43,28 +44,36 @@ export class LogInComponent implements OnInit {
       Password: this.Password
     };
 
-    this.httpKlijent.post<LoginInfo>(environment.apiBaseUrl + "Authentication/LogInAuth", LogInInfo)
-      .subscribe((x: LoginInfo) => {
-        if (x.isLogged) {
-          AuthHelper.setLoginInfo(x);
-          if (x.authenticationToken) {
-            console.log(x);
-            let token = x;
-            this.httpKlijent.get(environment.apiBaseUrl + 'Authentication/Get', {
-              headers: new HttpHeaders({
-                'authentication-token': x.authenticationToken.tokenValue
-              })
-            }).subscribe(() => {
-              this.router.navigateByUrl('/two-f-auth');
-            });
+
+      this.httpKlijent.post<LoginInfo>(environment.apiBaseUrl + "Authentication/LogInAuth", LogInInfo)
+        .pipe(
+          catchError((error: any) => {
+            messageError("Wrong login info");
+            console.log('Login error:', error);
+            return [];
+          })
+        )
+        .subscribe((x: LoginInfo) => {
+          if (x.isLogged) {
+            AuthHelper.setLoginInfo(x);
+            if (x.authenticationToken) {
+              console.log(x);
+              this.httpKlijent.get(environment.apiBaseUrl + 'Authentication/Get', {
+                headers: new HttpHeaders({
+                  'authentication-token': x.authenticationToken.tokenValue
+                })
+              }).subscribe(() => {
+                this.router.navigateByUrl('/two-f-auth');
+              });
+            } else {
+              console.error("Authentication token is undefined");
+            }
           } else {
-            console.error("Authentication token is undefined");
+            AuthHelper.setLoginInfo(null);
+            messageError("Wrong login info");
           }
-        } else {
-          AuthHelper.setLoginInfo(null);
-          messageError("Wrong login info");
-        }
-      });
+        });
+
 
   }
 

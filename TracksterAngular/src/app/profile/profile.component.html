@@ -3,7 +3,7 @@
   <div class="profile-div">
     <div class="settings-div">
       <button class="settings" (click)="OpenSettings()">⚙</button>
-      <button class="logout" (click)="LogOut()">Logout</button>
+      <button class="logout" (click)="LogOut()">{{'Logout' | translate}}</button>
     </div>
     <div class="pfp">
       <img src="{{user.picture}}" alt="">
@@ -23,62 +23,5 @@
     </div>
   </div>
 
-  <div class="stats-div">
-    <div class="stats-container">
-      <div class="stats">
-        <label class="stats-name">{{'Media Ratio' | translate}}</label>
-        <div class="pie-chart1"></div>
-        <div class="legenda1">
-          <label class="item1">{{'Movies' | translate}} - 30%</label>
-          <label class="item2">{{'TV-Shows'  | translate}} - 70%</label>
-        </div>
-      </div>
-    </div>
-    <div class="stats-container">
-      <div class="stats">
-        <label class="stats-name">{{'Media States' | translate}}</label>
-        <div class="pie-chart2"></div>
-        <div class="legenda1">
-          <label class="item1">{{'Planning' | translate}} - 40%</label>
-          <label class="item2">{{'Watching' | translate}} - 30%</label>
-          <label class="item3">{{'Finished' | translate}} - 30%</label>
-        </div>
-      </div>
-    </div>
-    <div class="stats-container">
-      <div class="stats">
-        <label class="stats-name">{{'Favourite Genre' | translate}}</label>
-        <div class="pie-chart3"></div>
-        <div class="legenda1">
-          <label class="item1">{{'Action' | translate}} - 15%</label>
-          <label class="item2">{{'Romance' | translate}} - 45%</label>
-          <label class="item3">{{'Fantasy' | translate}} - 40%</label>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--
-<div class="faves2-div">
-  <div class="container-div">
-    <div class="statistics">
-      <label class="titles">Top genres</label>
-    </div>
-  </div>
-  <div class="container-div">
-    <div class="statistics">
-      <label class="titles">Ratio</label>
-      <div class="chart-div">
-        <div id="my-pie-chart"></div>
-        <div class="chart-data"></div>
-      </div>
-    </div>
-  </div>
-  <div class="container-div">
-    <div class="statistics">
-      <label class="titles">Media states</label>
-    </div>
-  </div>
-</div>-->
 
 </div>

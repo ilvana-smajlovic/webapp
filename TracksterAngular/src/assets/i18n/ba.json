@@ -85,8 +85,9 @@
   "Terms of service": "Ulovi korištenja",
   "Already have an account": "Već imam korisnički račun",
   "Unlock": "Otključaj",
-  "Enter your code": "Unesite kod",
+  "Enter the code we sent to your email": "Unesite kod koji smo poslali na Vaš email",
   "Password again": "Lozinka ponovo",
   "State": "Stanje",
-  "Add": "Dodaj"
+  "Add": "Dodaj",
+  "Logout": "Odjavi se"
 }

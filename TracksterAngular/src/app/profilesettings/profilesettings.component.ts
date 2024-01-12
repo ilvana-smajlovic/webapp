@@ -29,6 +29,7 @@ export class ProfilesettingsComponent implements OnInit {
   ngOnInit(): void {
     this.token = AuthHelper.getLoginInfo();
     this.user=this.token.authenticationToken.registeredUser;
+    this.url=this.user.picture;
   }
 
 

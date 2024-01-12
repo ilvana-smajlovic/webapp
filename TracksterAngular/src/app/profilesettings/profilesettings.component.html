@@ -7,12 +7,9 @@
     <div class="group2">
       <label class="label2">{{'Change your profile picture' | translate}}:</label>
       <div class="pfp">
-        <img src="{{user.picture}}" alt="">
+        <img src="{{url}}" alt="">
       </div>
       <input type="file" class="form-control-file" (change)="onselectFile($event)">
-      <div class="btn-container">
-        <button class="btn" (click)="SaveChanges()">{{'Save' | translate}}</button>
-      </div>
     </div>
     <div class="group2">
       <label class="label2">{{'Edit your profile data' | translate}}:</label>

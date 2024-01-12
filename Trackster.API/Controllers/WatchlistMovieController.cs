@@ -64,8 +64,8 @@ namespace Trackster.API.Controllers
             if (!Provjera(x))
                 return BadRequest("Loš unos");
 
-            WatchlistMovie.UserRegisteredUserId = x.UserRegisteredUserId;
-            WatchlistMovie.MovieID = x.MediaID;
+            WatchlistMovie.UserRegisteredUserId = WatchlistMovie.UserRegisteredUserId;
+            WatchlistMovie.MovieID = WatchlistMovie.MovieID;
             WatchlistMovie.StateID = x.StateID;
             WatchlistMovie.RatingID = x.RatingID;
 
