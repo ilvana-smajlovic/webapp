@@ -40,8 +40,9 @@ export class WatchlistFormComponent implements OnInit {
   getShows:any[];
 
   ngOnInit(): void {
+
     this.token = AuthHelper.getLoginInfo();
-    this.user=this.token._user;
+    this.user=this.token.authenticationToken.registeredUser;
     this.GetAllStates();
     this.GetAllRatings();
     this.GetWatchlistMovies();

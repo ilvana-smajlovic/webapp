@@ -1,5 +1,6 @@
 .main_div{
   background-color: #5E6580;
+  padding-bottom: 20px;
 }
 
 .profile-div{
@@ -100,7 +101,6 @@ img{
   margin-right: auto;
   background-color: rgba(51, 53, 61, 0.6);
   border-radius: 15px;
-  margin-bottom: 25px;
 }
 .faveslabel{
   display: block;
@@ -120,13 +120,13 @@ img{
   display: grid;
   grid-auto-columns: 200px;
   width: 100%;
-  margin-bottom: 25px;
 }
 .faves-container{
   width: auto;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;}
+  text-align: center;
+}
 .favesimg {
   align-items: center;
   position: relative;

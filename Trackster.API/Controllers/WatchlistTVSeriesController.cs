@@ -65,8 +65,8 @@ namespace Trackster.API.Controllers
             if (!Provjera(x))
                 return BadRequest("Loš unos");
 
-            WatchlistTVShow.UserRegisteredUserId = x.UserRegisteredUserId;
-            WatchlistTVShow.TVShow.MediaId = x.MediaID;
+            WatchlistTVShow.UserRegisteredUserId = WatchlistTVShow.UserRegisteredUserId;
+            WatchlistTVShow.TVShow.MediaId = WatchlistTVShow.TVShow.MediaId;
             WatchlistTVShow.StateID = x.StateID;
             WatchlistTVShow.RatingID = x.RatingID;
 

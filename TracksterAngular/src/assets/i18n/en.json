@@ -85,8 +85,9 @@
   "Terms of service": "Terms of service",
   "Already have an account": "Already have an account",
   "Unlock": "Unlock",
-  "Enter your code": "Enter your code",
+  "Enter the code we sent to your email": "Enter the code we sent to your email",
   "Password again": "Password again",
   "State": "State",
-  "Add": "Add"
+  "Add": "Add",
+  "Logout": "Logout"
 }

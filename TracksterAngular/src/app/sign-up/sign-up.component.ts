@@ -83,7 +83,7 @@ export class SignUpComponent implements OnInit {
         next:(obj)=>{
           if(obj.status==200){
             this.Uslov=0;
-            this.router.navigateByUrl("log-in");
+            this.router.navigateByUrl('/two-f-auth');
           }
         }, error :(error)=>{
             if(error.status==400){

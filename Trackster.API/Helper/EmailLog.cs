@@ -16,16 +16,13 @@ namespace Trackster.API.Helper
         public static void SuccessfulLogin(AuthenticationToken token, HttpContext httpContext)
         {
             var user = token.registeredUser;
-            if (user.isRegular || user.isAdmin)
-            {
-                var message = $"{user.Username}, <br> " +
-                              $"Your 2 factor authentication code is <br>" +
-                              $"{token.twoFCode}<br>" +
-                              $"Login info {DateTime.Now}";
+            var message = $"{user.Username}, <br> " +
+                             $"Your 2 factor authentication code is <br>" +
+                             $"{token.twoFCode}<br>" +
+                             $"Login info {DateTime.Now}";
 
 
-                EmailSender.Send(user.Email, "2f auth code", message, true);
-            }
+            EmailSender.Send(user.Email, "2f auth code", message, true);
         }
 
         public static void ForgotPassword(RegisteredUser user, string password)
